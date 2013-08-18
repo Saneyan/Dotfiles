@@ -10,7 +10,7 @@
 export EDITOR=vim
 
 # Character encoding
-export LANG=ja_JP.UTF-8
+export LANG=en_US.UTF-8
 
 # Bind key
 bindkey -v 
@@ -81,9 +81,44 @@ PROMPT="%{${fg[cyan]}%}(%n#${fg[green]%}%~${fg[cyan]}%) %{${reset_color}%}"
 
 
 # Alias
-alias v=vim
-alias e=emacs
-alias n=nano
-alias j=node
-alias p=pwd
-alias g=git
+alias -g v="vim"
+alias -g e="emacs -nw"
+alias -g n="nano"
+alias j="node"
+alias p="pwd"
+alias g="git"
+alias ga="git add"
+alias gaa="git add ."
+alias gc="git commit -m"
+alias gs="git status"
+alias gp="git push"
+alias b="exit"
+alias m="man"
+alias t="tmux"
+alias w="startx"
+alias s="sudo"
+alias k="kill"
+alias k9="kill -9"
+alias r="rm -f"
+alias rd="rm -rf"
+alias l="ls -l"
+alias la="ls -lA"
+alias x="xterm -fd IPAPGothic -fw IPAPGothic &"
+alias f="firefox-nightly"
+alias fs="firefox-nightly -safe-mode"
+alias c="chromium"
+alias ci="chromium --incognito"
+alias is="ibus-setup"
+alias pg="ps aux | grep"
+alias -g pi="pacman -S"
+alias -g pu="pacman -Syu"
+alias -g pr="pacman -Rs"
+alias -g L="| less"
+alias -g T="| tail"
+alias -g H="| head"
+alias -g G="| grep"
+alias ez="e ~/.zshrc"
+alias exd="e ~/.Xdefaults"
+alias exi="e ~/.xinitrc"
+alias exm="e ~/.xmonad/xmonad.hs"
+alias exmb="e ~/.xmonad/xmobarrc.hs"
