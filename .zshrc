@@ -7,7 +7,7 @@
 #
 
 # Default editor
-export EDITOR=vim
+export EDITOR="e"
 
 # Character encoding
 export LANG=en_US.UTF-8
@@ -127,10 +127,6 @@ alias gl="git pull"
 alias -g k="kill"
 alias -g k9="kill -9"
 
-# rm
-alias -g r="rm -f"
-alias -g rd="rm -rf"
-
 # ls
 alias -g l="ls -l"
 alias -g la="ls -lA"
@@ -159,8 +155,42 @@ alias -g H="| head"
 alias -g G="| grep"
 
 # Edit configration files quickly
-alias ez="e ~/.zshrc"
-alias exd="e ~/.Xdefaults"
-alias exi="e ~/.xinitrc"
-alias exm="e ~/.xmonad/xmonad.hs"
-alias exmb="e ~/.xmonad/xmobarrc.hs"
+alias ev="$EDITOR ~/.vimrc"
+alias ee="$EDITOR ~/.emacs"
+alias eb="$EDITOR ~/.bashrc"
+alias ez="$EDITOR ~/.zshrc"
+alias exi="$EDITOR ~/.xinitrc"
+alias exd="$EDITOR ~/.Xdefaults"
+alias et="$EDITOR ~/.tmux.conf"
+alias exm="$EDITOR ~/.xmonad/xmonad.hs"
+alias exmb="$EDITOR ~/.xmonad/xmobarrc.hs"
+
+
+# Move to trash in order to avoid removing a file by mistake
+function r() {
+    if [ ! -e ~/.trash ]; then
+	mkdir ~/.trash
+    fi
+
+    mv $1 ~/.trash
+}
+
+function em() {
+    RES=1
+
+    echo -n "Do you want to empty trash? [y/n] (default n): "
+    read ANS
+
+    if [ -e ~/.trash -a "$ANS" = "y" ]; then
+	rm -rf ~/.trash/*
+	
+	if [ "$?" -eq 0 ]; then
+	    echo "Trash has been empty :)"
+	    RES=0
+	fi
+    fi
+
+    if [ "$RES" -eq 1 ]; then
+	echo "Trash not empty :("
+    fi
+}
