@@ -1,5 +1,5 @@
 #
-# .zshrc created by Saneyuki Tadokoro
+# Author: Saneyuki Tadokoro
 #
 
 #
@@ -14,7 +14,6 @@ export LANG=en_US.UTF-8
 
 # Bind key
 bindkey -v 
-
 
 # Do not beep
 setopt no_beep
@@ -40,7 +39,6 @@ setopt notify
 # Process "which command" as =command
 setopt equals
 
-
 # Use auto complete
 autoload -U compinit; compinit
 
@@ -64,6 +62,10 @@ bindkey "^[[Z" reverse-menu-complete
 setopt extended_glob
 
 
+#
+# History setting
+#
+
 # History file
 HISTFILE=~/.zsh_history
 
@@ -74,18 +76,41 @@ HISTSAVING=10000
 HISTSIZE=10000
 
 
-# Color settings
+#
+# Colors and prompt
+#
+
+# Color setting
 autoload -U colors; colors
 
 PROMPT="%{${fg[cyan]}%}(%n#${fg[green]%}%~${fg[cyan]}%) %{${reset_color}%}"
 
 
+#
 # Alias
+#
+
+# General commands
+alias b="exit"
+alias m="man"
+alias t="tmux"
+alias w="startx"
+alias s="sudo"
+alias p="pwd"
+alias pg="ps aux | grep"
+
+# Editors
 alias -g v="vim"
 alias -g e="emacs -nw"
 alias -g n="nano"
-alias j="node"
-alias p="pwd"
+
+# Interpreters
+alias js="node"
+alias py="python"
+alias py2="python2"
+alias rb="ruby"
+
+# Git
 alias g="git"
 alias ga="git add"
 alias gaa="git add ."
@@ -97,31 +122,43 @@ alias gc="git commit -m"
 alias gs="git status"
 alias gu="git push"
 alias gl="git pull"
-alias b="exit"
-alias m="man"
-alias t="tmux"
-alias w="startx"
-alias s="sudo"
+
+# kill
 alias -g k="kill"
 alias -g k9="kill -9"
+
+# rm
 alias -g r="rm -f"
 alias -g rd="rm -rf"
+
+# ls
 alias -g l="ls -l"
 alias -g la="ls -lA"
-alias x="xterm -fd IPAPGothic -fw IPAPGothic &"
-alias f="firefox-nightly &"
-alias fs="firefox-nightly -safe-mode &"
-alias c="chromium &"
-alias ci="chromium --incogniton &"
+
+# cp
+alias -g cp="cp -fv"
+alias -g cpr="cp -rfv"
+
+# Applications
+alias xt="xterm -fd IPAPGothic -fw IPAPGothic &"
+alias fx="firefox-nightly &"
+alias fxs="firefox-nightly -safe-mode &"
+alias cr="chromium &"
+alias cri="chromium --incogniton &"
 alias is="ibus-setup &"
-alias pg="ps aux | grep"
+
+# Pacman
 alias -g pi="pacman -S"
 alias -g pu="pacman -Syu"
 alias -g pr="pacman -Rs"
+
+# Viewers with a pipe (upper case letter)
 alias -g L="| less"
 alias -g T="| tail"
 alias -g H="| head"
 alias -g G="| grep"
+
+# Edit configration files quickly
 alias ez="e ~/.zshrc"
 alias exd="e ~/.Xdefaults"
 alias exi="e ~/.xinitrc"
