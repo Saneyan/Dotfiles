@@ -1,0 +1,10 @@
+XTerm*loginShell:true
+XTerm*faceName:'IPAPGothic'
+XTerm*faceNameDoublesize:'IPAPGothic'
+XTerm*faceSize:8
+XTerm*background:#000000
+XTerm*foreground:white
+XTerm*saveLines:10000
+!XTerm*ximFont:-misc-fixed-medium-r-normal--14-130-75-75-c-140-jisx0208.1983-0
+!XTerm*utf8Fonts.wideFont:'IPAPGothic'
+!XTerm*utf8Fonts.wideBoldFont:'IPAPGothic'
