@@ -5,7 +5,7 @@ import XMonad.Util.Run
 
 -- Start
 main = do
-     xmproc <- spawnPipe "/usr/bin/xmobar /home/saneyan/.xmonad/xmobarrc.hs"
+     xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc.hs"
      xmonad $ defaultConfig {
      	    modMask = mod4Mask
 	  , layoutHook = avoidStruts $ layoutHook defaultConfig
