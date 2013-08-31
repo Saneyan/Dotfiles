@@ -136,12 +136,16 @@ alias -g cp="cp -fv"
 alias -g cpr="cp -rfv"
 
 # Applications
-alias xt="xterm -fd IPAPGothic -fw IPAPGothic &"
-alias fx="firefox-nightly &"
-alias fxs="firefox-nightly -safe-mode &"
-alias cr="chromium &"
-alias cri="chromium --incogniton &"
-alias is="ibus-setup &"
+alias xt="xterm -fd IPAPGothic -fw IPAPGothic -e tmux &>/dev/null &"
+alias fx="firefox-nightly &>/dev/null &"
+alias fxs="firefox-nightly -safe-mode &>/dev/null &"
+alias cr="chromium &>/dev/null &"
+alias cri="chromium --incognito &>/dev/null &"
+alias is="ibus-setup &>/dev/null &"
+alias wu="~/wuala/wuala &>/dev/null &"
+
+# Xmonad
+alias xc="xmonad --recompile"
 
 # Pacman
 alias -g pi="pacman -S"
@@ -156,7 +160,7 @@ alias -g G="| grep"
 
 # Edit configration files quickly
 alias ev="$EDITOR ~/.vimrc"
-alias ee="$EDITOR ~/.emacs"
+alias ee="$EDITOR ~/.emacs.d/init.el"
 alias eb="$EDITOR ~/.bashrc"
 alias ez="$EDITOR ~/.zshrc"
 alias exi="$EDITOR ~/.xinitrc"
@@ -169,7 +173,7 @@ alias exmb="$EDITOR ~/.xmonad/xmobarrc.hs"
 # Move to trash in order to avoid removing a file by mistake
 function r() {
     if [ ! -e ~/.trash ]; then
-	mkdir ~/.trash
+				mkdir ~/.trash
     fi
 
     mv $1 ~/.trash
@@ -182,15 +186,15 @@ function em() {
     read ANS
 
     if [ -e ~/.trash -a "$ANS" = "y" ]; then
-	rm -rf ~/.trash/*
-	
-	if [ "$?" -eq 0 ]; then
-	    echo "Trash has been empty :)"
-	    RES=0
-	fi
+				rm -rf ~/.trash/*
+				
+				if [ "$?" -eq 0 ]; then
+						echo "Trash has been empty :)"
+						RES=0
+				fi
     fi
 
     if [ "$RES" -eq 1 ]; then
-	echo "Trash not empty :("
+				echo "Trash not empty :("
     fi
 }

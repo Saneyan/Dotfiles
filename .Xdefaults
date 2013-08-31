@@ -1,10 +1,28 @@
-XTerm*loginShell:true
-XTerm*faceName:'IPAPGothic'
-XTerm*faceNameDoublesize:'IPAPGothic'
-XTerm*faceSize:8
-XTerm*background:#000000
-XTerm*foreground:white
-XTerm*saveLines:10000
+! Fonts
+Xft.antialias: true
+XTerm*faceName: 'IPAPGothic'
+XTerm*faceNameDoublesize: 'IPAPGothic'
+XTerm*faceSize: 8
 !XTerm*ximFont:-misc-fixed-medium-r-normal--14-130-75-75-c-140-jisx0208.1983-0
 !XTerm*utf8Fonts.wideFont:'IPAPGothic'
 !XTerm*utf8Fonts.wideBoldFont:'IPAPGothic'
+
+! Colors
+XTerm*background: #000000
+XTerm*foreground: white
+
+! Additional keys
+XTerm*VT100.Translations: #override Ctrl <Key>V: insert-selection(CLIPBOARD)
+XTerm*VT100.modifyOtherKeys: 1
+XTerm*VT100.formatOtherKeys: 1
+XTerm*VT100.locale: UTF-8
+XTerm*VT100.encodingMode: locale
+
+! Scroll bar
+!XTerm*scrollBar: true
+
+! Other settings
+XTerm*saveLines: 10000
+XTerm*selectToClipboard: true
+XTerm*loginShell: true
+XTerm*backarrowKey: false
