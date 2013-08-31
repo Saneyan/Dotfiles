@@ -173,7 +173,7 @@ alias exmb="$EDITOR ~/.xmonad/xmobarrc.hs"
 # Move to trash in order to avoid removing a file by mistake
 function r() {
     if [ ! -e ~/.trash ]; then
-				mkdir ~/.trash
+        mkdir ~/.trash
     fi
 
     mv $1 ~/.trash
@@ -186,15 +186,15 @@ function em() {
     read ANS
 
     if [ -e ~/.trash -a "$ANS" = "y" ]; then
-				rm -rf ~/.trash/*
+        rm -rf ~/.trash/*
 				
-				if [ "$?" -eq 0 ]; then
-						echo "Trash has been empty :)"
-						RES=0
-				fi
+        if [ "$?" -eq 0 ]; then
+            echo "Trash has been empty :)"
+            RES=0
+        fi
     fi
 
     if [ "$RES" -eq 1 ]; then
-				echo "Trash not empty :("
+        echo "Trash not empty :("
     fi
 }
