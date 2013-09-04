@@ -16,7 +16,9 @@
 -- Meta+C             start a cashier (GnuCash)
 -- Meta+S             start a client software of online strage (Wuala)
 -- Meta+G             start a paint software (GIMP)
--- Meta+A             paste a private email address
+-- Meta+F1            paste a private email address (1)
+-- Meta+F2            paste a private email address (2)
+-- Meta+F3            paste a public email address
 --
 -- Startup programs and workspaces:
 -- /--------------------------------------------------\
@@ -29,7 +31,8 @@
 -- | 5    | > Cashier | *GnuCash                      |
 -- | 6    | > Paint   | GIMP, Inkscape                |
 -- | 7    | > Player  | VLC                           |
--- | 8~15 | > 8~F     | (None)                        |
+-- | 8    | > Strage  | Wuala                         |
+-- | 9~15 | > 9~F     | (None)                        |
 -- \--------------------------------------------------/
 -- *) These programs start after staring up xmonad
 --
@@ -39,10 +42,11 @@ import XMonad.Prompt.Window
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run
-import XMonad.Util.EZConfig(additionalKeys)
-import XMonad.Util.Paste(pasteString)
-import XMonad.Actions.SpawnOn(spawnOn, manageSpawn)
-import XMonad.Actions.CycleWS(nextWS, prevWS)
+import XMonad.Util.EZConfig (additionalKeys)
+import XMonad.Util.Paste (pasteString)
+import XMonad.Actions.SpawnOn (spawnOn, manageSpawn)
+import XMonad.Actions.CycleWS (nextWS, prevWS)
+import Configs.Private (email)
 
 -- Main --
 main :: IO ()
@@ -82,7 +86,7 @@ myPaint           = "gimp"
 -- Workspaces --
 myWorkspaces :: [WorkspaceId]
 -- It should be like "ABC > DEF > GHI > ..."
-myWorkspaces = ["> Term", "> Browser", "> Mailer", "> Psmgr", "> Cashier", "> Paint", "> Player", "> 8", "> 9", "> A", "> B", "> C", "> D", "> E", "> F"]
+myWorkspaces = ["> Term", "> Browser", "> Mailer", "> Psmgr", "> Cashier", "> Paint", "> Player", "> Strage", "> 9", "> A", "> B", "> C", "> D", "> E", "> F"]
 
 {-
  - Hooks 
@@ -102,6 +106,7 @@ myManageHook = composeAll
   , className =? "Gimp"           --> doShift (myWorkspaces!!5)
   , className =? "Inkscape"       --> doShift (myWorkspaces!!5)
   , className =? "Vlc"            --> doShift (myWorkspaces!!6)
+  , className =? "Wuala"          --> doShift (myWorkspaces!!7)
   , manageSpawn
   , manageDocks
   , manageHook defaultConfig
@@ -143,7 +148,9 @@ myAdditionalKeys =  [
   , ((myModMask, xK_s), spawn myOnlineStrage)
   , ((myModMask, xK_c), spawn myCashier)
   , ((myModMask, xK_g), spawn myPaint)
-  , ((myModMask, xK_a), pasteString "<Private email>")
+  , ((myModMask, xK_F1), pasteString $ email "private")
+  , ((myModMask, xK_F2), pasteString $ email "service")
+  , ((myModMask, xK_F3), pasteString $ email "public")
   , ((myMSMask, xK_n), nextWS)
   , ((myMSMask, xK_p), prevWS)
   ]
