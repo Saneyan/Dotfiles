@@ -1,28 +1,85 @@
-! Fonts
-Xft.antialias: true
-XTerm*faceName: 'IPAPGothic'
-XTerm*faceNameDoublesize: 'IPAPGothic'
-XTerm*faceSize: 8
-!XTerm*ximFont:-misc-fixed-medium-r-normal--14-130-75-75-c-140-jisx0208.1983-0
-!XTerm*utf8Fonts.wideFont:'IPAPGothic'
-!XTerm*utf8Fonts.wideBoldFont:'IPAPGothic'
+!!
+!! Colors
+!!
+#define solarizedBase03   #fdf6e3
+#define solarizedBase02   #eee8d5
+#define solarizedBase01   #93a1a1
+#define solarizedBase00   #839496
+#define solarizedBase0    #657b83
+#define solarizedBase1    #586e75
+#define solarizedBase2    #073642
+#define solarizedBase3    #002b36
+#define solarizedYellow   #b58900
+#define solarizedOrange   #cb4b16
+#define solarizedRed      #dc322f
+#define solarizedMagenta  #d33682
+#define solarizedViolet   #6c71c4
+#define solarizedBlue     #268bd2
+#define solarizedCyan     #2aa198
+#define solarizedGreen    #859900
 
-! Colors
-XTerm*background: #000000
-XTerm*foreground: white
+! Black: dark(0), light(8)
+URxvt*color0: #eee8d5
+URxvt*color8: #fdf6e3
 
-! Additional keys
-XTerm*VT100.Translations: #override Ctrl <Key>V: insert-selection(CLIPBOARD)
-XTerm*VT100.modifyOtherKeys: 1
-XTerm*VT100.formatOtherKeys: 1
-XTerm*VT100.locale: UTF-8
-XTerm*VT100.encodingMode: locale
+! Red: dark(1), light(9)
+URxvt*color1: #dc322f
+URxvt*color9: #cb4b16
 
-! Scroll bar
-!XTerm*scrollBar: true
+! Green: dark(2), light(10)
+URxvt*color2:  #859900
+URxvt*color10: #586e75
 
-! Other settings
-XTerm*saveLines: 10000
-XTerm*selectToClipboard: true
-XTerm*loginShell: true
-XTerm*backarrowKey: false
+! Yellow: dark(3), light(11)
+URxvt*color3:  #b58900
+URxvt*color11: #839496
+
+! Blue: dark(4), light(12)
+URxvt*color4:  #268bd2
+URxvt*color12: #657b83
+
+! Magenda: dark(5), light(13)
+URxvt*color5:  #d33682
+URxvt*color13: #6c71c4
+
+! Cyan: dark(6), light(14)
+URxvt*color6:  #2aa198
+URxvt*color14: #586e75
+
+! White: dark(7), light(15)
+URxvt*color7:  #073642
+URxvt*color15: #002b36
+
+URxvt*fading:                 40
+URxvt*fadeColor:              #fdf6e3
+URxvt*background:             #fdf6e3
+URxvt*foreground:             #657b83
+URxvt*cursorColor:            #586e75
+URxvt*pointerColorBackground: #93a1a1
+URxvt*pointerColorForeground: #586e75
+
+!!
+!! Fonts
+!!
+URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=11:antialias=true,
+            xft:IPAPGothic:pxelsize=11:antialias=true
+
+!!
+!! Additional keys
+!!
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755: False
+URxvt.perl-ext-common: default,clipboard
+
+!!
+!! Scroll bar
+!!
+URxvt*scrollBar: false
+
+!!
+!! Other settings
+!!
+URxvt*saveLines:         10000
+URxvt*selectToClipboard: true
+URxvt*loginShell:        true
+URxvt*backarrowKey:      false
