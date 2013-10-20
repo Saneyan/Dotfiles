@@ -9,31 +9,37 @@
 -- Meta+Shift+Q       close xmonad
 -- Meta+Shift+N       switch next workspace
 -- Meta+Shift+P       switch previous workspace
--- Meta+Shift+Enter   start a terminal (XTerm)
+-- Meta+Shift+Enter   start a terminal (Rxvt-unicode)
 -- Meta+B             start a web browser (Firefox Nightly)
 -- Meta+M             start a mailer (Thunderbird)
--- Meta+K             start a password manager (KeePassX)
+-- Meta+X             start a password manager (KeePassX)
 -- Meta+C             start a cashier (GnuCash)
 -- Meta+S             start a client software of online strage (Wuala)
--- Meta+G             start a paint software (GIMP)
+-- Meta+P             start a paint software (GIMP)
+-- Meta+E             start a editor (GVim)
+-- Meta+L             start a player (VLC)
+-- Meta+Y             start Skype
+-- Meta+G             show a grid
 -- Meta+F1            paste a private email address (1)
 -- Meta+F2            paste a private email address (2)
 -- Meta+F3            paste a public email address
 --
 -- Startup programs and workspaces:
--- /--------------------------------------------------\
--- | Num  | ID        | Program                       |
--- |------+-----------+-------------------------------|
--- | 1    | > Term    | *XTerm                        |
--- | 2    | > Browser | *Firefox Nightly, Chromium    |
--- | 3    | > Mailer  | *Thunderbird                  |
--- | 4    | > Psmgr   | *KeePassX                     |
--- | 5    | > Cashier | *GnuCash                      |
--- | 6    | > Paint   | GIMP, Inkscape                |
--- | 7    | > Player  | VLC                           |
--- | 8    | > Strage  | Wuala                         |
--- | 9~15 | > 9~F     | (None)                        |
--- \--------------------------------------------------/
+-- /---------------------------------------------------\
+-- | Num   | ID        | Program                       |
+-- |-------+-----------+-------------------------------|
+-- | 1     | > Term    | *Rxvt-unicode                 |
+-- | 2     | > Browser | *Firefox Nightly, Chromium    |
+-- | 3     | > Mailer  | *Thunderbird                  |
+-- | 4     | > Psmgr   | *KeePassX                     |
+-- | 5     | > Cashier | *GnuCash                      |
+-- | 6     | > Editor  | *GVim                         |
+-- | 7     | > Player  | VLC                           |
+-- | 8     | > Strage  | Wuala                         |
+-- | 9     | > Skype   | Skype                         |
+-- | 10    | > Paint   | GIMP, Inkscape                |
+-- | 11~15 | > B~F     | (None)                        |
+-- \---------------------------------------------------/
 -- *) These programs start after staring up xmonad
 --
 
@@ -46,6 +52,7 @@ import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Util.Paste (pasteString)
 import XMonad.Actions.SpawnOn (spawnOn, manageSpawn)
 import XMonad.Actions.CycleWS (nextWS, prevWS)
+import XMonad.Actions.GridSelect
 import Configs.Private (email)
 
 -- Main --
@@ -70,7 +77,7 @@ main = do
 
 -- Default application --
 -- Double size font is IPAPGothic and starting with tmux
-myTerm            = "xterm -fd IPAPGothic -fw IPAPGothic -e tmux"
+myTerm            = "urxvt -e tmux"
 myWebBrowser      = "firefox-nightly"
 myPasswordManager = "keepassx"
 myMailer          = "thunderbird"
@@ -78,6 +85,9 @@ myMailer          = "thunderbird"
 myOnlineStrage    = "~/wuala/wuala"
 myCashier         = "gnucash"
 myPaint           = "gimp"
+mySkype           = "skype"
+myEditor          = "gvim"
+myPlayer          = "vlc"
 
 {-
  - Workspaces
@@ -86,7 +96,7 @@ myPaint           = "gimp"
 -- Workspaces --
 myWorkspaces :: [WorkspaceId]
 -- It should be like "ABC > DEF > GHI > ..."
-myWorkspaces = ["> Term", "> Browser", "> Mailer", "> Psmgr", "> Cashier", "> Paint", "> Player", "> Strage", "> 9", "> A", "> B", "> C", "> D", "> E", "> F"]
+myWorkspaces = ["> Term", "> Browser", "> Mailer", "> Psmgr", "> Cashier", "> Editor", "> Player", "> Strage", "> Skype", "> Paint", "> B", "> C", "> D", "> E", "> F"]
 
 {-
  - Hooks 
@@ -98,15 +108,19 @@ myLayoutHook = avoidStruts $ layoutHook defaultConfig
 -- Manage hook --
 myManageHook = composeAll
   [ className =? "XTerm"          --> doShift (myWorkspaces!!0)
+  , className =? "URxvt"          --> doShift (myWorkspaces!!0)
   , className =? "Firefox"        --> doShift (myWorkspaces!!1)
   , className =? "Chromium"       --> doShift (myWorkspaces!!1)
   , className =? "Thunderbird"    --> doShift (myWorkspaces!!2)
   , className =? "Keepassx"       --> doShift (myWorkspaces!!3)
   , className =? "Gnucash"        --> doShift (myWorkspaces!!4)
-  , className =? "Gimp"           --> doShift (myWorkspaces!!5)
-  , className =? "Inkscape"       --> doShift (myWorkspaces!!5)
+  , className =? "Gvim"           --> doShift (myWorkspaces!!5)
+  , className =? "Emacs"          --> doShift (myWorkspaces!!5)
   , className =? "Vlc"            --> doShift (myWorkspaces!!6)
   , className =? "Wuala"          --> doShift (myWorkspaces!!7)
+  , className =? "Skype"          --> doShift (myWorkspaces!!8)
+  , className =? "Inkscape"       --> doShift (myWorkspaces!!9)
+  , className =? "Gimp"           --> doShift (myWorkspaces!!9)
   , manageSpawn
   , manageDocks
   , manageHook defaultConfig
@@ -126,6 +140,8 @@ myStartupHook = do
   spawnOn (myWorkspaces!!2) myMailer
   spawnOn (myWorkspaces!!3) myPasswordManager
   spawnOn (myWorkspaces!!4) myCashier
+  spawnOn (myWorkspaces!!5) myEditor
+  spawnOn (myWorkspaces!!8) mySkype
 
 {-
  - Key bindings
@@ -143,14 +159,18 @@ myAdditionalKeys =  [
   -}
     ((myMSMask, xK_Return), spawn myTerm)
   , ((myModMask, xK_b), spawn myWebBrowser)
-  , ((myModMask, xK_k), spawn myPasswordManager)
+  , ((myModMask, xK_x), spawn myPasswordManager)
   , ((myModMask, xK_m), spawn myMailer)
   , ((myModMask, xK_s), spawn myOnlineStrage)
   , ((myModMask, xK_c), spawn myCashier)
-  , ((myModMask, xK_g), spawn myPaint)
+  , ((myModMask, xK_p), spawn myPaint)
+  , ((myModMask, xK_y), spawn mySkype)
+  , ((myModMask, xK_e), spawn myEditor)
+  , ((myModMask, xK_l), spawn myPlayer)
   , ((myModMask, xK_F1), pasteString $ email "private")
   , ((myModMask, xK_F2), pasteString $ email "service")
   , ((myModMask, xK_F3), pasteString $ email "public")
   , ((myMSMask, xK_n), nextWS)
   , ((myMSMask, xK_p), prevWS)
+  , ((myMSMask, xK_g), goToSelected defaultGSConfig)
   ]
