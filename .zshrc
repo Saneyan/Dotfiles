@@ -7,7 +7,7 @@
 #
 
 # Default editor
-export EDITOR="e"
+export EDITOR="v"
 
 # Character encoding
 export LANG=en_US.UTF-8
@@ -77,6 +77,12 @@ HISTSIZE=10000
 
 
 #
+# Path
+#
+PATH=$PATH:/home/saneyan/.gem/ruby/2.0.0/bin
+
+
+#
 # Colors and prompt
 #
 
@@ -99,10 +105,11 @@ alias s="sudo"
 alias p="pwd"
 alias pg="ps aux | grep"
 
-# Editors
+# Editors and IDEs
 alias -g v="vim"
 alias -g e="emacs -nw"
 alias -g n="nano"
+alias -g c="~/cloud9/bin/cloud9.sh -w"
 
 # Interpreters
 alias js="node"
@@ -143,9 +150,10 @@ alias cr="chromium &>/dev/null &"
 alias cri="chromium --incognito &>/dev/null &"
 alias is="ibus-setup &>/dev/null &"
 alias wu="~/wuala/wuala &>/dev/null &"
+alias c9="~/cloud9/bin/cloud9.sh &>/dev/null &"
 
 # Xmonad
-alias xc="xmonad --recompile"
+alias xc="ghc --make ~/.xmonad/xmonad.hs ~/.xmonad/Configs/Private.hs -o ~/.xmonad/xmonad-x86_64-linux"
 
 # Pacman
 alias -g pi="pacman -S"
@@ -172,29 +180,40 @@ alias exmb="$EDITOR ~/.xmonad/xmobarrc.hs"
 
 # Move to trash in order to avoid removing a file by mistake
 function r() {
-    if [ ! -e ~/.trash ]; then
-        mkdir ~/.trash
-    fi
+  if [ ! -e ~/.trash ]; then
+    mkdir ~/.trash
+  fi
 
-    mv $1 ~/.trash
+  mv $1 ~/.trash
 }
 
 function em() {
-    RES=1
+  RES=1
 
-    echo -n "Do you want to empty trash? [y/n] (default n): "
-    read ANS
+  echo -n "Do you want to empty trash? [y/n] (default n): "
+  read ANS
 
-    if [ -e ~/.trash -a "$ANS" = "y" ]; then
-        rm -rf ~/.trash/*
-				
-        if [ "$?" -eq 0 ]; then
-            echo "Trash has been empty :)"
-            RES=0
-        fi
+  if [ -e ~/.trash -a "$ANS" = "y" ]; then
+    rm -rf ~/.trash/*
+    
+    if [ "$?" -eq 0 ]; then
+      echo "Trash has been empty :)"
+      RES=0
     fi
+  fi
 
-    if [ "$RES" -eq 1 ]; then
-        echo "Trash not empty :("
-    fi
+  if [ "$RES" -eq 1 ]; then
+    echo "Trash not empty :("
+  fi
+}
+
+C9_BIN="~/cloud9/bin/cloud9.sh"
+
+function c9() {
+  $C9_BIN -w $HOME/$1 &>/dev/null &
+}
+
+function c9c() {
+  pwd
+  $C9_BIN -w $? &>/dev/null &
 }
