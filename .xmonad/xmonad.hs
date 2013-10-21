@@ -10,12 +10,13 @@
 -- Meta+Shift+N       switch next workspace
 -- Meta+Shift+P       switch previous workspace
 -- Meta+Shift+Enter   start a terminal (Rxvt-unicode)
+-- Meta+P             lanch xmobar
 -- Meta+B             start a web browser (Firefox Nightly)
 -- Meta+M             start a mailer (Thunderbird)
 -- Meta+X             start a password manager (KeePassX)
 -- Meta+C             start a cashier (GnuCash)
 -- Meta+S             start a client software of online strage (Wuala)
--- Meta+P             start a paint software (GIMP)
+-- Meta+G             start a paint software (GIMP)
 -- Meta+E             start a editor (GVim)
 -- Meta+L             start a player (VLC)
 -- Meta+Y             start Skype
@@ -28,17 +29,16 @@
 -- /---------------------------------------------------\
 -- | Num   | ID        | Program                       |
 -- |-------+-----------+-------------------------------|
--- | 1     | > Term    | *Rxvt-unicode                 |
+-- | 1     | > Term    | *Rxvt-unicode (with tmux/vim) |
 -- | 2     | > Browser | *Firefox Nightly, Chromium    |
 -- | 3     | > Mailer  | *Thunderbird                  |
 -- | 4     | > Psmgr   | *KeePassX                     |
 -- | 5     | > Cashier | *GnuCash                      |
--- | 6     | > Editor  | *GVim                         |
+-- | 6     | > Paint   | GIMP, Inkscape                |
 -- | 7     | > Player  | VLC                           |
 -- | 8     | > Strage  | Wuala                         |
 -- | 9     | > Skype   | Skype                         |
--- | 10    | > Paint   | GIMP, Inkscape                |
--- | 11~15 | > B~F     | (None)                        |
+-- | 10~15 | > A~F     | (None)                        |
 -- \---------------------------------------------------/
 -- *) These programs start after staring up xmonad
 --
@@ -53,6 +53,7 @@ import XMonad.Util.Paste (pasteString)
 import XMonad.Actions.SpawnOn (spawnOn, manageSpawn)
 import XMonad.Actions.CycleWS (nextWS, prevWS)
 import XMonad.Actions.GridSelect
+import XMonad.Layout.Magnifier
 import Configs.Private (email)
 
 -- Main --
@@ -78,6 +79,7 @@ main = do
 -- Default application --
 -- Double size font is IPAPGothic and starting with tmux
 myTerm            = "urxvt -e tmux"
+myEditor          = "urxvt -e vim"
 myWebBrowser      = "firefox-nightly"
 myPasswordManager = "keepassx"
 myMailer          = "thunderbird"
@@ -86,7 +88,6 @@ myOnlineStrage    = "~/wuala/wuala"
 myCashier         = "gnucash"
 myPaint           = "gimp"
 mySkype           = "skype"
-myEditor          = "gvim"
 myPlayer          = "vlc"
 
 {-
@@ -96,7 +97,7 @@ myPlayer          = "vlc"
 -- Workspaces --
 myWorkspaces :: [WorkspaceId]
 -- It should be like "ABC > DEF > GHI > ..."
-myWorkspaces = ["> Term", "> Browser", "> Mailer", "> Psmgr", "> Cashier", "> Editor", "> Player", "> Strage", "> Skype", "> Paint", "> B", "> C", "> D", "> E", "> F"]
+myWorkspaces = ["> Term", "> Browser", "> Mailer", "> Psmgr", "> Cashier", "> Paint", "> Player", "> Strage", "> Skype", "> A", "> B", "> C", "> D", "> E", "> F"]
 
 {-
  - Hooks 
@@ -114,13 +115,11 @@ myManageHook = composeAll
   , className =? "Thunderbird"    --> doShift (myWorkspaces!!2)
   , className =? "Keepassx"       --> doShift (myWorkspaces!!3)
   , className =? "Gnucash"        --> doShift (myWorkspaces!!4)
-  , className =? "Gvim"           --> doShift (myWorkspaces!!5)
-  , className =? "Emacs"          --> doShift (myWorkspaces!!5)
+  , className =? "Inkscape"       --> doShift (myWorkspaces!!5)
+  , className =? "Gimp"           --> doShift (myWorkspaces!!5)
   , className =? "Vlc"            --> doShift (myWorkspaces!!6)
   , className =? "Wuala"          --> doShift (myWorkspaces!!7)
   , className =? "Skype"          --> doShift (myWorkspaces!!8)
-  , className =? "Inkscape"       --> doShift (myWorkspaces!!9)
-  , className =? "Gimp"           --> doShift (myWorkspaces!!9)
   , manageSpawn
   , manageDocks
   , manageHook defaultConfig
@@ -140,7 +139,6 @@ myStartupHook = do
   spawnOn (myWorkspaces!!2) myMailer
   spawnOn (myWorkspaces!!3) myPasswordManager
   spawnOn (myWorkspaces!!4) myCashier
-  spawnOn (myWorkspaces!!5) myEditor
   spawnOn (myWorkspaces!!8) mySkype
 
 {-
@@ -163,7 +161,7 @@ myAdditionalKeys =  [
   , ((myModMask, xK_m), spawn myMailer)
   , ((myModMask, xK_s), spawn myOnlineStrage)
   , ((myModMask, xK_c), spawn myCashier)
-  , ((myModMask, xK_p), spawn myPaint)
+  , ((myModMask, xK_g), spawn myPaint)
   , ((myModMask, xK_y), spawn mySkype)
   , ((myModMask, xK_e), spawn myEditor)
   , ((myModMask, xK_l), spawn myPlayer)
