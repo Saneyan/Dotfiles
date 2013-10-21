@@ -7,6 +7,11 @@ ibus-daemon --daemonize --xim
 xsetroot -cursor_name left_ptr
 
 # Set background
-display -window root ~/Pictures/xmonad.png
+feh --bg-scale ~/Pictures/xmonad.png
+
+# Apply X settings
+xrdb -load ~/.Xdefaults
+xcompmgr -c &
+unclutter -idle 1s &
 
 exec xmonad

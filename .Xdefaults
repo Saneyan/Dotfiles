@@ -83,3 +83,5 @@ URxvt*saveLines:         10000
 URxvt*selectToClipboard: true
 URxvt*loginShell:        true
 URxvt*backarrowKey:      false
+URxvt*shading: 20
+URxvt*inheritPixmap: True
