@@ -9,8 +9,10 @@
 -- Meta+Shift+Q       close xmonad
 -- Meta+Shift+N       switch next workspace
 -- Meta+Shift+P       switch previous workspace
+-- Meta+Shift+G       lanuch GridSelect
+-- Meta+Shift+L       Lock screen (Slimlock)
 -- Meta+Shift+Enter   start a terminal (Rxvt-unicode)
--- Meta+P             lanch xmobar
+-- Meta+P             lanuch xmobar
 -- Meta+B             start a web browser (Firefox Nightly)
 -- Meta+M             start a mailer (Thunderbird)
 -- Meta+X             start a password manager (KeePassX)
@@ -89,6 +91,7 @@ myCashier         = "gnucash"
 myPaint           = "gimp"
 mySkype           = "skype"
 myPlayer          = "vlc"
+myLock            = "slimlock"
 
 {-
  - Workspaces
@@ -171,4 +174,5 @@ myAdditionalKeys =  [
   , ((myMSMask, xK_n), nextWS)
   , ((myMSMask, xK_p), prevWS)
   , ((myMSMask, xK_g), goToSelected defaultGSConfig)
+  , ((myMSMask, xK_l), spawn myLock)
   ]

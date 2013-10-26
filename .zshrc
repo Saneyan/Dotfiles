@@ -155,6 +155,10 @@ alias c9="~/cloud9/bin/cloud9.sh &>/dev/null &"
 # Xmonad
 alias xc="ghc --make ~/.xmonad/xmonad.hs ~/.xmonad/Configs/Private.hs -o ~/.xmonad/xmonad-x86_64-linux"
 
+# System
+alias sr="sudo reboot"
+alias sd="sudo shutdown"
+
 # Pacman
 alias -g pi="pacman -S"
 alias -g pu="pacman -Syu"

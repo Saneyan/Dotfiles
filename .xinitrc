@@ -12,6 +12,7 @@ feh --bg-scale ~/Pictures/xmonad.png
 # Apply X settings
 xrdb -load ~/.Xdefaults
 xcompmgr -c &
+xautolock -time 10 -locker slimlock &
 unclutter -idle 1s &
 
 exec xmonad
