@@ -49,7 +49,7 @@ function update_home_dir() {
     if [ -e $HOME/$f ]; then
       cp -r $HOME/$f $dirname/backup >/dev/null
     else
-      echo -ne "\n -> [!] old file is not found"
+      echo -ne "\n -> [!] old file is not found\n"
       not_found=1
     fi
 
