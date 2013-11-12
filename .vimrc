@@ -1,5 +1,6 @@
 colorscheme desert
 au VimEnter * NERDTree
+let NERDTreeShowHidden=1
 set guifont=Monospace\ 8
 set number
 set numberwidth=5
