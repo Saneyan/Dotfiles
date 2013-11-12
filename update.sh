@@ -3,7 +3,10 @@
 # Configuration
 branch=""
 files=(
-  ".zsh.d"
+  ".zsh.d/.zshrc"
+  ".zsh.d/.zshenv"
+  ".zsh.d/.zaliases"
+  ".zsh.d/.zfunctions"
   ".xmonad/xmonad.hs"
   ".xmonad/xmobarrc.hs"
   ".xmonad/Configs/Private.hs"
