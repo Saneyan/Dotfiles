@@ -2,8 +2,8 @@
 # .zshrc
 #
 # @rev    G-0.1.1
-# @date   2013-11-10
-# @Author Saneyuki Tadokoro
+# @update 2013-11-10
+# @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
 
 #
 # General settings
@@ -153,7 +153,17 @@ alias sd="sudo shutdown"
 # Emerge
 alias pi="sudo emerge -av"
 alias pu="sudo emerge --sync && sudo emerge -avuDN world"
+alias pc="sudo emerge --depclean"
 alias pr="sudo emerge --unmerge"
+
+# NPM
+alias ni="sudo npm install -g"
+alias nu="sudo npm update -g"
+alias nr="sudo npm remove -g"
+alias nli="npm install"
+alias nlu="npm update"
+alias nll="npm link"
+alias nlr="npm remove"
 
 # Viewers with a pipe (upper case letter)
 alias -g L="| less"
@@ -244,7 +254,7 @@ function ec() {
     "x.def '${HOME}/.Xdefaults' 0"
     "x.res '${HOME}/.Xresources' 0"
     "xm '${HOME}/.xmonad/xmonad.hs' 0"
-    "xm.bar '${HOME}/.xmonad/xmobar.hs' 0"
+    "xm.bar '${HOME}/.xmonad/xmobarrc.hs' 0"
     "xm.conf '${HOME}/.xmonad/Configs/Private.hs' 0"
     "p.use '/etc/portage/package.use' 1"
     "p.kwd '/etc/portage/package.accept_keywords' 1"
