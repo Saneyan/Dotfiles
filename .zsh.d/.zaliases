@@ -1,0 +1,80 @@
+#
+# Alias
+#
+
+# General commands
+alias b="exit"
+alias m="man"
+alias t="tmux"
+alias w="startx"
+alias s="sudo"
+alias p="pwd"
+alias pg="ps aux | grep"
+
+# Editors
+alias -g e="$EDITOR"
+
+# Interpreters
+alias js="node"
+alias py="python"
+alias py2="python2"
+alias rb="ruby"
+
+# kill
+alias -g k="kill"
+alias -g k9="kill -9"
+
+# ls
+alias -g l="ls -l"
+alias -g la="ls -lA"
+
+# cp
+alias -g cp="cp -fv"
+alias -g cpr="cp -rfv"
+
+# mv
+alias -g mv="mv -v"
+
+# Applications
+# /usr/bin/firefox-nightly -> /opt/firefox-nightly/firefox
+#alias xt="xterm -fd IPAPGothic -fw IPAPGothic -e tmux &>/dev/null &"
+alias fxs="firefox-nightly -safe-mode &>/dev/null &"
+alias cri="chromium --incognito &>/dev/null &"
+alias is="ibus-setup &>/dev/null &"
+
+# Xmonad
+alias xc="ghc --make\
+  ~/.xmonad/xmonad.hs\
+  ~/.xmonad/Configs/Private.hs\
+  -o ~/.xmonad/xmonad-`uname -m`-linux"
+
+# System
+alias sr="sudo reboot"
+alias sd="sudo shutdown -Ph now"
+
+# Package management system (Pacman or Portage)
+if [[ ${GFUNCTION_DIST} =~ ARCH$ ]]; then
+  alias pi="sudo pacman -S"
+  alias pu="sudo pacman -Syu"
+  alias pr="sudo pacman -Rs"
+elif [[ ${GFUNCTION_DIST} =~ gentoo ]]; then
+  alias pi="sudo emerge -av"
+  alias pu="sudo emerge --sync && sudo emerge -avuDN world"
+  alias pc="sudo emerge --depclean"
+  alias pr="sudo emerge --unmerge"
+fi
+
+# NPM
+alias ni="sudo npm install -g"
+alias nu="sudo npm update -g"
+alias nr="sudo npm remove -g"
+alias nli="npm install"
+alias nlu="npm update"
+alias nll="npm link"
+alias nlr="npm remove"
+
+# Viewers with a pipe (upper case letter)
+alias -g L="| less"
+alias -g T="| tail"
+alias -g H="| head"
+alias -g G="| grep"

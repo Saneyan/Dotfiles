@@ -1,0 +1,153 @@
+# Move to trash in order to avoid removing a file by mistake
+function r() {
+  if [ ! -e ~/.trash ]; then
+    mkdir ~/.trash
+  fi
+
+  mv $1 ~/.trash
+}
+
+# Empty trash
+function em() {
+  RES=1
+
+  echo -n "Do you want to empty trash? [y/n] (default n): "
+  read ANS
+
+  if [ -e ~/.trash -a "$ANS" = "y" ]; then
+    rm -rf ~/.trash/*
+    
+    if [ "$?" -eq 0 ]; then
+      echo "Trash has been empty :)"
+      RES=0
+    fi
+  fi
+
+  if [ "$RES" -eq 1 ]; then
+    echo "Trash not empty :("
+  fi
+}
+
+# Git
+function g() {
+  ###################
+  # <Flag> <Command>
+  configs=(
+    "a add"
+    "A add ."
+    "c commit -m"
+    "s status"
+    "u push"
+    "U push"
+    "l pull"
+    "L pull"
+    "r rm -rf"
+    "R rm -rf --cached"
+    "o checkout"
+    "b branch"
+    "e rebase"
+  )
+
+  desc="Flag\tCommand"
+
+  while getopts a:Ac:suU:lL:r:R:o:b:eh arg
+  do
+    for item in $configs
+    do
+      config=(`echo ${item}`)
+      if [ "${arg}" = "${item[1]}" ]; then
+        eval "git ${item:2} ${OPTARG}"
+      elif [ "${arg}" = "h" ]; then
+        view_configs $desc $configs
+        break
+      fi
+    done
+  done
+}
+
+# Edit configuration files
+function ec() {
+  #########################################
+  # <Type> <Path> <As staff(0) or root(1)>
+  base=(
+    "z '${HOME}/.zshrc' 0"
+    "v '${HOME}/.vimrc' 0"
+    "e '${HOME}/.emacs.d/init.el' 0"
+    "t '${HOME}/.tmux.conf' 0"
+    "s '/etc/ssh/sshd_conf' 1"
+    "s.conf '${HOME}/.ssh/config' 0"
+    "x '/etc/X11/xorg.conf' 1"
+    "x.init '${HOME}/.xinitrc' 0"
+    "x.def '${HOME}/.Xdefaults' 0"
+    "x.res '${HOME}/.Xresources' 0"
+    "xm '${HOME}/.xmonad/xmonad.hs' 0"
+    "xm.bar '${HOME}/.xmonad/xmobarrc.hs' 0"
+    "xm.conf '${HOME}/.xmonad/Configs/Private.hs' 0"
+  )
+
+  if [[ ${GFUNCTION_DIST} =~ ARCH$ ]]; then
+    ext=(
+      "p.conf '/etc/pacman.conf' 1"
+    )
+  elif [[ ${GFUNCTION_DIST} =~ gentoo ]]; then
+    ext=(
+      "p.use '/etc/portage/package.use' 1"
+      "p.kwd '/etc/portage/package.accept_keywords' 1"
+      "p.lic '/etc/portage/package.license' 1"
+      "p.conf '/etc/portage/make.conf' 1"
+    )
+  else
+    ext=()
+  fi
+
+  configs=("${base[@]}" "${ext[@]}")
+
+  desc="Type\tPath\tAs staff (0) or root (1)"
+
+  while getopts hf: arg
+  do
+    case $arg in
+      'f')
+        for item in $configs
+        do
+          config=(`echo ${item}`)
+          if [ "${config[1]}" = "${OPTARG}" ]; then
+            CONF=$config[2]; SUDO=$config[3]
+            break
+          fi
+        done
+        ;;
+      'h')
+        view_configs $desc $configs
+        break
+        ;;
+      '*')
+        echo -e "Invalid argument '${arg}'\n"
+        view_configs $desc $configs
+        break
+        ;;
+    esac
+
+    if [ ! -z "${CONF+E}" ]; then
+      if [ $SUDO -eq 1 ]; then
+        eval "sudo ${EDITOR} ${CONF}"
+      else
+        eval "${EDITOR} ${CONF}"
+      fi
+    else
+      echo -e "Invalid argument value '${OPTARG}'\n"
+      view_configs $desc $configs
+    fi
+  done
+}
+
+# 1st arg must be Description, after 2nd args must be Configurations
+function view_configs() {
+  echo -e $1
+
+  for item in ${@:2}
+  do
+    config=(`echo ${item}`)
+    echo -e "${config[1]}\t${config[2]}\t${config[3]}"
+  done
+}
