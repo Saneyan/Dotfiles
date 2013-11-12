@@ -2,7 +2,7 @@
 # .zshrc
 #
 # @rev    G-0.1.1
-# @update 2013-11-10
+# @update 2013-11-12
 # @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
 
 #
