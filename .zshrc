@@ -6,6 +6,12 @@
 # @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
 
 #
+# Get distribution
+#
+uname=`uname -r`
+
+
+#
 # General settings
 #
 
@@ -144,17 +150,23 @@ alias is="ibus-setup &>/dev/null &"
 alias xc="ghc --make\
   ~/.xmonad/xmonad.hs\
   ~/.xmonad/Configs/Private.hs\
-  -o ~/.xmonad/xmonad-x86_64-linux"
+  -o ~/.xmonad/xmonad-`uname -m`-linux"
 
 # System
 alias sr="sudo reboot"
-alias sd="sudo shutdown"
+alias sd="sudo shutdown -Ph now"
 
-# Emerge
-alias pi="sudo emerge -av"
-alias pu="sudo emerge --sync && sudo emerge -avuDN world"
-alias pc="sudo emerge --depclean"
-alias pr="sudo emerge --unmerge"
+# Package management system
+if [[ ${uname} =~ ARCH$ ]]; then
+  alias pi="sudo pacman -S"
+  alias pu="sudo pacman -Syu"
+  alias pr="sudo pacman -Rs"
+elif [[ ${uname} =~ gentoo ]]; then
+  alias pi="sudo emerge -av"
+  alias pu="sudo emerge --sync && sudo emerge -avuDN world"
+  alias pc="sudo emerge --depclean"
+  alias pr="sudo emerge --unmerge"
+fi
 
 # NPM
 alias ni="sudo npm install -g"
@@ -242,7 +254,7 @@ function g() {
 function ec() {
   #########################################
   # <Type> <Path> <As staff(0) or root(1)>
-  configs=(
+  base=(
     "z '${HOME}/.zshrc' 0"
     "v '${HOME}/.vimrc' 0"
     "e '${HOME}/.emacs.d/init.el' 0"
@@ -256,11 +268,24 @@ function ec() {
     "xm '${HOME}/.xmonad/xmonad.hs' 0"
     "xm.bar '${HOME}/.xmonad/xmobarrc.hs' 0"
     "xm.conf '${HOME}/.xmonad/Configs/Private.hs' 0"
-    "p.use '/etc/portage/package.use' 1"
-    "p.kwd '/etc/portage/package.accept_keywords' 1"
-    "p.lic '/etc/portage/package.license' 1"
-    "p.make '/etc/portage/make.conf' 1"
   )
+
+  if [[ ${uname} =~ ARCH$ ]]; then
+    ext=(
+      "p.conf '/etc/pacman.conf' 1"
+    )
+  elif [[ ${uname} =~ gentoo ]]; then
+    ext=(
+      "p.use '/etc/portage/package.use' 1"
+      "p.kwd '/etc/portage/package.accept_keywords' 1"
+      "p.lic '/etc/portage/package.license' 1"
+      "p.conf '/etc/portage/make.conf' 1"
+    )
+  else
+    ext=()
+  fi
+
+  configs=("${base[@]}" "${ext[@]}")
 
   desc="Type\tPath\tAs staff (0) or root (1)"
 
