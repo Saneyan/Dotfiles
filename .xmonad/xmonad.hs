@@ -92,7 +92,10 @@ myCashier         = "gnucash"
 -- Workspaces --
 myWorkspaces :: [WorkspaceId]
 -- It should be like "ABC > DEF > GHI > ..."
-myWorkspaces = ["> Term", "> Browser", "> Mailer", "> Psmgr", "> Cashier", "> Paint", "> Player", "> Strage", "> Skype", "> A", "> B", "> C", "> D", "> E", "> F"]
+-- <icon=.xmonad/icons/ac.xbm/>
+ws = ["term", "browser", "mailer", "psmgr", "cashier", "paint", "player", "strage", "skype", "A", "B", "C", "D", "E", "F"]
+
+myWorkspaces = map (++ " ") (map (" <icon=.xmonad/icons/ac.xbm/> " ++) ws)
 
 {-
  - Hooks 
