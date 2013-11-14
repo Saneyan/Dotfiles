@@ -7,6 +7,7 @@ files=(
   ".zsh.d/.zshenv"
   ".zsh.d/.zaliases"
   ".zsh.d/.zfunctions"
+  ".xmonad/icons"
   ".xmonad/xmonad.hs"
   ".xmonad/xmobarrc.hs"
   ".xmonad/Configs/Private.hs"
