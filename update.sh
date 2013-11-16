@@ -142,6 +142,17 @@ do
     'U') update_repo_dir $OPTARG ;;
     'h')
       cat << _EOL_
+- Dotfile Updater v 0.0.2
+- Saneyuki Tadokoro @ gfunction Computer Science Laboratory
+
+usage: ./update.sh [options]
+
+Options:
+  -l : Update dot-files in home directory
+  -L : Update dot-files except specific files in home directory
+  -u : Update dot-files in local depository
+  -U : Update dot-files except specific files in local depository
+  -h : Show help
 _EOL_
       ;;
   esac
