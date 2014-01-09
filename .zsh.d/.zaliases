@@ -2,12 +2,8 @@
 # .zaliases
 #
 # @rev    G-0.0.1
-# @update 2013-11-12
+# @update 2013-12-27
 # @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
-
-#
-# Alias
-#
 
 # General commands
 alias b="exit"
@@ -58,18 +54,6 @@ alias xc="ghc --make\
 # System
 alias sr="sudo reboot"
 alias sd="sudo shutdown -Ph now"
-
-# Package management system (Pacman or Portage)
-if [[ ${GFUNCTION_DIST} =~ ARCH$ ]]; then
-  alias pi="sudo pacman -S"
-  alias pu="sudo pacman -Syu"
-  alias pr="sudo pacman -Rs"
-elif [[ ${GFUNCTION_DIST} =~ gentoo ]]; then
-  alias pi="sudo emerge -av"
-  alias pu="sudo emerge --sync && sudo emerge -avuDN world"
-  alias pc="sudo emerge --depclean"
-  alias pr="sudo emerge --unmerge"
-fi
 
 # NPM
 alias ni="sudo npm install -g"

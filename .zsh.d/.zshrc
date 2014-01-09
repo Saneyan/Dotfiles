@@ -1,14 +1,15 @@
 #
 # .zshrc
 #
-# @rev    G-0.1.1
-# @update 2013-11-12
+# @rev    G-0.1.4
+# @update 2013-12-27
 # @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
 
 #
 # Import other settings
 #
 source $ZDOTDIR/.zaliases
+source $ZDOTDIR/$ZDOTDIR_EXT/.zaliases
 source $ZDOTDIR/.zfunctions
 
 
