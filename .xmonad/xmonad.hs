@@ -1,7 +1,9 @@
 --
 -- xmonad.hs - Xmonad configuration file
 --
--- Author: Saneyuki Tadokoro <saneyan@mail.gfunction.com>
+-- @rev     G-0.1.0
+-- @update  2014-1-17
+-- @author  Saneyuki Tadokoro <saneyan@mail.gfunction.com>
 --
 -- Key bindings (meta key is commnad or win):
 -- Meta+Enter         switch focused window to master window
