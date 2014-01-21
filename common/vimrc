@@ -1,22 +1,25 @@
 "
 " .vimrc - Vim configuration file
 "
-" @rev    G-0.5.2
-" @update 2014-1-17
+" @rev    G-0.5.4
+" @update 2014-1-21
 " @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
 "
 " Key bindings (Leader key is commma):
 " [Normal mode]
-"   Leader » t » n Switch next tab
-"   Leader » t » p Switch previous tab
-"   Leader » t » e Open a new tab
-"   Leader » w » v Split window vertically
-"   Leader » w » h Split window horizontally
-"   Leader » w » q Quit current window
+"   Leader » t » n  Switch next tab
+"   Leader » t » p  Switch previous tab
+"   Leader » t » e  Open a new tab
+"   Leader » t » c  Close a tab
+"   Leader » w » v  Split window vertically
+"   Leader » w » h  Split window horizontally
+"   Leader » w » q  Quit current window
+"   Leader » w » t  Toggle tab type
 "   Leader » c      Toggle cursor highlighting
 "   Leader » d      Toggle NERDTRee
 "   Leader » n      Lanch NERDTree
 "   Leader » m      Lanch OverCommandLine
+"   Leader » o      Save
 "
 " [Insert mode]
 "
@@ -55,7 +58,8 @@ endfunction
 "
 
 "" Tab stops
-let s:tabstops = 2
+let g:current_tab_stops = 2
+let g:current_tab_type = 'soft'
 
 "" Change leader key
 let mapleader = ","
@@ -66,8 +70,8 @@ set fileencodings=utf-8,iso-2022-jp,euc-jp,ascii
 set fileformats=unix,mac,dos
 
 "" Indent and tab
-execute 'set shiftwidth=' .s:tabstops
-execute 'set tabstop=' .s:tabstops
+execute 'set shiftwidth=' .g:current_tab_stops
+execute 'set tabstop=' .g:current_tab_stops
 set expandtab
 set nowrap
 set autoindent
@@ -129,25 +133,69 @@ nnoremap <silent> <Leader>to :tabnew<CR>
 """""""""""""""""""""""""""""""""""
 " Window and buffer settings
 "
+
+function! ConvertToNoExpandTab(tabstops)
+  execute 'set noexpandtab | retab! ' .a:tabstops
+endfunction
+
+function! ConvertToExpandTab(tabstops)
+  execute 'set expandtab | retab! ' .a:tabstops
+endfunction
+
+function! ConvertTabsByBufreadpost()
+  if g:current_tab_type == 'soft'
+    call ConvertToNoExpandTab(g:current_tab_stops)
+  endif
+endfunction
+
+function! ConvertTabsByBufwritepre()
+  if g:current_tab_type == 'soft'
+    call ConvertToExpandTab(g:current_tab_stops)
+  endif
+endfunction
+
+function! ConvertTabsByBufwritepost()
+  if g:current_tab_type == 'soft'
+    call ConvertToNoExpandTab(g:current_tab_stops)
+  endif
+endfunction
+
+function! ToggleTabType()
+  if g:current_tab_type == 'soft'
+    let g:current_tab_type = 'hard'
+  else
+    let g:current_tab_type = 'soft'
+  endif
+
+  call ConvertToNoExpandTab(g:current_tab_stops)
+endfunction
+
 nnoremap <silent> <Leader>wv :vsp<CR>
 nnoremap <silent> <Leader>wh :sp<CR>
 nnoremap <silent> <Leader>wq :q<CR>
+nnoremap <silent> <Leader>wt :call ToggleTabType()<CR>
 
 " Set list characters
 set list
 set listchars=tab:┊\ ,trail:-,extends:<,precedes:<,eol:¬,nbsp:%
 
-"Colorize special keys
+"" Colorize special keys
 highlight SpecialKey term=underline ctermfg=024 guifg=darkgray
 
-"" convert spaces to tabs when reading file
-execute 'autocmd bufreadpost * set noexpandtab | retab! ' .s:tabstops
+"" Convert spaces to tabs when reading file
+autocmd bufreadpost * call ConvertTabsByBufreadpost()
 
-"" convert tabs to spaces before writing file
-execute 'autocmd bufwritepre * set expandtab | retab! ' .s:tabstops
+"" Convert tabs to spaces before writing file
+autocmd bufwritepre * call ConvertTabsByBufwritepre()
 
-"" convert spaces to tabs after writing file (to show guides again)
-execute 'autocmd bufwritepost * set noexpandtab | retab! ' .s:tabstops
+"" Convert spaces to tabs after writing file (to show guides again)
+autocmd bufwritepost * call ConvertTabsByBufwritepost()
+
+
+"""""""""""""""""""""""""""""""""""
+" File control
+"
+nnoremap <silent> <Leader>o :w<CR>
 
 
 """""""""""""""""""""""""""""""""""
