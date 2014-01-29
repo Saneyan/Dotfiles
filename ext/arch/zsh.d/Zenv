@@ -1,0 +1,2 @@
+GFUNCTION_CONF_DIR_EXT=(\
+  "p.conf '/etc/pacman.conf' 1")
