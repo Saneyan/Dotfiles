@@ -1,0 +1,3 @@
+function xorg_begin_session() {
+  exec xmonad
+}

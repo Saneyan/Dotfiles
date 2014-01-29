@@ -1,0 +1,19 @@
+# Start ibus daemon which supports xterm
+ibus-daemon --daemonize --xim
+
+# Start urxvt server
+urxvtd --quiet --opendisplay --fork
+
+# Normal cursor
+xsetroot -cursor_name left_ptr
+
+# Apply X settings
+xcompmgr -c &
+xautolock -time 10 -locker slimlock &
+unclutter -idle 1s &
+
+# Lanch nm-applet
+nm-applet &
+
+# Set desktop background
+[ -e ~/Pictures/bg.png ] && feh --bg-scale ~/Pictures/bg.png

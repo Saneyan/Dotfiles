@@ -1,17 +1,24 @@
 #
 # .zshrc
 #
-# @rev    G-0.1.4
-# @update 2013-12-27
+# @rev    G-0.2.0
+# @update 2014-1-29
 # @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
 
 #
 # Import other settings
 #
-source $ZDOTDIR/.zaliases
-source $ZDOTDIR/$ZDOTDIR_EXT/.zaliases
-source $ZDOTDIR/.zfunctions
+dmgr_ext="${HOME}/.dmgr/ext"
+zsh_home="${HOME}/.zsh.d"
+zsh_ext="zsh.d"
 
+zsh_configs=(\
+  "${zsh_home}/Zfunctions"\
+  "${zsh_home}/Zaliases"\
+  $(find $dmgr_ext | grep -E "${zsh_ext}/Zfunctions$" 2>/dev/null)\
+  $(find $dmgr_ext | grep -E "${zsh_ext}/Zaliases$" 2>/dev/null))
+
+for f in ${zsh_configs[@]}; do [ -e $f ] && source $f; done
 
 #
 # General settings
