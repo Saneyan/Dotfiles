@@ -1,6 +1,7 @@
 #!/bin/sh
+export XKBOPTIONS="ctrl:nocaps"
 export XMODIFIERS="@im=ibus"
-export GTK_IM_MODULE="ibus"
+export GTK_IM_MODULE="xim"
 export QT_IM_MODULE="xim"
 
 xorg_home="${HOME}/.xorg.d"
