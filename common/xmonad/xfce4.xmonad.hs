@@ -160,18 +160,18 @@ myMSMask  = myModMask .|. shiftMask
 
 -- Additional keys --
 myAdditionalKeys =
-  [ ((myModMask, xK_g)        , goToSelected defaultGSConfig)
-  , ((myModMask, xK_b)        , spawn myWebBrowser)
-  , ((myModMask, xK_s)        , spawn myOnlineStrage)
-  , ((myModMask, xK_a)        , spawn myEditor)
-  , ((myModMask, xK_backslash), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
-  , ((myModMask, xK_F1)       , pasteString $ email "private")
-  , ((myModMask, xK_F2)       , pasteString $ email "service")
-  , ((myModMask, xK_F3)       , pasteString $ email "public")
-  , ((myMSMask, xK_n)         , nextWS)
-  , ((myMSMask, xK_p)         , prevWS)
-  , ((myMSMask, xK_l)         , spawn myLock)
-  , ((myMSMask, xK_Return)    , spawn myTerm) ]
+  [ ((myModMask, xK_g)         , goToSelected defaultGSConfig)
+  , ((myModMask, xK_b)         , spawn myWebBrowser)
+  , ((myModMask, xK_s)         , spawn myOnlineStrage)
+  , ((myModMask, xK_a)         , spawn myEditor)
+  , ((myModMask, xK_backslash) , spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
+  , ((myModMask, xK_F1)        , pasteString $ email "private")
+  , ((myModMask, xK_F2)        , pasteString $ email "service")
+  , ((myModMask, xK_F3)        , pasteString $ email "public")
+  , ((myMSMask, xK_n)          , nextWS)
+  , ((myMSMask, xK_p)          , prevWS)
+  , ((myMSMask, xK_l)          , spawn myLock)
+  , ((myMSMask, xK_Return)     , spawn myTerm) ]
   @+ (myModMask, masterWSGroup)
   @+ (mySubModMask, slaveWSGroup)
 
@@ -193,4 +193,4 @@ main = do
     , XMonad.normalBorderColor  = "#52799e"
     , XMonad.focusedBorderColor = "#a0bc61"
     , XMonad.focusFollowsMouse  = False }
-      `additionalKeys` myAdditionalKeys
+    `additionalKeys` myAdditionalKeys
