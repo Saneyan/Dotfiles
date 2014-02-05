@@ -201,8 +201,8 @@ nnoremap <silent> <Leader>o :w<CR>
 """""""""""""""""""""""""""""""""""
 " Cursor settings
 "
-hi CursorLine cterm=NONE ctermbg=002 ctermfg=255 guibg=024 guifg=white
-hi CursorColumn cterm=NONE ctermbg=024 ctermfg=255 guibg=024 guifg=white
+hi CursorLine cterm=NONE ctermbg=003 ctermfg=000 guibg=024 guifg=white
+hi CursorColumn cterm=NONE ctermbg=022 ctermfg=000 guibg=024 guifg=white
 
 augroup CursorLine
   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline

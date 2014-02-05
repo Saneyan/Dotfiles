@@ -1,3 +1,4 @@
 backup/
-.zsh.d/.zcompdump
+common/zsh.d/.zcompdump
+common/xmonad/Configs/Private.hs
 common/.gitignore
