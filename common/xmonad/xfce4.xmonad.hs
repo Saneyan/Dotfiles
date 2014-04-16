@@ -1,8 +1,8 @@
 {-
- - xmonad.hs - Xmonad configuration file
+ - xmonad.hs - XMonad configuration file
  -
- - @rev     G-0.1.1
- - @update  2014-2-5
+ - @rev     G-0.1.2
+ - @update  2014-3-3
  - @author  Saneyuki Tadokoro <saneyan@mail.gfunction.com>
  -}
 
@@ -55,20 +55,20 @@ help = unlines
   , ""
   , "Startup programs and workspaces:"
   , "/---------------------------------------------------\\ "
-  , "| Num   | ID        | Program                       |"
-  , "|-------+-----------+-------------------------------|"
-  , "| 1     | > term    | *Rxvt-unicode (with tmux/vim) |"
-  , "| 2     | > browser | *Firefox Nightly, Chromium    |"
-  , "| 3     | > mailer  | *Thunderbird                  |"
-  , "| 4     | > psmgr   | KeePassX                      |"
-  , "| 5     | > cashier | GnuCash                       |"
-  , "| 6     | > paint   | GIMP, Inkscape                |"
-  , "| 7     | > player  | VLC                           |"
-  , "| 8     | > strage  | Wuala                         |"
-  , "| 9     | > skype   | Skype                         |"
-  , "| 10    | > office  | LibreOffice                   |"
-  , "| 11~18 | > B~I     | (None)                        |"
-  , "\\---------------------------------------------------/"
+  , "| Num   | ID        | Program                            |"
+  , "|-------+-----------+------------------------------------|"
+  , "| 1     | > term    | *Rxvt-unicode (with shell or vim)  |"
+  , "| 2     | > browser | *Firefox Nightly, Chromium         |"
+  , "| 3     | > mailer  | *Thunderbird                       |"
+  , "| 4     | > psmgr   | KeePassX                           |"
+  , "| 5     | > cashier | GnuCash                            |"
+  , "| 6     | > paint   | GIMP, Inkscape                     |"
+  , "| 7     | > player  | VLC                                |"
+  , "| 8     | > strage  | Wuala                              |"
+  , "| 9     | > skype   | Skype                              |"
+  , "| 10    | > office  | LibreOffice                        |"
+  , "| 11~18 | > B~I     | (None)                             |"
+  , "\\-------------------------------------------------------/"
   , "*) These programs start after staring up xmonad" ]
 
 {-
@@ -76,7 +76,6 @@ help = unlines
  -}
 
 -- Default application --
--- Double size font is IPAPGothic and starting with tmux
 myTerm            = "urxvt -e tmux"
 myEditor          = "urxvt -e vim"
 myWebBrowser      = "firefox-nightly"

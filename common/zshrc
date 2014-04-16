@@ -47,6 +47,9 @@ setopt magic_equal_subst
 # Use prompt subset
 setopt prompt_subst
 
+# Type correct command
+setopt correct
+
 # Notify as soon as possible when background jobs get change
 setopt notify
 
@@ -75,6 +78,7 @@ bindkey "^[[Z" reverse-menu-complete
 # Enable glob function
 setopt extended_glob
 
+zstyle ':completion:*:default' menu select
 
 #
 # History setting
@@ -104,4 +108,5 @@ PATH=$PATH:$HOME/wuala
 # Color setting
 autoload -U colors; colors
 
-PROMPT="%{${fg[cyan]}%}(%n#${fg[green]%}%~${fg[cyan]}%) %{${reset_color}%}"
+PROMPT="%{${fg[cyan]}%}(%n) %{${reset_color}%}"
+RPROMPT="[%d]"

@@ -69,6 +69,8 @@ set encoding=utf-8
 set fileencodings=utf-8,iso-2022-jp,euc-jp,ascii
 set fileformats=unix,mac,dos
 
+set t_Co=256
+
 "" Indent and tab
 execute 'set shiftwidth=' .g:current_tab_stops
 execute 'set tabstop=' .g:current_tab_stops
