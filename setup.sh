@@ -1,6 +1,6 @@
 #!/bin/sh
 
 #
-# Common setup.
+# Common setup
 #
 ln -s $HOME/.zsh.d/.zshenv $HOME/.zshenv
