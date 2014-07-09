@@ -1,8 +1,8 @@
 "
 " .vimrc - Vim configuration file
 "
-" @rev    G-0.5.4
-" @update 2014-1-21
+" @rev    G-0.6.0
+" @update 2014-7-9
 " @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
 "
 " Key bindings (Leader key is commma):
@@ -17,8 +17,8 @@
 "   Leader » w » t  Toggle tab type
 "   Leader » c      Toggle cursor highlighting
 "   Leader » d      Toggle NERDTRee
-"   Leader » n      Lanch NERDTree
-"   Leader » m      Lanch OverCommandLine
+"   Leader » n      Launch NERDTree
+"   Leader » m      Launch OverCommandLine
 "   Leader » o      Save
 "
 " [Insert mode]
@@ -48,7 +48,12 @@ function! s:initPlugins(conf)
 
   "" Load plugins
   for l:val in l:load
-    execute 'NeoBundle "' .l:val .'"'
+    if type(l:val) == type([])
+      execute 'NeoBundle "' .l:val[0] .'", ' string(l:val[1])
+    else
+      execute 'NeoBundle "' .l:val .'"'
+    endif
+    unlet l:val
   endfor
 endfunction
 
@@ -136,39 +141,42 @@ nnoremap <silent> <Leader>to :tabnew<CR>
 " Window and buffer settings
 "
 
+""
+" Convert to no expand tab and retab specific tabstops.
+" @param number tabstops
+"
 function! ConvertToNoExpandTab(tabstops)
   execute 'set noexpandtab | retab! ' .a:tabstops
 endfunction
 
+""
+" Convert to expand tab and retab specific tabstops.
+" @param number tabstops
+"
 function! ConvertToExpandTab(tabstops)
   execute 'set expandtab | retab! ' .a:tabstops
 endfunction
 
-function! ConvertTabsByBufreadpost()
-  if g:current_tab_type == 'soft'
-    call ConvertToNoExpandTab(g:current_tab_stops)
-  endif
-endfunction
-
-function! ConvertTabsByBufwritepre()
-  if g:current_tab_type == 'soft'
-    call ConvertToExpandTab(g:current_tab_stops)
-  endif
-endfunction
-
-function! ConvertTabsByBufwritepost()
-  if g:current_tab_type == 'soft'
-    call ConvertToNoExpandTab(g:current_tab_stops)
-  endif
-endfunction
-
+""
+" Toggle tab type.
+"
 function! ToggleTabType()
   if g:current_tab_type == 'soft'
     let g:current_tab_type = 'hard'
   else
     let g:current_tab_type = 'soft'
   endif
+  call ConvertToNoExpandTab(g:current_tab_stops)
+endfunction
 
+""
+" Modify tabstops
+" @param number tabstops
+"
+function! ModifyTabStops(tabstops)
+  let g:current_tab_stops = a:tabstops
+  execute 'set shiftwidth=' .g:current_tab_stops
+  execute 'set tabstop=' .g:current_tab_stops
   call ConvertToNoExpandTab(g:current_tab_stops)
 endfunction
 
@@ -185,13 +193,13 @@ set listchars=tab:┊\ ,trail:-,extends:<,precedes:<,eol:¬,nbsp:%
 highlight SpecialKey term=underline ctermfg=024 guifg=darkgray
 
 "" Convert spaces to tabs when reading file
-autocmd bufreadpost * call ConvertTabsByBufreadpost()
+autocmd bufreadpost * call ConvertToNoExpandTab(g:current_tab_stops)
 
 "" Convert tabs to spaces before writing file
-autocmd bufwritepre * call ConvertTabsByBufwritepre()
+autocmd bufwritepre * if g:current_tab_type == 'soft' | call ConvertToExpandTab(g:current_tab_stops) | endif
 
 "" Convert spaces to tabs after writing file (to show guides again)
-autocmd bufwritepost * call ConvertTabsByBufwritepost()
+autocmd bufwritepost * call ConvertToNoExpandTab(g:current_tab_stops)
 
 
 """""""""""""""""""""""""""""""""""
@@ -258,6 +266,14 @@ let g:indent_guides_enable_on_vim_startup=0
 
 
 """""""""""""""""""""""""""""""""""
+" Load local settings
+"
+if filereadable('local_setting.vim')
+  source local_setting.vim
+endif
+
+
+"""""""""""""""""""""""""""""""""""
 " NeoBundle settings
 "
 call s:addRuntimePath('~/.vim/bundle/neobundle.vim/')
@@ -271,7 +287,9 @@ call s:initPlugins({
   \   'Shougo/neocomplcache',
   \   'scrooloose/nerdtree',
   \   'osyo-manga/vim-over',
-  \   'nathanaelkane/vim-indent-guides'
+  \   'nathanaelkane/vim-indent-guides',
+  \   'alpaca-tc/alpaca_powertabline',
+  \   ['Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}]
   \ ]
   \})
 
