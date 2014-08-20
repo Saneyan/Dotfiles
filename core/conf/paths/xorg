@@ -1,0 +1,7 @@
+# <As staff(0) or root(1)> <Type> <Path>
+def \
+  "1 x        '/etc/X11/xorg.conf'"\
+  "0 x.init   '${HOME}/.xinitrc'"\
+  "0 x.exec   '${HOME}/.xorg.d/Xexec'"\
+  "0 x.def    '${HOME}/.xorg.d/Xdefaults'"\
+  "0 x.res    '${HOME}/.xorg.d/Xresources'"

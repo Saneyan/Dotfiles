@@ -7,25 +7,20 @@
 
 # General commands
 alias b="exit"
-alias m="man"
-alias t="tmux"
 alias w="startx"
 alias s="sudo"
-alias p="pwd"
 alias pg="ps aux | grep"
+alias pn="ping -c 3 8.8.8.8"
 
 # Editors
 alias -g e="$EDITOR"
 
-# Interpreters
-alias js="node"
-alias py="python"
-alias py2="python2"
-alias rb="ruby"
-
 # kill
 alias -g k="kill"
 alias -g k9="kill -9"
+
+# cd
+alias -g cd="cd; ls"
 
 # ls
 alias -g l="ls -l"
@@ -38,34 +33,49 @@ alias -g cpr="cp -rfv"
 # mv
 alias -g mv="mv -v"
 
-# Applications
-# /usr/bin/firefox-nightly -> /opt/firefox-nightly/firefox
-#alias xt="xterm -fd IPAPGothic -fw IPAPGothic -e tmux &>/dev/null &"
-alias fxs="firefox-nightly -safe-mode &>/dev/null &"
-alias cri="chromium --incognito &>/dev/null &"
-alias is="ibus-setup &>/dev/null &"
-
-# Xmonad
-alias xc="ghc --make\
-  ~/.xmonad/xmonad.hs\
-  ~/.xmonad/Configs/Private.hs\
-  -o ~/.xmonad/xmonad-`uname -m`-linux"
-
 # System
 alias sr="sudo reboot"
 alias sd="sudo shutdown -Ph now"
-
-# NPM
-alias ni="sudo npm install -g"
-alias nu="sudo npm update -g"
-alias nr="sudo npm remove -g"
-alias nli="npm install"
-alias nlu="npm update"
-alias nll="npm link"
-alias nlr="npm remove"
 
 # Viewers with a pipe (upper case letter)
 alias -g L="| less"
 alias -g T="| tail"
 alias -g H="| head"
 alias -g G="| grep"
+
+# NPM
+if dmgr has "npm"; then
+  alias ni="sudo npm install -g"
+  alias nu="sudo npm update -g"
+  alias nr="sudo npm remove -g"
+fi
+
+# DUB
+if dmgr has "dub"; then
+  alias dt="dub test"
+fi
+
+# Applications
+if dmgr has "desktop"; then
+  # /usr/bin/firefox-nightly -> /opt/firefox-nightly/firefox
+  alias xt="xterm -fd IPAPGothic -fw IPAPGothic -e tmux &>/dev/null &"
+  alias fxs="firefox-nightly -safe-mode &>/dev/null &"
+  alias cri="chromium --incognito &>/dev/null &"
+  alias is="ibus-setup &>/dev/null &"
+fi
+
+# Package management system (Pacman)
+if dmgr has "arch"; then
+  IGNORES="xorg-server,xorg-server-common,xf86-input-evdev,xf86-video-vmware,xorg-xrandr"
+  alias pi="yaourt -S --noconfirm"
+  alias pu="yaourt -Syu --noconfirm --ignore ${IGNORES}"
+  alias pr="yaourt -Rs"
+fi
+
+# Package management system (Portage)
+if dmgr has "gentoo"; then
+  alias pi="sudo emerge -av"
+  alias pu="sudo emerge --sync && sudo emerge -avuDN world"
+  alias pc="sudo emerge --depclean"
+  alias pr="sudo emerge --unmerge"
+fi

@@ -188,8 +188,8 @@ main = do
     , XMonad.manageHook         = myManageHook
     , XMonad.logHook            = myLogHook xmproc
     , XMonad.startupHook        = myStartupHook
-    , XMonad.borderWidth        = 2
-    , XMonad.normalBorderColor  = "#52799e"
-    , XMonad.focusedBorderColor = "#a0bc61"
+    , XMonad.borderWidth        = 5
+    , XMonad.normalBorderColor  = "#9c2c17"
+    , XMonad.focusedBorderColor = "#1e5ad7"
     , XMonad.focusFollowsMouse  = False }
     `additionalKeys` myAdditionalKeys

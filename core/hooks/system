@@ -1,0 +1,21 @@
+function enable() {
+  # Emacs
+  ln -sv $DMGR_REPODIR/common/emacs.d $HOME/.emacs.d
+
+  # Vim
+  ln -sv $DMGR_REPODIR/common/vim $HOME/.vim
+  ln -sv $HOME/.vim/vimrc $HOME/.vimrc
+  mkdir -pv $HOME/.vim/bundle
+  git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
+
+  ln -sv $DMGR_REPODIR/common/zsh.d $HOME/.zsh.d
+  ln -sv $HOME/.zsh.d/.zshenv $HOME/.zshenv
+  ln -sv $DMGR_REPODIR/common/tmux.conf $HOME/.tmux.conf
+
+  echo " * Startup or restart ZSH now."
+  echo " * Don't forget to set your SSH keys and config."
+}
+
+function disable() {
+  rm -v $HOME/{.emacs.d,.vim,.vimrc,.zsh.d,.zshenv,.tmux.conf}
+}

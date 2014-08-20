@@ -1,0 +1,237 @@
+#!/usr/bin/env zsh
+#
+# The dotfile manager (dmgr)
+#
+# Help build and manage your best *nix environment :)
+#
+# @rev    0.2.0
+# @update 2014-08-20
+# @author TADOKORO Saneyuki <saneyan@mail.gfunction.com>
+#
+
+DMGR_DIST=$(uname -r)
+DMGR_CONFDIR=$HOME/.dmgr/conf
+DMGR_FEATUREDIR=$HOME/.dmgr/features
+DMGR_PLUGINDIR=$HOME/.dmgr/plugins
+DMGR_HOOKDIR=$HOME/.dmgr/hooks
+DMGR_INUSE=$DMGR_CONFDIR/inuse.list
+DMGR_SUPPORT=$DMGR_CONFDIR/support.list
+
+# Load dotfile path.
+source $DMGR_CONFDIR/paths/_repo
+
+#
+# Parse feature list to array format of shellscript.
+# @param $1 The list file path.
+#
+function _parse() {
+  echo $(cat $1) | tr -s ',' ' '
+}
+
+#
+# Parse array to feature list and save it.
+# @param $1 The list file path.
+# @param $2... An array containing feature names.
+#
+function _save() {
+  echo ${@:2} | tr -s ' ' ',' > $1
+}
+
+#
+# Get file paths with specific pattern.
+# @param $1 Directory.
+# @param $2 Pattern.
+#
+function _get() {
+  find $1 | grep -E $2 2>/dev/null
+}
+
+#
+# Define config paths.
+# @param $1... Config paths.
+#
+function def() {
+  DMGR_CONFPATH=(${@:1} $DMGR_CONFPATH)
+}
+
+#
+# Check if dmgr uses specific feature.
+# @param $1 Feature name.
+#
+function dmgr_has() {
+  [[ ${$(_parse $DMGR_INUSE)[(r)$1]} == ${1} ]] && exit 0
+  exit 1
+}
+
+#
+# Check if dmgr supports specific feature.
+# @param $1 Feature name.
+#
+function dmgr_deals() {
+  [[ ${$(_parse $DMGR_SUPPORT)[(r)$1]} == ${1} ]] && exit 0
+  exit 1
+}
+
+#
+# Show help message.
+#
+function dmgr_help() {
+  exit 0
+}
+
+#
+# Support a new feature.
+# @param $1 Feature name.
+#
+function dmgr_support() {
+  if $(dmgr_deals $1); then
+    echo "${1} has already been supported."
+    exit 1
+  fi
+
+  _save $DMGR_SUPPORT $(_parse $DMGR_SUPPORT) $1
+  echo "${1} has been supported."
+  exit 0
+}
+
+#
+# Remove a feature from support list.
+# @param $1 Feature name.
+#
+function dmgr_unsupport() {
+  if ! $(dmgr_deals $1); then
+    echo "${1} has not already been supported."
+    exit 1
+  fi
+
+  _save $DMGR_SUPPORT ${$(_parse $DMGR_SUPPORT)[@]/($1)}
+  echo "${1} has not been supported."
+  exit 0
+}
+
+#
+# Enable a feature. The feature must be supported by dmgr.
+# @param $1 Feature name.
+#
+function dmgr_enable() {
+  if ! $(dmgr_deals $1); then
+    echo "${1} is not supported. To support this feature, use 'dmgr support <feature_name>'"
+    exit 1
+  fi
+
+  if $(dmgr_has $1); then
+    echo "${1} has already been enabled."
+    exit 1
+  fi
+
+  # Load and call a hook callback.
+  if [ -e $DMGR_HOOKDIR/$1 ]; then
+    source $DMGR_HOOKDIR/$1; enable
+  fi
+
+  _save $DMGR_INUSE $(_parse $DMGR_INUSE) $1
+  echo "${1} has been enabled."
+  exit 0
+}
+
+#
+# Disable a feature. The feature must be supported by dmgr.
+# @param $1 Feature name.
+#
+function dmgr_disable() {
+  if ! $(dmgr_deals $1); then
+    echo "${1} is not supported. To support this feature, use 'dmgr support <feature_name>'"
+    exit 1
+  fi
+
+  if ! $(dmgr_has $1); then
+    echo "${1} has already been disabled."
+    exit 1
+  fi
+
+  # Load and call a hook callback.
+  if [ -e $DMGR_HOOKDIR/$1 ]; then
+    source $DMGR_HOOKDIR/$1; disable
+  fi
+
+  _save $DMGR_INUSE ${$(_parse $DMGR_INUSE)[@]/($1)}
+  echo "${1} has been disabled."
+  exit 0
+}
+
+#
+# Show feature list.
+#
+function dmgr_list() {
+  declare -a inuse support enabled
+  local e=
+
+  inuse=($(_parse $DMGR_INUSE))
+  support=($(_parse $DMGR_SUPPORT))
+  enabled=($(echo ${inuse[@]}; echo ${support[@]} | sed 's/\s/\n/g' | sort | uniq -d))
+
+  echo "Description: * enabled, - disabled"
+
+  for e in $enabled; do echo " * ${e}"; done
+  for e in $(eval "echo \${support[@]/($(echo $enabled | tr -s ' ' '|'))/}"); do
+    echo " - ${e}";
+  done
+
+  exit 0
+}
+
+#
+# Edit a config file.
+# @param $1 Config ID.
+#
+function dmgr_edit() {
+  local e= item= config= CONF= SUDO=0
+  local desc="As staff (0) or root (1)\tType\tPath"
+
+  for e in $(_parse $DMGR_INUSE); do
+    [ -e $DMGR_CONFDIR/paths/$e ] && source $DMGR_CONFDIR/paths/$e
+  done
+
+  for item in $DMGR_CONFPATH
+  do
+    config=($(echo ${item}))
+    if [ "${config[2]}" = "${1}" ]; then
+      CONF=$config[3]; SUDO=$config[1]
+      break
+    fi
+  done
+
+  if [ "${CONF}" != "" ]; then
+    if [ $SUDO -eq 1 ]; then
+      eval "sudo ${EDITOR} ${CONF}"
+    else
+      eval "${EDITOR} ${CONF}"
+    fi
+    exit 0
+  else
+    echo -e "Invalid argument value '${1}'\n"
+    echo -e $desc
+
+    for item in ${DMGR_CONFPATH}
+    do
+      config=($(echo ${item}))
+      echo -e "${config[1]}\t${config[2]}\t${config[3]}"
+    done
+    exit 1
+  fi
+}
+
+case $1 in
+  "has")        dmgr_has $2 ;;
+  "deals")      dmgr_deals $2 ;;
+  "support")    dmgr_support $2 ;;
+  "unsupport")  dmgr_unsupport $2 ;;
+  "edit")       dmgr_edit $2 ;;
+  "enable")     dmgr_enable $2 ;;
+  "disable")    dmgr_disable $2 ;;
+  "list")       dmgr_list ;;
+  "help")       dmgr_help ;;
+esac
+
+echo "Type 'dmgr help' for more help."
+exit 1

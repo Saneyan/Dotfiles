@@ -1,3 +1,0 @@
-function xorg_begin_session() {
-  exec dbus-launch startxfce4
-}

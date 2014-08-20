@@ -1,4 +1,13 @@
 backup/
 common/zsh.d/.zcompdump
 common/xmonad/Configs/Private.hs
+common/xmonad/*
+!common/xmonad/xfce4.xmonad.hs
+!common/xmonad/xmonad.xmonad.hs
 common/.gitignore
+common/vim/*
+!common/vim/vimrc
+core/conf/paths/_repo
+core/conf/inuse.list
+core/plugins/*
+!core/plugins/.gitkeep

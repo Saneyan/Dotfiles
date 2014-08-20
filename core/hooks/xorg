@@ -1,0 +1,9 @@
+function enable() {
+  ln -sv $DMGR_REPODIR/common/xorg.d $HOME/.xorg.d
+  ln -sv $HOME/.xorg.d/xsession $HOME/.xsession
+  ln -sv $HOME/.xorg.d/xsession $HOME/.xinitrc
+}
+
+function disable() {
+  rm -v $HOME/{.xorg.d,.xsession,.xinitrc}
+}

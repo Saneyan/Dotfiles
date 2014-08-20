@@ -1,0 +1,5 @@
+# <As staff(0) or root(1)> <Type> <Path>
+def \
+  "0 xm       '${HOME}/.xmonad/xmonad.hs'"\
+  "0 xm.bar   '${HOME}/.xmonad/xmobarrc.hs'"\
+  "0 xm.conf  '${HOME}/.xmonad/Configs/Private.hs'"

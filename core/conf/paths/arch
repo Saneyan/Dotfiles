@@ -1,0 +1,3 @@
+# <As staff(0) or root(1)> <Type> <Path>
+def \
+  "1 p.conf '/etc/pacman.conf'"

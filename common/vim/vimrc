@@ -29,14 +29,20 @@
 " Local functions
 "
 
-"" Add runtime path
+""
+" Add runtime path
+" @param string path
+"
 function! s:addRuntimePath(path)
   if has('vim_starting')
     execute 'set runtimepath+=' .a:path
   endif
 endfunction
 
-"" Load and fetch plugins for NeoBundle
+""
+" Load and fetch plugins for NeoBundle
+" @param array conf
+"
 function! s:initPlugins(conf)
   let l:fetch = get(a:conf, 'fetch', [])
   let l:load = get(a:conf, 'load', [])

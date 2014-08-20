@@ -1,5 +1,6 @@
-GFUNCTION_CONF_DIR_EXT=(\
+# <As staff(0) or root(1)> <Type> <Path>
+def \
   "p.use '/etc/portage/package.use' 1"\
   "p.kwd '/etc/portage/package.accept_keywords' 1"\
   "p.lic '/etc/portage/package.license' 1"\
-  "p.conf '/etc/portage/make.conf' 1")
+  "p.conf '/etc/portage/make.conf' 1"

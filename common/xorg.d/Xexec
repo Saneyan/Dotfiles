@@ -8,12 +8,21 @@ urxvtd --quiet --opendisplay --fork
 xsetroot -cursor_name left_ptr
 
 # Apply X settings
-xcompmgr -c &
+#xcompmgr -c &
 xautolock -time 10 -locker slimlock &
-unclutter -idle 1s &
+#unclutter -idle 1s &
 
-# Lanch nm-applet
+# Launch nm-applet
 nm-applet &
 
 # Set desktop background
 [ -e ~/Pictures/bg.png ] && feh --bg-scale ~/Pictures/bg.png
+
+function xorg_begin_session()
+{
+  if dmgr has "xfce4"; then
+    exec dbus-launch startxfce4
+  elif dmgr has "xmonad"; then
+    exec xmonad
+  fi
+}

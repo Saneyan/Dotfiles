@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+XM=$HOME/.xmonad
+BIN="xmonad-`uname -m`-linux"
+
+if [ ! -e $XM/xmonad.hs ]; then
+  echo "No main file found. Aborted."
+  exit 1
+fi
+
+if [ ! -e $XM/Configs/Private.hs ]; then
+  if [ -e $XM/Configs/Private.sample.hs ]; then
+    echo "No private configuration module found. Copying the sample code."
+    cp $XM/Configs/Private.sample.hs $XM/Config/Private.hs
+  else
+    echo "The private configuration module and sample code is not found. Creating empty module."
+    touch $XM/Configs/Private.hs
+  fi
+fi
+
+ghc --make\
+  $XM/xmonad.hs\
+  $XM/Configs/Private.hs\
+  -o $XM/$BIN

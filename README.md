@@ -2,4 +2,4 @@
 
 **Dotfiles**
 
-## Xmonad
+dmgr-based high extensibility dotfiles.

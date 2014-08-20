@@ -50,7 +50,7 @@ URxvt*color14: #586e75
 URxvt*color7:  #073642
 URxvt*color15: #002b36
 
-URxvt*fading:                 40
+URxvt*fading:                 5
 URxvt*fadeColor:              #fdf6e3
 URxvt*background:             #fdf6e3
 URxvt*foreground:             #657b83
@@ -61,8 +61,10 @@ URxvt*pointerColorForeground: #586e75
 !!
 !! Fonts
 !!
-URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=11:antialias=true,
-            xft:IPAPGothic:pxelsize=11:antialias=true
+!!URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=11:antialias=true,
+!!            xft:IPAPGothic:pxelsize=11:antialias=true
+URxvt.font: xft:Inconsolata for Powerline:pixelsize=13:antialias=true,
+            xft:Ubuntu-R:pixelsize=13:antialias=true
 
 !!
 !! Additional keys
@@ -77,11 +79,21 @@ URxvt.perl-ext-common: default,clipboard
 URxvt*scrollBar: false
 
 !!
+!! Transparency
+!!
+!! For native transparency
+URxvt*transparent        true
+URxvt*shading: 20
+
+!! For true transparency
+URxvt.depth: 32
+URxvt.background: rgba:1111/1111/1111/ffff
+
+!!
 !! Other settings
 !!
 URxvt*saveLines:         10000
 URxvt*selectToClipboard: true
 URxvt*loginShell:        true
 URxvt*backarrowKey:      false
-URxvt*shading: 20
-URxvt*inheritPixmap: True
+URxvt*inheritPixmap:     True

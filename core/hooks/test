@@ -1,0 +1,7 @@
+function enable() {
+  echo "Hook test: enable"
+}
+
+function disable() {
+  echo "Hook test: disable"
+}

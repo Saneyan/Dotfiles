@@ -1,0 +1,17 @@
+function enable() {
+  ln -sv $DMGR_REPODIR/common/xmonad $HOME/.xmonad
+
+  if dmgr has "xfce4"; then
+    ln -sv $HOME/.xmonad/xfce4.xmonad.hs $HOME/.xmonad/xmonad.hs
+  else
+    ln -sv $HOME/.xmonad/xmonad.xmonad.hs $HOME/.xmonad/xmonad.hs
+  
+  fi
+
+  $HOME/bin/update-xmonad
+}
+
+function disable() {
+  rm -v $HOME/.xmonad/xmonad.{errors,hi,hs,o} $HOME/.xmonad/xmonad-`uname -m`-linux
+  rm -v $HOME/.xmonad
+}

@@ -1,0 +1,15 @@
+function enable() {
+  if dmgr has "xmonad"; then
+    rm -v $HOME/.xmonad/xmonad.{hs,o}
+    ln -sv $HOME/.xmonad/xfce4.xmonad.hs $HOME/.xmonad/xmonad.hs
+    $HOME/bin/update-xmonad
+  fi
+}
+
+function disable() {
+  if dmgr has "xmonad"; then
+    rm -v $HOME/.xmonad/xmonad.{hs,o}
+    ln -sv $HOME/.xmonad/xmonad.xmonad.hs $HOME/.xmonad/xmonad.hs
+    $HOME/bin/update-xmonad
+  fi
+}

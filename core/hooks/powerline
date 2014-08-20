@@ -1,0 +1,14 @@
+function enable() {
+  git clone https://github.com/Lokaltog/powerline $DMGR_PLUGINDIR/powerline
+  sudo pip install -e $DMGR_PLUGINDIR/powerline
+  mkdir -pv $HOME/.local/bin
+  ln -sv $DMGR_PLUGINDIR/powerline/scripts/powerline $HOME/.local/bin/powerline
+
+  echo " * See also: https://powerline.readthedocs.org/en/latest/installation.html"
+}
+
+function disable() {
+  pip uninstall $DMGR_PLUGINDIR/powerline
+  rm -v $HOME/.local/bin/powerline
+  rm -rfv $DMGR_PLUGINDIR/powerline
+}

@@ -1,34 +1,14 @@
+#!/usr/bin/env zsh
 #
 # .zshrc
 #
-# @rev    G-0.2.0
-# @update 2014-1-29
+# @rev    G-0.2.2
+# @update 2014-08-18
 # @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
-
-#
-# Import other settings
-#
-dmgr_ext="${HOME}/.dmgr/ext"
-zsh_home="${HOME}/.zsh.d"
-zsh_ext="zsh.d"
-
-zsh_configs=(\
-  "${zsh_home}/Zfunctions"\
-  "${zsh_home}/Zaliases"\
-  $(find $dmgr_ext | grep -E "${zsh_ext}/Zfunctions$" 2>/dev/null)\
-  $(find $dmgr_ext | grep -E "${zsh_ext}/Zaliases$" 2>/dev/null))
-
-for f in ${zsh_configs[@]}; do [ -e $f ] && source $f; done
 
 #
 # General settings
 #
-
-# Default editor
-export EDITOR="vim"
-
-# Character encoding
-export LANG=en_US.UTF-8
 
 # Bind key
 bindkey -v 
@@ -50,6 +30,9 @@ setopt magic_equal_subst
 
 # Use prompt subset
 setopt prompt_subst
+
+# Type correct command
+setopt correct
 
 # Notify as soon as possible when background jobs get change
 setopt notify
@@ -79,6 +62,7 @@ bindkey "^[[Z" reverse-menu-complete
 # Enable glob function
 setopt extended_glob
 
+zstyle ':completion:*:default' menu select
 
 #
 # History setting
@@ -93,14 +77,6 @@ HISTSAVING=10000
 # Saving history size (on memory)
 HISTSIZE=10000
 
-
-#
-# Path
-#
-PATH=$PATH:$HOME/bin
-PATH=$PATH:$HOME/.gem/ruby/2.0.0/bin
-PATH=$PATH:$HOME/wuala
-
 #
 # Colors and prompt
 #
@@ -108,4 +84,17 @@ PATH=$PATH:$HOME/wuala
 # Color setting
 autoload -U colors; colors
 
-PROMPT="%{${fg[cyan]}%}(%n#${fg[green]%}%~${fg[cyan]}%) %{${reset_color}%}"
+PROMPT="%{${fg[cyan]}%}(%n) %{${reset_color}%}"
+RPROMPT="[%d]"
+
+#
+# Import other settings
+#
+paths=($ZDOTDIR/Zaliases)
+
+# Powerline
+if dmgr has "powerline"; then
+  paths=($HOME/.dmgr/plugins/powerline/powerline/bindings/zsh/powerline.zsh $paths)
+fi
+
+for i in $paths; do [ -e $i ] && source $i; done
