@@ -9,8 +9,6 @@
 #
 # Common environments
 #
-unset SSH_ASKPASS
-
 # ZSH directory
 export ZDOTDIR="$HOME/.zsh.d"
 

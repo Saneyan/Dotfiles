@@ -6,6 +6,8 @@
 # @update 2014-08-19
 # @author TADOKORO Saneyuki <saneyan@mail.gfunction.com>
 
+unset SSH_ASKPASS
+
 # Default editor
 export EDITOR="vim"
 
