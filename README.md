@@ -27,8 +27,10 @@ dmgr enable <feature_name>
 ## About dmgr
 
 dmgr (stands for Dotfile manager) makes extensible \*nix environment.
+This system provides 13 optional features, and enables or disables them depending upon the situation.
 For example, to enable some optional features for desktop environment, you can build this environment easily.
-dmgr also supports disable control because the user may want to disable features depending upon the situation.
+
+dmgr also supports file registry that the user can access without knowing file path.
 
 ### Optional features
 
@@ -48,7 +50,7 @@ dmgr also supports disable control because the user may want to disable features
 
 ### Hooks
 
-dmgr supports enable and disable hooks. These hook functions are called when executing the command.
+dmgr supports enable and disable hooks. These hook functions are called when executing enable or disable command.
 
 ### Usage
 
