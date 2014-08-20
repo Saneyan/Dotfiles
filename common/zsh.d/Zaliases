@@ -19,9 +19,6 @@ alias -g e="$EDITOR"
 alias -g k="kill"
 alias -g k9="kill -9"
 
-# cd
-alias -g cd="cd; ls"
-
 # ls
 alias -g l="ls -l"
 alias -g la="ls -lA"
