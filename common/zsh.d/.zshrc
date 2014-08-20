@@ -92,6 +92,10 @@ RPROMPT="[%d]"
 #
 paths=($ZDOTDIR/Zaliases)
 
+for i in $(find $ZDOTDIR/ | grep -E "Zaliases\." 2>/dev/null | sed "s/.*Zaliases\.//g"); do
+  dmgr has $i && paths=($ZDOTDIR/Zaliases.$i $paths)
+done
+
 # Powerline
 if dmgr has "powerline"; then
   paths=($HOME/.dmgr/plugins/powerline/powerline/bindings/zsh/powerline.zsh $paths)

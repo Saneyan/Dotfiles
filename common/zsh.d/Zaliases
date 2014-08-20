@@ -20,8 +20,8 @@ alias -g k="kill"
 alias -g k9="kill -9"
 
 # ls
-alias -g l="ls -l"
-alias -g la="ls -lA"
+alias -g l="ls -l --color=auto"
+alias -g la="ls -lA --color=auto"
 
 # cp
 alias -g cp="cp -fv"
@@ -31,48 +31,11 @@ alias -g cpr="cp -rfv"
 alias -g mv="mv -v"
 
 # System
-alias sr="sudo reboot"
-alias sd="sudo shutdown -Ph now"
+alias reb="sudo reboot"
+alias shu="sudo shutdown -Ph now"
 
 # Viewers with a pipe (upper case letter)
 alias -g L="| less"
 alias -g T="| tail"
 alias -g H="| head"
 alias -g G="| grep"
-
-# NPM
-if dmgr has "npm"; then
-  alias ni="sudo npm install -g"
-  alias nu="sudo npm update -g"
-  alias nr="sudo npm remove -g"
-fi
-
-# DUB
-if dmgr has "dub"; then
-  alias dt="dub test"
-fi
-
-# Applications
-if dmgr has "desktop"; then
-  # /usr/bin/firefox-nightly -> /opt/firefox-nightly/firefox
-  alias xt="xterm -fd IPAPGothic -fw IPAPGothic -e tmux &>/dev/null &"
-  alias fxs="firefox-nightly -safe-mode &>/dev/null &"
-  alias cri="chromium --incognito &>/dev/null &"
-  alias is="ibus-setup &>/dev/null &"
-fi
-
-# Package management system (Pacman)
-if dmgr has "arch"; then
-  IGNORES="xorg-server,xorg-server-common,xf86-input-evdev,xf86-video-vmware,xorg-xrandr"
-  alias pi="yaourt -S --noconfirm"
-  alias pu="yaourt -Syu --noconfirm --ignore ${IGNORES}"
-  alias pr="yaourt -Rs"
-fi
-
-# Package management system (Portage)
-if dmgr has "gentoo"; then
-  alias pi="sudo emerge -av"
-  alias pu="sudo emerge --sync && sudo emerge -avuDN world"
-  alias pc="sudo emerge --depclean"
-  alias pr="sudo emerge --unmerge"
-fi
