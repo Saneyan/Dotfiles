@@ -1,9 +1,13 @@
 function enable() {
+  # Link local xorg setting files.
   ln -sv $DMGR_REPODIR/common/xorg.d $HOME/.xorg.d
   ln -sv $HOME/.xorg.d/xsession $HOME/.xsession
   ln -sv $HOME/.xorg.d/xsession $HOME/.xinitrc
+
+  # Link gvimrc
+  ln -sv $DMGR_REPODIR/common/vim/gvimrc $HOME/.gvimrc
 }
 
 function disable() {
-  rm -v $HOME/{.xorg.d,.xsession,.xinitrc}
+  rm -v $HOME/{.xorg.d,.xsession,.xinitrc,.gvimrc}
 }

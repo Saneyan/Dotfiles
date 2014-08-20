@@ -11,11 +11,12 @@ function enable() {
   ln -sv $DMGR_REPODIR/common/zsh.d $HOME/.zsh.d
   ln -sv $HOME/.zsh.d/.zshenv $HOME/.zshenv
   ln -sv $DMGR_REPODIR/common/tmux.conf $HOME/.tmux.conf
+  ln -sv $DMGR_REPODIR/common/gitignore $HOME/.gitignore
 
   echo " * Startup or restart ZSH now."
   echo " * Don't forget to set your SSH keys and config."
 }
 
 function disable() {
-  rm -v $HOME/{.emacs.d,.vim,.vimrc,.zsh.d,.zshenv,.tmux.conf}
+  rm -v $HOME/{.emacs.d,.vim,.vimrc,.zsh.d,.zshenv,.tmux.conf,.gitignore}
 }

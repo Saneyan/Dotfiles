@@ -1,0 +1,24 @@
+call AddRuntimePath('~/.vim/bundle/neobundle.vim/')
+call neobundle#rc(expand('~/.vim/bundle/'))
+call InitPlugins({
+  \ 'fetch': [
+  \   'Shougo/neobundle.vim'
+  \ ],
+  \ 'load': [
+  \   'Shougo/neocomplcache',
+  \   'scrooloose/nerdtree',
+  \   'osyo-manga/vim-over',
+  \   'nathanaelkane/vim-indent-guides',
+  \ ]
+  \})
+
+let a=system('$HOME/bin/dmgr has "powerline" && echo -n "powerline"')
+
+if a == "powerline"
+  call InitPlugins({
+  \ 'load': [
+  \   'alpaca-tc/alpaca_powertabline',
+  \   ['Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}]
+  \ ]
+  \})
+endif

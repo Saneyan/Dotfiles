@@ -24,280 +24,32 @@
 " [Insert mode]
 "
 
-
-"""""""""""""""""""""""""""""""""""
 " Local functions
-"
+source $HOME/.vim/vimrc.functions
 
-""
-" Add runtime path
-" @param string path
-"
-function! s:addRuntimePath(path)
-  if has('vim_starting')
-    execute 'set runtimepath+=' .a:path
-  endif
-endfunction
-
-""
-" Load and fetch plugins for NeoBundle
-" @param array conf
-"
-function! s:initPlugins(conf)
-  let l:fetch = get(a:conf, 'fetch', [])
-  let l:load = get(a:conf, 'load', [])
-
-  "" Fetch plugins
-  for l:val in l:fetch
-    execute 'NeoBundleFetch "' .l:val .'"'
-  endfor
-
-  "" Load plugins
-  for l:val in l:load
-    if type(l:val) == type([])
-      execute 'NeoBundle "' .l:val[0] .'", ' string(l:val[1])
-    else
-      execute 'NeoBundle "' .l:val .'"'
-    endif
-    unlet l:val
-  endfor
-endfunction
-
-
-"""""""""""""""""""""""""""""""""""
 " General settings
-"
+source $HOME/.vim/vimrc.general
 
-"" Tab stops
-let g:current_tab_stops = 2
-let g:current_tab_type = 'soft'
+" Key mapping
+source $HOME/.vim/vimrc.mapping
 
-"" Change leader key
-let mapleader = ","
+" Tab type
+source $HOME/.vim/vimrc.tab-type
 
-"" File encodings
-set encoding=utf-8
-set fileencodings=utf-8,iso-2022-jp,euc-jp,ascii
-set fileformats=unix,mac,dos
-
-set t_Co=256
-
-"" Indent and tab
-execute 'set shiftwidth=' .g:current_tab_stops
-execute 'set tabstop=' .g:current_tab_stops
-set expandtab
-set nowrap
-set autoindent
-set smartindent
-set smarttab
-
-"" Show line numbers and set the width
-set number
-set numberwidth=5
-
-"" Show vim title for a window
-set title
-"set titlestring=HELLOWORLD
-
-"" Show command in status line
-set showcmd
-
-"" Do not create backup and swap files
-set noswapfile
-set nobackup
-
-"" Enable incremental search
-set incsearch
-
-"" Set command line height
-set cmdheight=1
-
-"" Incompatible with Vi
-set nocompatible
-
-"" Enable cursor highlighting
-set cursorline
-set cursorcolumn
-
-
-"""""""""""""""""""""""""""""""""""
-" General settings for GVim
-"
-
-"" Specify a font and set its size for GVim
-set guifont=Monospace\ 8
-
-
-"""""""""""""""""""""""""""""""""""
-" Color scheme
-"
-colorscheme desert
-syntax on
-
-
-"""""""""""""""""""""""""""""""""""
-" Tab settings
-"
-nnoremap <silent> <Leader>tn :tabnext<CR>
-nnoremap <silent> <Leader>tp :tabprevious<CR>
-nnoremap <silent> <Leader>to :tabnew<CR>
-
-
-"""""""""""""""""""""""""""""""""""
-" Window and buffer settings
-"
-
-""
-" Convert to no expand tab and retab specific tabstops.
-" @param number tabstops
-"
-function! ConvertToNoExpandTab(tabstops)
-  execute 'set noexpandtab | retab! ' .a:tabstops
-endfunction
-
-""
-" Convert to expand tab and retab specific tabstops.
-" @param number tabstops
-"
-function! ConvertToExpandTab(tabstops)
-  execute 'set expandtab | retab! ' .a:tabstops
-endfunction
-
-""
-" Toggle tab type.
-"
-function! ToggleTabType()
-  if g:current_tab_type == 'soft'
-    let g:current_tab_type = 'hard'
-  else
-    let g:current_tab_type = 'soft'
-  endif
-  call ConvertToNoExpandTab(g:current_tab_stops)
-endfunction
-
-""
-" Modify tabstops
-" @param number tabstops
-"
-function! ModifyTabStops(tabstops)
-  let g:current_tab_stops = a:tabstops
-  execute 'set shiftwidth=' .g:current_tab_stops
-  execute 'set tabstop=' .g:current_tab_stops
-  call ConvertToNoExpandTab(g:current_tab_stops)
-endfunction
-
-nnoremap <silent> <Leader>wv :vsp<CR>
-nnoremap <silent> <Leader>wh :sp<CR>
-nnoremap <silent> <Leader>wq :q<CR>
-nnoremap <silent> <Leader>wt :call ToggleTabType()<CR>
-
-" Set list characters
-set list
-set listchars=tab:┊\ ,trail:-,extends:<,precedes:<,eol:¬,nbsp:%
-
-"" Colorize special keys
-highlight SpecialKey term=underline ctermfg=024 guifg=darkgray
-
-"" Convert spaces to tabs when reading file
-autocmd bufreadpost * call ConvertToNoExpandTab(g:current_tab_stops)
-
-"" Convert tabs to spaces before writing file
-autocmd bufwritepre * if g:current_tab_type == 'soft' | call ConvertToExpandTab(g:current_tab_stops) | endif
-
-"" Convert spaces to tabs after writing file (to show guides again)
-autocmd bufwritepost * call ConvertToNoExpandTab(g:current_tab_stops)
-
-
-"""""""""""""""""""""""""""""""""""
-" File control
-"
-nnoremap <silent> <Leader>o :w<CR>
-
-
-"""""""""""""""""""""""""""""""""""
 " Cursor settings
-"
-hi CursorLine cterm=NONE ctermbg=003 ctermfg=000 guibg=024 guifg=white
-hi CursorColumn cterm=NONE ctermbg=022 ctermfg=000 guibg=024 guifg=white
+source $HOME/.vim/vimrc.color
 
-augroup CursorLine
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  au WinLeave,BufWinLeave * setlocal nocursorline
-augroup END
-
-augroup CursorColumn
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
-  au WinLeave,BufWinLeave * setlocal nocursorcolumn
-augroup END
-
-"" Toggle cursor highlighting by using "\c"
-nnoremap <silent> <Leader>c :setlocal cursorline! cursorcolumn!<CR>
-
-
-"""""""""""""""""""""""""""""""""""
 " NERDTree settings
-"
+source $HOME/.vim/vimrc.nerdtree
 
-"" Start NERDTree when entering vim automatically
-au VimEnter * NERDTree
+" vim-indent-guides
+source $HOME/.vim/vimrc.vim-indent-guides
 
-"" Let NERDTree show hidden files
-let NERDTreeShowHidden=0
+" NeoComplcache settings
+source $HOME/.vim/vimrc.neocomplcache
 
-"" Toggle NERDTree
-nnoremap <silent> <Leader>d :NERDTreeToggle<CR>
-
-"" Lanch NERDTree
-nnoremap <silent> <Leader>n :NERDTree<CR>
-
-
-"""""""""""""""""""""""""""""""""""
-" Vim-over settings
-"
-nnoremap <silent> <Leader>m :OverCommandLine<CR>
-
-
-"""""""""""""""""""""""""""""""""""
-" Vim indent guides setting
-"
-
-"" For odd number of tabs
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#262626 ctermbg=255
-
-"" For even number of tabs
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=255
-
-"" Start vim-indent-guides automatically at startup
-let g:indent_guides_enable_on_vim_startup=0
-
-
-"""""""""""""""""""""""""""""""""""
-" Load local settings
-"
-if filereadable('local_setting.vim')
-  source local_setting.vim
-endif
-
-
-"""""""""""""""""""""""""""""""""""
 " NeoBundle settings
-"
-call s:addRuntimePath('~/.vim/bundle/neobundle.vim/')
-call neobundle#rc(expand('~/.vim/bundle/'))
-
-call s:initPlugins({
-  \ 'fetch': [
-  \   'Shougo/neobundle.vim'
-  \ ],
-  \ 'load': [
-  \   'Shougo/neocomplcache',
-  \   'scrooloose/nerdtree',
-  \   'osyo-manga/vim-over',
-  \   'nathanaelkane/vim-indent-guides',
-  \   'alpaca-tc/alpaca_powertabline',
-  \   ['Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}]
-  \ ]
-  \})
+source $HOME/.vim/vimrc.neobundle
 
 "" Let vim identify depending on a file type
 filetype plugin indent on
@@ -305,16 +57,7 @@ filetype plugin indent on
 "" Installation check
 NeoBundleCheck
 
-
-"""""""""""""""""""""""""""""""""""
-" NeoComplcache settings
-"
-
-"" Use NeoComplcache at startup
-let g:neocomplcache_enable_at_startup = 1
-
-"" Use smart case
-let g:neocomplcache_enable_smart_case = 1
-
-"" Set minimum syntax keyword length
-let g:neocomplcache_min_syntax_length = 5
+" Load local settings
+if filereadable('local_setting.vim')
+  source local_setting.vim
+endif
