@@ -154,7 +154,7 @@ function dmgr_disable() {
     source $DMGR_HOOKDIR/$1; disable
   fi
 
-  _save $DMGR_INUSE ${$(_parse $DMGR_INUSE)[@]/($1)}
+  _save $DMGR_INUSE ${$(_parse $DMGR_INUSE)[@]/#%($1)}
   echo "${1} has been disabled."
   exit 0
 }
@@ -173,7 +173,7 @@ function dmgr_list() {
   echo "Description: * enabled, - disabled"
 
   for e in $enabled; do echo " * ${e}"; done
-  for e in $(eval "echo \${support[@]/($(echo $enabled | tr -s ' ' '|'))/}"); do
+  for e in $(eval "echo \${support[@]/#%($(echo $enabled | tr -s ' ' '|'))/}"); do
     echo " - ${e}";
   done
 
@@ -208,17 +208,17 @@ function dmgr_edit() {
       eval "${EDITOR} ${CONF}"
     fi
     exit 0
-  else
-    echo -e "Invalid argument value '${1}'\n"
-    echo -e $desc
-
-    for item in ${DMGR_CONFPATH}
-    do
-      config=($(echo ${item}))
-      echo -e "${config[1]}\t${config[2]}\t${config[3]}"
-    done
-    exit 1
   fi
+
+  echo -e "Invalid argument value '${1}'\n"
+  echo -e $desc
+
+  for item in ${DMGR_CONFPATH}
+  do
+    config=($(echo ${item}))
+    echo -e "${config[1]}\t${config[2]}\t${config[3]}"
+  done
+  exit 1
 }
 
 case $1 in
