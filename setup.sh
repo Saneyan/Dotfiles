@@ -3,7 +3,7 @@
 #
 # Common setup
 #
-dirname=$(dirname $_)
+dirname=$(cd $(dirname $0) && pwd)
 
 ln -sv $dirname/bin $HOME/bin
 ln -sv $dirname/core $HOME/.dmgr
