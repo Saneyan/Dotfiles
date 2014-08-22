@@ -84,7 +84,7 @@ HISTSIZE=10000
 # Color setting
 autoload -U colors; colors
 
-PROMPT="%{${fg[cyan]}%}(%n) %{${reset_color}%}"
+PROMPT="%{${fg[cyan]}%}[%n@%m] %{${reset_color}%}"
 RPROMPT="[%d]"
 
 #

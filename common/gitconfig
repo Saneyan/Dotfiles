@@ -1,0 +1,19 @@
+[core]
+editor = vim
+
+[user]
+name = "TADOKORO Saneyuki"
+email = "saneyan@mail.gfunction.com"
+
+[color]
+ui = auto
+
+[alias]
+a = add
+s = status
+aa = !git add -A && git status
+co = commit -m
+pu = push
+pl = pull
+me = merge
+ch = checkout

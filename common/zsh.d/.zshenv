@@ -12,4 +12,6 @@
 # ZSH directory
 export ZDOTDIR="$HOME/.zsh.d"
 
+[ "$DMGR_ZPROFILE_SIGNATURE" != "dzps" ] && source $ZDOTDIR/.zprofile
+
 [ ! -e $HOME/bin/dmgr ] && echo "Before using this environment, you must install dmgr to ~/bin/dmgr."

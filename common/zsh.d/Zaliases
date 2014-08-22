@@ -12,6 +12,9 @@ alias s="sudo"
 alias pg="ps aux | grep"
 alias pn="ping -c 3 8.8.8.8"
 
+# Git
+alias -g g="git"
+
 # Editors
 alias -g e="$EDITOR"
 

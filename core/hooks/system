@@ -12,6 +12,7 @@ function enable() {
   ln -sv $HOME/.zsh.d/.zshenv $HOME/.zshenv
   ln -sv $DMGR_REPODIR/common/tmux.conf $HOME/.tmux.conf
   ln -sv $DMGR_REPODIR/common/gitignore $HOME/.gitignore
+  ln -sv $DMGR_REPODIR/common/gitconfig $HOME/.gitconfig
 
   echo " * Startup or restart ZSH now."
   echo " * Don't forget to set your SSH keys and config."

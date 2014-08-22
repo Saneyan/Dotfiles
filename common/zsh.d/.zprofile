@@ -14,6 +14,9 @@ export EDITOR="vim"
 # Character encoding
 export LANG=en_US.UTF-8
 
+# .zprofile signature
+export DMGR_ZPROFILE_SIGNATURE="__dzps__"
+
 #
 # Path
 #
