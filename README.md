@@ -4,18 +4,17 @@
 
 ## Installation
 
-Requirements:
+### Requirements
 
  * ZSH
 
-Install:
+### Install
 
 Initialize dmgr setting and enable 'system' feature in setup.sh.
 
 ```
 git clone https://github.com/Saneyan/Dotfiles.git
-cd Dotfiles
-./setup.sh
+Dotfiles/setup.sh
 ```
 
 Enable dotfile features depending on your environment.
