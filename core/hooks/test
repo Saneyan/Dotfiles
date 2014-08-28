@@ -1,7 +1,17 @@
-function enable() {
-  echo "Hook test: enable"
-}
+[enable]
+ECHO -n "Hook test: "
+ECHO "enable"
+RUN uptime
+LINK @test
+LINK @test.option ~/.dmgr/test
 
-function disable() {
-  echo "Hook test: disable"
-}
+[disable]
+ECHO -n "Hook test: "
+ECHO "disable"
+RUN uptime
+UNLINK @test
+UNLINK @test.option
+
+[update]
+REARCH disable ECHO UNLINK
+REARCH enable ECHO LINK

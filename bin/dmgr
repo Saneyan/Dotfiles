@@ -4,7 +4,7 @@
 #
 # Help build and manage your best *nix environment :)
 #
-# @rev    0.2.0
+# @rev    0.9.0
 # @update 2014-08-20
 # @author TADOKORO Saneyuki <saneyan@mail.gfunction.com>
 #
@@ -45,6 +45,132 @@ function _save() {
 function _get() {
   find $1 | grep -E $2 2>/dev/null
 }
+
+#
+# Hook dot recipe.
+# @param $1 Executive mode.
+# @param $2... Commands which this function can call.
+#
+function _hook() {
+  local line= reg= args= ac= e=
+  local mode="null"
+
+  if [ $# -le 2 ]; then
+    echo "Too few arguments."
+    return 1
+  fi
+
+  for e in ${@:3}; do
+    ac=$ac$(echo $e |
+      sed "s/^ALL$/a/" |
+      sed "s/^ECHO$/e/" |
+      sed "s/^RUN$/r/" |
+      sed "s/^LINK$/l/" |
+      sed "s/^UNLINK$/u/" |
+      sed "s/^REARCH$/c/")
+  done
+
+  echo -e "\n\x1B[32mHook <${1}>: ${2}\x1B[0m"
+
+  cat $2 | while read line; do
+    if [[ $line =~ "\[[a-z]+\]" ]]; then
+      [ $line = "[$1]" ] && mode=$1 || mode="null"
+    elif [ $mode != "null" ]; then
+      if [[ $line =~ "^ECHO\s" ]]   && [[ $ac =~ "a|e" ]]; then
+        eval $(echo $line | sed "s/^ECHO/echo/")
+      elif [[ $line =~ "^RUN\s" ]]      && [[ $ac =~ "a|r" ]]; then
+        eval $(echo $line | sed "s/^RUN//")
+      elif [[ $line =~ "^REARCH\s" ]] && [[ $ac =~ "a|c" ]]; then
+        e=($(echo $line))
+        cmd="s,^REARCH ${e[2]} "${e:2}",_hook ${e[2]} ${2} "${e:2}","
+        eval $(echo $line | sed $cmd)
+      elif [[ $line =~ "^LINK\s" ]]   && [[ $ac =~ "a|l" ]]; then
+        eval $(echo $line | sed "s/^LINK/_link/")
+      elif [[ $line =~ "^UNLINK\s" ]] && [[ $ac =~ "a|u" ]]; then
+        eval $(echo $line | sed "s/^UNLINK/_unlink/")
+      fi
+    fi
+  done
+
+  return 0
+}
+
+#
+# Link symlinks.
+#
+function _link() {
+  local src= dst=
+  
+  if [ $# -le 2 ]; then
+    src=$(eval "echo $1" | sed "s,@,${DMGR_REPODIR}/common/,")
+    if [ $# -eq 2 ]; then
+      dst=$(eval "echo ${2}")
+    else
+      dst=$HOME/.$(echo $1 | sed "s/@//")
+    fi
+    ln -sv $src $dst
+  else
+    echo "Too many arguments."
+    return 1
+  fi
+
+  return 0
+}
+
+#
+# Unlink symlinks.
+# @param $1 Original file path.
+#
+function _unlink() {
+  declare -a lns tns
+  local e=
+
+  if [ $# -ge 2 ]; then
+    echo "Too many arguments."
+    return 1
+  fi
+
+  [ "${LISTS}" = "" ] && LISTS=$(find $HOME -ls)
+
+  lns=($(echo $LISTS |
+  grep -oE "/.*\s\->.*$" |
+  tr -s " \-> " "," |
+  grep -E $(echo $(eval "echo $1" | sed "s,@,${DMGR_REPODIR}/common/,") | sed "s,\.,\\\.,g") |
+  sed "s,\,.*,,g"))
+
+  for e in $lns; do rm -v $e; done
+
+  return 0
+}
+
+#
+# Report an error and exit with error status.
+# @param $1 An error message.
+#
+function _reperr() {
+  echo $1 && exit 1
+}
+
+#
+# Bold message font.
+# @param $1 Message.
+#
+function _fbold() {
+  echo -e "\033[0;1m${1}\033[0;0m"
+}
+
+#
+# Add debug prefix to message top.
+# #param $1 Message.
+#
+function _d() {
+  echo -e "\x1B[35mDEBUG\x1B[0m ${1}"
+}
+
+#
+# Colorize message font.
+# @param $1 Color.
+# @param $2 Message
 
 #
 # Define config paths.
@@ -114,20 +240,15 @@ function dmgr_unsupport() {
 # @param $1 Feature name.
 #
 function dmgr_enable() {
-  if ! $(dmgr_deals $1); then
-    echo "${1} is not supported. To support this feature, use 'dmgr support <feature_name>'"
-    exit 1
-  fi
+  ! $(dmgr_deals $1) &&
+    _reperr "${1} is not supported. To support this feature, use 'dmgr support <feature_name>'"
 
-  if $(dmgr_has $1); then
-    echo "${1} has already been enabled."
-    exit 1
-  fi
+  $(dmgr_has $1) &&
+    _reperr "${1} has already been enabled."
 
   # Load and call a hook callback.
-  if [ -e $DMGR_HOOKDIR/$1 ]; then
-    source $DMGR_HOOKDIR/$1; enable
-  fi
+  [ -e $DMGR_HOOKDIR/$1 ] && ! _hook enable $DMGR_HOOKDIR/$1 ALL &&
+    _reperr "Not successful. Aborted."
 
   _save $DMGR_INUSE $(_parse $DMGR_INUSE) $1
   echo "${1} has been enabled."
@@ -139,20 +260,15 @@ function dmgr_enable() {
 # @param $1 Feature name.
 #
 function dmgr_disable() {
-  if ! $(dmgr_deals $1); then
-    echo "${1} is not supported. To support this feature, use 'dmgr support <feature_name>'"
-    exit 1
-  fi
+  ! $(dmgr_deals $1) &&
+    _reperr "${1} is not supported. To support this feature, use 'dmgr support <feature_name>'"
 
-  if ! $(dmgr_has $1); then
-    echo "${1} has already been disabled."
-    exit 1
-  fi
+  ! $(dmgr_has $1) &&
+    _reperr "${1} has already been disabled."
 
   # Load and call a hook callback.
-  if [ -e $DMGR_HOOKDIR/$1 ]; then
-    source $DMGR_HOOKDIR/$1; disable
-  fi
+  [ -e $DMGR_HOOKDIR/$1 ] && ! _hook disable $DMGR_HOOKDIR/$1 ALL &&
+    _reperr "Not successful. Aborted."
 
   _save $DMGR_INUSE ${$(_parse $DMGR_INUSE)[@]/#%($1)}
   echo "${1} has been disabled."
@@ -176,6 +292,31 @@ function dmgr_list() {
   for e in $(eval "echo \${support[@]/#%($(echo $enabled | tr -s ' ' '|'))/}"); do
     echo " - ${e}";
   done
+
+  exit 0
+}
+
+#
+# Update system or features.
+#
+function dmgr_update() {
+  declare -a inuse
+  local e=
+
+  cd $DMGR_REPODIR
+
+  _fbold ":: Checking for updates..."
+  git pull origin master
+
+  _fbold "\n:: Updating dotfiles..."
+  inuse=($(_parse $DMGR_INUSE))
+
+  for e in $inuse; do
+    [ -f $DMGR_HOOKDIR/$e ] && ! _hook update $DMGR_HOOKDIR/$e ALL &&
+      _reperr "Not successful. Aborted."
+  done
+
+  echo -e "\nUpdated."
 
   exit 0
 }
@@ -221,6 +362,23 @@ function dmgr_edit() {
   exit 1
 }
 
+[[ "${0}" =~ "dmgr.debug$" ]] && DMGR_DEBUGMODE=true
+
+if [ $DMGR_DEBUGMODE ]; then
+  _fbold "dmgr v0.9.0 on DEBUG MODE\n"
+  _d '$0 (dmgr path): '$0
+  _d '$1 (dmgr command): '$1
+  _d '$2.. (options): '${@:2}
+  _d '$DMGR_DIST: '$DMGR_DIST
+  _d '$DMGR_CONFDIR: '$DMGR_CONFDIR
+  _d '$DMGR_FEATUREDIR: '$DMGR_FEATUREDIR
+  _d '$DMGR_PLUGINIDR: '$DMGR_PLUGINDIR
+  _d '$DMGR_HOOKDIR: '$DMGR_HOOKDIR
+  _d '$DMGR_INUSE: '$DMGR_INUSE
+  _d '$DMGR_SUPPORT: '$DMGR_SUPPORT
+  echo ""
+fi
+
 case $1 in
   "has")        dmgr_has $2 ;;
   "deals")      dmgr_deals $2 ;;
@@ -229,6 +387,7 @@ case $1 in
   "edit")       dmgr_edit $2 ;;
   "enable")     dmgr_enable $2 ;;
   "disable")    dmgr_disable $2 ;;
+  "update")     dmgr_update ;;
   "list")       dmgr_list ;;
   "help")       dmgr_help ;;
 esac

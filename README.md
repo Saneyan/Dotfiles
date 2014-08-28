@@ -27,7 +27,7 @@ dmgr enable <feature_name>
 ## About dmgr
 
 dmgr (stands for Dotfile manager) makes extensible \*nix environment.
-This system provides 20 optional features, and enables or disables them depending upon the situation.
+This system provides 22 optional features, and enables or disables them depending upon the situation.
 For example, to enable some optional features for desktop environment, you can build this environment easily.
 
 dmgr also supports file registry that the user can access without knowing file path.
@@ -35,6 +35,8 @@ dmgr also supports file registry that the user can access without knowing file p
 ### Optional features
 
  * m1
+ * docker
+ * wuala
  * pacman
  * portage
  * desktop

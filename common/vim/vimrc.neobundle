@@ -12,9 +12,7 @@ call InitPlugins({
   \ ]
   \})
 
-let a=system('$HOME/bin/dmgr has "powerline" && echo -n "powerline"')
-
-if a == "powerline"
+if system('$HOME/bin/dmgr has "powerline" && echo -n "powerline"') == "powerline"
   call InitPlugins({
   \ 'load': [
   \   'alpaca-tc/alpaca_powertabline',

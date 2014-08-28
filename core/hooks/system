@@ -1,23 +1,46 @@
-function enable() {
-  # Emacs
-  ln -sv $DMGR_REPODIR/common/emacs.d $HOME/.emacs.d
+[enable]
+# Emacs
+LINK @emacs.d
 
-  # Vim
-  ln -sv $DMGR_REPODIR/common/vim $HOME/.vim
-  ln -sv $HOME/.vim/vimrc $HOME/.vimrc
-  mkdir -pv $HOME/.vim/bundle
-  git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
+# Vim
+LINK @vim
+LINK ~/.vim/vimrc ~/.vimrc
+RUN mkdir -pv $HOME/.vim/bundle
+RUN git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
 
-  ln -sv $DMGR_REPODIR/common/zsh.d $HOME/.zsh.d
-  ln -sv $HOME/.zsh.d/.zshenv $HOME/.zshenv
-  ln -sv $DMGR_REPODIR/common/tmux.conf $HOME/.tmux.conf
-  ln -sv $DMGR_REPODIR/common/gitignore $HOME/.gitignore
-  ln -sv $DMGR_REPODIR/common/gitconfig $HOME/.gitconfig
+# ZSH
+LINK @zsh.d
+LINK ~/.zsh.d/.zshenv ~/.zshenv
 
-  echo " * Startup or restart ZSH now."
-  echo " * Don't forget to set your SSH keys and config."
-}
+# Tmux
+LINK @tmux.conf
 
-function disable() {
-  rm -v $HOME/{.emacs.d,.vim,.vimrc,.zsh.d,.zshenv,.tmux.conf,.gitignore}
-}
+# Git
+LINK @gitignore
+LINK @gitconfig
+
+ECHOHL " * Startup or restart ZSH now."
+ECHOHL " * Don't forget to set your SSH keys and config."
+
+[disable]
+# Emacs
+UNLINK @emacs.d
+
+# Vim
+UNLINK @vim
+UNLINK ~/.vim/vimrc
+
+# ZSH
+UNLINK @zsh.d
+UNLINK ~/.zsh.d/.zshenv
+
+# Tmux
+UNLINK @tmux.conf
+
+# Git
+UNLINK @gitignore
+UNLINK @gitconfig
+
+[update]
+REARCH disable ECHO UNLINK
+REARCH enable ECHO LINK
