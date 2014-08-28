@@ -1,4 +1,8 @@
 [enable]
+# Finger
+LINK @plan
+LINK @project
+
 # Emacs
 LINK @emacs.d
 
@@ -23,6 +27,10 @@ ECHOHL " * Startup or restart ZSH now."
 ECHOHL " * Don't forget to set your SSH keys and config."
 
 [disable]
+# Finger
+UNLINK @plan
+UNLINK @project
+
 # Emacs
 UNLINK @emacs.d
 
