@@ -7,6 +7,7 @@ common/xmonad/*
 common/.gitignore
 common/vim/*
 !common/vim/gvimrc
+!common/vim/nvimrc
 !common/vim/vimrc*
 core/conf/paths/_repo
 core/conf/inuse.list
