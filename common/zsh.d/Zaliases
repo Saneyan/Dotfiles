@@ -15,8 +15,8 @@ alias pn="ping -c 3 8.8.8.8"
 # Git
 alias -g g="git"
 
-# Editors
-alias -g e="$EDITOR"
+# Vim
+alias -g e="which nvim &>/dev/null && nvim || vim"
 
 # kill
 alias -g k="kill"

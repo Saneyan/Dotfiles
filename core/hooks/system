@@ -9,6 +9,7 @@ LINK @emacs.d
 # Vim
 LINK @vim
 LINK ~/.vim/vimrc ~/.vimrc
+LINK ~/.vim/nvimrc ~/.nvimrc
 RUN mkdir -pv $HOME/.vim/bundle
 RUN git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
 
@@ -37,6 +38,7 @@ UNLINK @emacs.d
 # Vim
 UNLINK @vim
 UNLINK ~/.vim/vimrc
+UNLINK ~/.vim/nvimrc
 
 # ZSH
 UNLINK @zsh.d
