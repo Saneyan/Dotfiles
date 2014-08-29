@@ -1,0 +1,64 @@
+[gfunction Project plans]
+Current:
+1. ZCashier: Web-based accounting software.
+2. N'kai (codename): Web-based twitter client service. White-listed users will be available this service.
+3. Namespace.js: JavaScript library which provides namespaces. See also: https://github.com/Saneyan/Overload.js
+4. Overload.js: JavaScript library which enables developers to use overload. See also: https://github.com/Saneyan/Overload.js
+5. Applied Layer: Window manager working on web browsers.
+6. Web Desktop: Desktop environment working on web browsers. This web application depends on Applied Layer and other libraries.
+7. Web Exos: Multi-exokernel based operating system (includes some secret implementations). This operating system will work on UEFI based computers.
+8. Recovering websites: Now no one can access my websites because of web and DNS server failure. This plan resolves its problem. If possible, I also remake my websites.
+9. Carabiner: Web-based markdown editor and viewer. Both of functions are unified.
+
+Closed:
+1. Saneos: A disk operating system. There were two version of Saneos.
+2. gfXT: gfXT stands on gfunction eXtended Technology. It was a JavaScript library.
+
+[Project plans with GNEX]
+Current:
+1. BridgeCamp: Social networking service. See also: https://bridgecamp.jp
+
+[Project plans with Plus-place project]
+Suspended:
+1. Lias: Social networking service.
+
+Closed:
+1. Twitter Search: This service searched user's tweets by date.
+
+[Project plans with TAKENOKO]
+Closed:
+1. Kishitsu ITF.: A monitoring software which users can operate and monitor coins iMac through.
+
+[About]
+Name: Saneyuki Tadokoro (Saneyan)
+
+Information: CTO of GNEX, Engineer at Has-key and Plus-place project.
+
+Belong to:
+* College of Information Science ('13-AC)
+* coins-admin
+* Coins Project
+* WORD
+
+E-Mail:
+* Public    => saneyan@mail.gfunction.com
+* Coins     => s1311374@coins.tsukuba.ac.jp
+* U.Tsukuba => s1311374@u.tsukuba.ac.jp
+* GNEX      => s.tadokoro@globalnet-ex.com
+
+Websites:
+<!> Sorry, anyone cannot access these websites because of web and DNS server failure.
+<!> Lab: http://gfunction.com
+<!> Mypage: http://tadokoro.saneyuki.jp
+
+Facebook:
+* Saneyuki Tadokoro => https://www.facebook.com/saneyuki.tadokoro
+* gfunction Project => https://www.facebook.com/pages/gfunction/191526310885196
+
+Twitter:
+* Global   => https://twitter.com/Saneyan (@Saneyan, PUBLIC)
+* Japanese => https://twitter.com/Ajaxist (@Ajaxist, PUBLIC)
+
+Github: https://github.com/Saneyan
+
+Bitbucket: https://bitbucket.org/Saneyan
