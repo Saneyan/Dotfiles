@@ -2,15 +2,15 @@
 ECHO -n "Hook test: "
 ECHO "enable"
 RUN uptime
-LINK @test
-LINK @test.option ~/.dmgr/test
+LINK @dmgr.test
+LINK @dmgr.test.option ~/dmgr.test
 
 [disable]
 ECHO -n "Hook test: "
 ECHO "disable"
 RUN uptime
-UNLINK @test
-UNLINK @test.option
+UNLINK @dmgr.test
+UNLINK @dmgr.test.option
 
 [update]
 REARCH disable ECHO UNLINK
