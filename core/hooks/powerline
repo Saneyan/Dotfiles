@@ -6,9 +6,9 @@ RUN mkdir -pv $HOME/.local/bin
 ECHOHL " * See also: https://powerline.readthedocs.org/en/latest/installation.html"
 
 [disable]
-UNLINK $HOME/.local/bin/powerline
 RUN sudo pip uninstall $DMGR_PLUGINDIR/powerline
 RUN sudo rm -rfv $DMGR_PLUGINDIR/powerline
+UNLINK $DMGR_PLUGINDIR/powerline/scripts/powerline
 
 [update]
 REARCH disable ECHO UNLINK

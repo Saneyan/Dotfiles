@@ -19,6 +19,6 @@ else
   dir=$1; tar=$2; reg="s,\,.*,,g"
 fi
 
-find $dir -ls | grep -oE "/.*\s\->.*$" | tr -s " \-> " "," | grep -E $(echo $tar | sed "s,\.,\\\.,g") | sed $reg
+find $dir -ls | grep -oE "/.*\s\->.*$" | tr -s " \-> " "," | grep -E $(echo $tar | sed "s,\.,\\\.,g")"$" | sed $reg
 
 unset dir tar reg

@@ -2,7 +2,7 @@
 ECHO "After enabling xmonad feature, execute 'update-xmonad'"
 
 [disable]
-RUN rm -v $HOME/.xmonad/xmonad.{errors,hi,o}\
+RUN rm $HOME/.xmonad/xmonad.{errors,hi,o}
 $HOME/.xmonad/Gfxt/*.{errors,hi,o}
 $HOME/.xmonad/xmonad-`uname -m`-linux
 

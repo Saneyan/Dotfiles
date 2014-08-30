@@ -73,7 +73,7 @@ function _hook() {
   done
 
   if [ $REC = 2 ]; then
-    echo -e "\x1B[36m==> NESTED HOOK <${1}>: ${2}\x1B[0m"
+    echo -e "\x1B[34m==> NESTED HOOK <${1}>: ${2}\x1B[0m"
   else
     echo -e "\x1B[32mHOOK <${1}>: ${2}\x1B[0m"
   fi
@@ -144,7 +144,7 @@ function _unlink() {
   lns=($(echo $LISTS |
   grep -oE "/.*\s\->.*$" |
   tr -s " \-> " "," |
-  grep -E $(echo $(eval "echo $1" | sed "s,@,${DMGR_REPODIR}/common/,") | sed "s,\.,\\\.,g") |
+  grep -E $(echo $(eval "echo $1" | sed "s,@,${DMGR_REPODIR}/common/,") | sed "s,\.,\\\.,g")"$" |
   sed "s,\,.*,,g"))
 
   for e in $lns; do
