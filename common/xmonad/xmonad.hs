@@ -16,10 +16,6 @@ import Gfxt.Workspace
 import Gfxt.Hooks
 import Gfxt.Bindings
 
-{-
- - Main
- -}
-
 main :: IO ()
 main = do
   xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobarrc.hs"

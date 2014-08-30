@@ -2,10 +2,6 @@ module Gfxt.Workspace where
 
 import XMonad
 
-{-
- - Workspaces
- -}
-
 -- It should be like "ABC > DEF > GHI > ..."
 appendIcon :: [WorkspaceId] -> [WorkspaceId]
 appendIcon ws = map (++ " ") (map (" <icon=.xmonad/icons/ac.xbm/> " ++) ws)
