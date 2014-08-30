@@ -66,3 +66,9 @@ dmgr <command> (<feature_name>)
 ```
 
 Type `dmgr help` for more help.
+
+## Use debug mode
+
+```
+ln -s $HOME/bin/dmgr $HOME/bin/dmgr.debug
+```
