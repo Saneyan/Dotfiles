@@ -24,8 +24,8 @@ LINK @tmux.conf
 LINK @gitignore
 LINK @gitconfig
 
-ECHOHL " * Startup or restart ZSH now."
-ECHOHL " * Don't forget to set your SSH keys and config."
+ECHO " * Startup or restart ZSH now."
+ECHO " * Don't forget to set your SSH keys and config."
 
 [disable]
 # Finger

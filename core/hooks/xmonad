@@ -1,5 +1,5 @@
 [enable]
-ECHO "After enabling xmonad feature, execute 'update-xmonad'"
+ECHO " * After enabling xmonad feature, execute 'update-xmonad'"
 
 [disable]
 RUN rm $HOME/.xmonad/xmonad.{errors,hi,o}
