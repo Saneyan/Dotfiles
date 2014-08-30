@@ -19,3 +19,4 @@ core/conf/paths/_repo
 core/conf/inuse.list
 core/plugins/*
 !core/plugins/.gitkeep
+bin/dmgr.debug
