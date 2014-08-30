@@ -1,17 +1,10 @@
 [enable]
-LINK @xmonad
-
-if dmgr has "xfce4"; then
-  LINK ~/.xmonad/xfce4.xmonad.hs ~/.xmonad/xmonad.hs
-else
-  LINK ~/.xmonad/xmonad.xmonad.hs ~/.xmonad/xmonad.hs
-fi
-
 RUN $HOME/bin/update-xmonad
 
 [disable]
-RUN rm -v $HOME/.xmonad/xmonad.{errors,hi,hs,o} $HOME/.xmonad/xmonad-`uname -m`-linux
-UNLINK @xmonad
+RUN rm -v $HOME/.xmonad/xmonad.{errors,hi,o}\
+$HOME/.xmonad/Gfxt/*.{errors,hi,o}
+$HOME/.xmonad/xmonad-`uname -m`-linux
 
 [update]
 REARCH disable ECHO UNLINK RUN

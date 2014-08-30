@@ -1,0 +1,9 @@
+[enable]
+LINK @vimperatorrc
+
+[disable]
+UNLINK @vimperatorrc
+
+[update]
+REARCH disable ECHO UNLINK
+REARCH enable ECHO LINK

@@ -1,4 +1,4 @@
-module Configs.Private (email) where
+module Gfxt.Email (email) where
 
 email :: String -> String
 email t | t == "private" = "private@example.com"

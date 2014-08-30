@@ -8,17 +8,34 @@ if [ ! -e $XM/xmonad.hs ]; then
   exit 1
 fi
 
-if [ ! -e $XM/Configs/Private.hs ]; then
-  if [ -e $XM/Configs/Private.sample.hs ]; then
+if [ ! -e $XM/Gfxt/Email.hs ]; then
+  if [ -e $XM/Gfxt/Email.sample.hs ]; then
     echo "No private configuration module found. Copying the sample code."
-    cp $XM/Configs/Private.sample.hs $XM/Configs/Private.hs
+    cp $XM/Gfxt/Email.sample.hs $XM/Gfxt/Email.hs
   else
     echo "The private configuration module and sample code is not found. Creating empty module."
-    touch $XM/Configs/Private.hs
+    touch $XM/Gfxt/Email.hs
   fi
 fi
 
-ghc --make\
-  $XM/xmonad.hs\
-  $XM/Configs/Private.hs\
-  -o $XM/$BIN
+opts=("--make"\
+  "$XM/xmonad.hs"\
+  "$XM/Gfxt/Aliases.hs"\
+  "$XM/Gfxt/Bindings.hs"\
+  "$XM/Gfxt/Email.hs"\
+  "$XM/Gfxt/Help.hs"\
+  "$XM/Gfxt/Hooks.hs"\
+  "$XM/Gfxt/Workspace.hs")
+
+echo -n "Is your keyboard layout UNIX? (y/n): "
+while read opt; do
+  [[ "$opt" =~ "y|n" ]] && break
+  echo "Type (y or n): "
+done
+
+if [ "${opt}" = "y" ]; then
+  opts=($opts "-DUNIX_US_LAYOUT=true")
+else
+fi
+
+ghc $(echo $opts "-o $XM/$BIN")
