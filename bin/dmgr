@@ -9,6 +9,7 @@
 # @author TADOKORO Saneyuki <saneyan@mail.gfunction.com>
 #
 
+REC=0
 DMGR_DIST=$(uname -r)
 DMGR_CONFDIR=$HOME/.dmgr/conf
 DMGR_FEATUREDIR=$HOME/.dmgr/features
@@ -54,6 +55,7 @@ function _get() {
 function _hook() {
   local line= reg= args= ac= e=
   local mode="null"
+  REC=$(($REC + 1))
 
   if [ $# -le 2 ]; then
     echo "Too few arguments."
@@ -70,7 +72,11 @@ function _hook() {
       sed "s/^REARCH$/c/")
   done
 
-  echo -e "\n\x1B[32mHook <${1}>: ${2}\x1B[0m"
+  if [ $REC = 2 ]; then
+    echo -e "\x1B[36m==> NESTED HOOK <${1}>: ${2}\x1B[0m"
+  else
+    echo -e "\x1B[32mHOOK <${1}>: ${2}\x1B[0m"
+  fi
 
   cat $2 | while read line; do
     if [[ $line =~ "\[[a-z]+\]" ]]; then
@@ -92,6 +98,8 @@ function _hook() {
     fi
   done
 
+  REC=$(($REC - 1))
+
   return 0
 }
 
@@ -108,7 +116,8 @@ function _link() {
     else
       dst=$HOME/.$(echo $1 | sed "s/@//")
     fi
-    ln -sv $src $dst
+    [ $DMGR_DEBUGMODE ] &&
+      ln -sv $src $dst || ln -s $src $dst
   else
     echo "Too many arguments."
     return 1
@@ -138,7 +147,10 @@ function _unlink() {
   grep -E $(echo $(eval "echo $1" | sed "s,@,${DMGR_REPODIR}/common/,") | sed "s,\.,\\\.,g") |
   sed "s,\,.*,,g"))
 
-  for e in $lns; do rm -v $e; done
+  for e in $lns; do
+    [ $DMGR_DEBUGMODE ] &&
+      rm -v $e || rm $e
+  done
 
   return 0
 }
