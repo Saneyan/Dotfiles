@@ -266,22 +266,30 @@ function dmgr_unsupport() {
 }
 
 #
-# Enable a feature. The feature must be supported by dmgr.
+# Enable features. They must be supported by dmgr.
 # @param $1 Feature name.
 #
 function dmgr_enable() {
-  ! $(dmgr_deals $1) &&
-    _reperr "${1} is not supported. To support this feature, use 'dmgr support <feature_name>'"
+  local e=
 
-  $(dmgr_has $1) &&
-    _reperr "${1} has already been enabled."
+  for e in $@; do
+    if ! $(dmgr_deals $e); then
+      echo "${e} is not supported. To support this feature, use 'dmgr support <feature_name>'"
+      continue
+    fi
 
-  # Load and call a hook callback.
-  [ -e $DMGR_HOOKDIR/$1 ] && ! _hook enable $DMGR_HOOKDIR/$1 ALL &&
-    _reperr "Not successful. Aborted."
+    if $(dmgr_has $e); then
+      echo "${e} has already been enabled."
+      continue
+    fi
 
-  _save $DMGR_INUSE $(_parse $DMGR_INUSE) $1
-  echo "${1} has been enabled."
+    # Load and call a hook callback.
+    [ -e $DMGR_HOOKDIR/$e ] && ! _hook enable $DMGR_HOOKDIR/$e ALL &&
+      _reperr "Not successful. Aborted."
+
+    _save $DMGR_INUSE $(_parse $DMGR_INUSE) $e
+    echo "${e} has been enabled."
+  done
   exit 0
 }
 
@@ -290,18 +298,26 @@ function dmgr_enable() {
 # @param $1 Feature name.
 #
 function dmgr_disable() {
-  ! $(dmgr_deals $1) &&
-    _reperr "${1} is not supported. To support this feature, use 'dmgr support <feature_name>'"
+  local e=
 
-  ! $(dmgr_has $1) &&
-    _reperr "${1} has already been disabled."
+  for e in $@; do
+    if ! $(dmgr_deals $e); then
+      echo "${e} is not supported. To support this feature, use 'dmgr support <feature_name>'"
+      continue
+    fi
 
-  # Load and call a hook callback.
-  [ -e $DMGR_HOOKDIR/$1 ] && ! _hook disable $DMGR_HOOKDIR/$1 ALL &&
-    _reperr "Not successful. Aborted."
+    if ! $(dmgr_has $e); then
+      echo "${e} has already been disabled."
+      continue
+    fi
 
-  _save $DMGR_INUSE ${$(_parse $DMGR_INUSE)[@]/#%($1)}
-  echo "${1} has been disabled."
+    # Load and call a hook callback.
+    [ -e $DMGR_HOOKDIR/$e ] && ! _hook disable $DMGR_HOOKDIR/$e ALL &&
+      _reperr "Not successful. Aborted."
+
+    _save $DMGR_INUSE ${$(_parse $DMGR_INUSE)[@]/#%($e)}
+    echo "${e} has been disabled."
+  done
   exit 0
 }
 
@@ -415,8 +431,8 @@ case $1 in
   "support")    dmgr_support $2 ;;
   "unsupport")  dmgr_unsupport $2 ;;
   "edit")       dmgr_edit $2 ;;
-  "enable")     dmgr_enable $2 ;;
-  "disable")    dmgr_disable $2 ;;
+  "enable")     dmgr_enable ${@:2} ;;
+  "disable")    dmgr_disable ${@:2} ;;
   "update")     dmgr_update ;;
   "list")       dmgr_list ;;
   "help")       dmgr_help ;;
