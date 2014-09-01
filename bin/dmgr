@@ -74,7 +74,7 @@ function _hook() {
   done
 
   if [ $REC = 2 ]; then
-    echo -e "\x1B[34m==> NESTED HOOK <${1}>: ${2}\x1B[0m"
+    echo -e "==> NESTED HOOK <${1}>: ${2}"
   else
     echo -e "\x1B[32mHOOK <${1}>: ${2}\x1B[0m"
   fi

@@ -1,10 +1,18 @@
+[info]
+AUTHOR "TADOKORO Saneyuki <saneyan@mail.gfunction.com>"
+VERSION "0.1.0"
+REQUIREMENTS zsh,vim,git,*emacs,*tmux,*finger
+
 [enable]
 # Finger
 LINK @plan
 LINK @project
+# LINK @plan :ifcmd finger
+# LINK @project :ifcmd finger
 
 # Emacs
 LINK @emacs.d
+# LINK @emacs.d :ifcmd emacs
 
 # Vim
 LINK @vim
@@ -19,6 +27,7 @@ LINK ~/.zsh.d/.zshenv ~/.zshenv
 
 # Tmux
 LINK @tmux.conf
+# LINK @tmux.conf :ifcmd tmux
 
 # Git
 LINK @gitignore

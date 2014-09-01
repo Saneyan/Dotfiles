@@ -1,3 +1,8 @@
+[info]
+AUTHOR "TADOKORO Saneyuki <saneyan@mail.gfunction.com>"
+VERSION "0.1.0"
+REQUIREMENTS git,pip,sudo
+
 [enable]
 RUN git clone https://github.com/Lokaltog/powerline $DMGR_PLUGINDIR/powerline
 LINK $DMGR_PLUGINDIR/powerline/scripts/powerline $HOME/.local/bin/powerline

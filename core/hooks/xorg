@@ -1,3 +1,8 @@
+[info]
+AUTHOR "TADOKORO Saneyuki <saneyan@mail.gfunction.com>"
+VERSION "0.1.0"
+REQUIREMENTS startx,vim
+
 [enable]
 # Link local xorg setting files.
 LINK @xorg.d
