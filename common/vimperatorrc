@@ -1,8 +1,8 @@
 set titlestring=Firefox
 set focuscontent
 set hintchars=uhetonasidpgjmcqwrvlzkbxygf
-map j 3<C-y>
-map k 3<C-e>
+map j 3<C-e>
+map k 3<C-y>
 map h gT
 map l gt
 nnoremap <C-r> :restart<CR>
