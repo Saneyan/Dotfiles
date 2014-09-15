@@ -12,10 +12,12 @@ if [ $? = 1 ]; then
   exit 1
 fi
 
+echo "Compiled."
+
 if [ ! -e $f.class ]; then
   echo "The Java class file is not existed. Aborted."
   exit 1
 fi
 
-java $f
+java $f ${@:2}
 exit 0

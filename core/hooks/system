@@ -4,20 +4,27 @@ VERSION "0.1.0"
 REQUIREMENTS zsh,vim,git,*emacs,*tmux,*finger
 
 [enable]
+USE dmgr,dispose,empty,lnfind,todo
+
 # Finger
 LINK @plan
 LINK @project
-# LINK @plan :ifcmd finger
-# LINK @project :ifcmd finger
+
+# LINK :ifcmd finger
+#   @plan
+#   @project
 
 # Emacs
 LINK @emacs.d
-# LINK @emacs.d :ifcmd emacs
+
+# LINK :ifcmd emacs
+#   @emacs
 
 # Vim
 LINK @vim
 LINK ~/.vim/vimrc ~/.vimrc
 LINK ~/.vim/nvimrc ~/.nvimrc
+# LINK ~/.vim/nvimrc ~/.nvimrc :ifcmd nvim
 RUN mkdir -pv $HOME/.vim/bundle
 RUN git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
 
@@ -37,6 +44,8 @@ ECHO " * Startup or restart ZSH now."
 ECHO " * Don't forget to set your SSH keys and config."
 
 [disable]
+UNUSE dmgr,dispose,empty,lnfind,todo
+
 # Finger
 UNLINK @plan
 UNLINK @project

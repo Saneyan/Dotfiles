@@ -1,0 +1,33 @@
+AUTHOR "TADOKORO Saneyuki <saneyan@mail.gfunction.com>"
+VERSION "0.1.0"
+REQUIREMENTS zsh vim git *emacs *tmux *finger
+USE dmgr dispose empty lnfind todo
+
+LINK :if finger
+  @plan
+  @project
+
+LINK :if emacs
+  @emacs
+
+LINK :if nvim
+  ~/.vim/nvimrc :to ~/.nvimrc
+
+LINK :if tmux
+  @tmux.conf
+
+LINK
+  @vim
+  @zsh.d
+  @gitignore
+  @gitconfig
+  ~/.vim/vimrc :to ~/.vimrc
+  ~/.zsh.d/.zshenv :to ~/.zshenv
+
+RUN
+  mkdir -pv $HOME/.vim/bundle
+  git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
+
+ECHO
+  " * Startup or restart ZSH now."
+  " * Don't forget to set your SSH keys and config."
