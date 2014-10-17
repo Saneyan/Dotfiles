@@ -87,6 +87,7 @@ autoload -U colors; colors
 PROMPT="%{${fg[cyan]}%}[%n@%m] %{${reset_color}%}"
 RPROMPT="[%d]"
 
+
 #
 # Import other settings
 #

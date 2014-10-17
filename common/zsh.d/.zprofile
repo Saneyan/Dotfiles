@@ -26,4 +26,5 @@ path=(
   ~/bin(N-/)
   ~/.local/bin(N-/)
   ~/wuala(N-/)
+  $(ruby -e "print Gem.user_dir")/bin(N-/)
   $path)
