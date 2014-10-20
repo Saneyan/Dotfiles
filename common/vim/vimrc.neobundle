@@ -1,5 +1,4 @@
 call AddRuntimePath('~/.vim/bundle/neobundle.vim/')
-call neobundle#rc(expand('~/.vim/bundle/'))
 call InitPlugins({
   \ 'fetch': [
   \   'Shougo/neobundle.vim'
