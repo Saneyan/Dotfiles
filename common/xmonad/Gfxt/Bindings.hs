@@ -18,12 +18,12 @@ import Gfxt.Workspace
 #ifdef UNIX_US_LAYOUT
 myModMask = mod4Mask
 mySubModMask = mod1Mask
-myMSMask  = myModMask .|. shiftMask
 #else
 myModMask = mod1Mask
 mySubModMask = mod4Mask
-myMSMask  = myModMask .|. shiftMask
 #endif
+
+myMSMask  = myModMask .|. shiftMask
 
 (@+) ks (d, ws) =
   ks ++ [ ((m .|. d, k), windows $ f i)

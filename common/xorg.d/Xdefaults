@@ -27,33 +27,33 @@ URxvt*color1: #dc322f
 URxvt*color9: #cb4b16
 
 ! Green: dark(2), light(10)
-URxvt*color2:  #859900
+URxvt*color2: #859900
 URxvt*color10: #586e75
 
 ! Yellow: dark(3), light(11)
-URxvt*color3:  #b58900
+URxvt*color3: #b58900
 URxvt*color11: #839496
 
 ! Blue: dark(4), light(12)
-URxvt*color4:  #268bd2
-URxvt*color12: #657b83
+URxvt*color4: #268bd2
+URxvt*color12: #1e5ad7
 
 ! Magenda: dark(5), light(13)
-URxvt*color5:  #d33682
+URxvt*color5: #d33682
 URxvt*color13: #6c71c4
 
 ! Cyan: dark(6), light(14)
-URxvt*color6:  #2aa198
-URxvt*color14: #586e75
+URxvt*color6: #167290
+URxvt*color14: #1C4A59
 
 ! White: dark(7), light(15)
-URxvt*color7:  #073642
+URxvt*color7: #073642
 URxvt*color15: #002b36
 
 URxvt*fading:                 5
 URxvt*fadeColor:              #fdf6e3
 URxvt*background:             #fdf6e3
-URxvt*foreground:             #657b83
+URxvt*foreground:             #eaeaea
 URxvt*cursorColor:            #586e75
 URxvt*pointerColorBackground: #93a1a1
 URxvt*pointerColorForeground: #586e75
@@ -63,8 +63,8 @@ URxvt*pointerColorForeground: #586e75
 !!
 !!URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=11:antialias=true,
 !!            xft:IPAPGothic:pxelsize=11:antialias=true
-URxvt.font: xft:Inconsolata for Powerline:pixelsize=13:antialias=true,
-            xft:Ubuntu-R:pixelsize=13:antialias=true
+URxvt.font: xft:Inconsolata for Powerline:pixelsize=14:antialias=true,
+            xft:Ubuntu-R:pixelsize=14:antialias=true
 
 !!
 !! Additional keys

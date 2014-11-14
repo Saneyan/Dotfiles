@@ -20,3 +20,4 @@ core/conf/inuse.list
 core/plugins/*
 !core/plugins/.gitkeep
 bin/dmgr.debug
+common/emacs.d/menu_log.notes

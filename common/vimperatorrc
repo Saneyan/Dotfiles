@@ -1,5 +1,11 @@
 set titlestring=Firefox
+
+command! -nargs=0 -description="Tile Tabs..." sp emenu Tile.Tile New Tab.Above
+command! -nargs=0 -description="Tile Tabs..." vs emenu Tile.Tile New Tab.Right
+
 map j 3<C-e>
 map k 3<C-y>
 map h gT
 map l gt
+map ,wh sp
+map ,wv vs

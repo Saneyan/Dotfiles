@@ -7,7 +7,7 @@ module Gfxt.Aliases where
 -- Default application --
 myTerm            = "urxvt -e tmux"
 myEditor          = "urxvt -e vim"
-myWebBrowser      = "firefox-nightly"
+myWebBrowser      = "firefox"
 myMailer          = "thunderbird"
 -- Use wuala client software in user directory
 myPasswordManager = "keepassx"
