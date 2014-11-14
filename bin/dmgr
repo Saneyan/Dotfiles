@@ -4,13 +4,13 @@
 #
 # Help build and manage your best *nix environment :)
 #
-# @rev    0.9.0
+# @rev    0.10.0
 # @update 2014-08-20
 # @author TADOKORO Saneyuki <saneyan@mail.gfunction.com>
 #
 
 REC=0
-DMGR_VERSION="0.9.0"
+DMGR_VERSION="0.10.0"
 DMGR_DIST=$(uname -r)
 DMGR_CONFDIR=$HOME/.dmgr/conf
 DMGR_FEATUREDIR=$HOME/.dmgr/features
@@ -18,6 +18,8 @@ DMGR_PLUGINDIR=$HOME/.dmgr/plugins
 DMGR_HOOKDIR=$HOME/.dmgr/hooks
 DMGR_INUSE=$DMGR_CONFDIR/inuse.list
 DMGR_SUPPORT=$DMGR_CONFDIR/support.list
+DMGR_PLUGIN=$DMGR_CONFDIR/plugin.list
+DMGR_OFFICIAL=$DMGR_CONFDIR/official.list
 
 # Load dotfile path.
 source $DMGR_CONFDIR/paths/_repo
@@ -179,7 +181,31 @@ function _fbold() {
 # #param $1 Message.
 #
 function _d() {
-  [ $DMGR_DEBUGMODE ] && echo -e "\x1B[35mDEBUG\x1B[0m ${1}"
+  local e= c=true
+
+  if [ $DMGR_DEBUGMODE ]; then
+    for e in ${@}; do
+      if [ $c = true ]; then
+        echo -e "\x1B[35mDEBUG\x1B[0m ${e}"
+        c=false
+      else
+        echo -e "\x1B[35m >>> \x1B[0m ${e}"
+      fi
+    done
+  fi
+}
+
+function _exist() {
+  [[ ${$(_parse $1)[(r)$2]} == ${2} ]] && return 0
+  return 1
+}
+
+function _enforce_arg_chk() {
+  if ! eval "[ $(($1 - 1)) $(echo $2 | sed 's/>=/-ge/') ${3} ]"; then
+    echo "Missing arguments."
+    return 1
+  fi
+  return 0
 }
 
 #
@@ -195,8 +221,7 @@ function def() {
 # @param $1 Feature name.
 #
 function dmgr_has() {
-  [[ ${$(_parse $DMGR_INUSE)[(r)$1]} == ${1} ]] && exit 0
-  exit 1
+  _exist $DMGR_INUSE $1; exit $?
 }
 
 #
@@ -204,8 +229,15 @@ function dmgr_has() {
 # @param $1 Feature name.
 #
 function dmgr_deals() {
-  [[ ${$(_parse $DMGR_SUPPORT)[(r)$1]} == ${1} ]] && exit 0
-  exit 1
+  _exist $DMGR_SUPPORT $1; exit $?
+}
+
+#
+# Check if dmgr installs specific plugin.
+# @param $1 Plugin name.
+#
+function dmgr_installed() {
+  _exist $DMGR_PLUGIN $1; exit $?
 }
 
 #
@@ -240,7 +272,7 @@ _EOF_
 # @param $1 Feature name.
 #
 function dmgr_support() {
-  if $(dmgr_deals $1); then
+  if _exist $DMGR_SUPPORT $1; then
     echo "${1} has already been supported."
     exit 1
   fi
@@ -255,7 +287,7 @@ function dmgr_support() {
 # @param $1 Feature name.
 #
 function dmgr_unsupport() {
-  if ! $(dmgr_deals $1); then
+  if ! _exist $DMGR_SUPPORT $1; then
     echo "${1} has not already been supported."
     exit 1
   fi
@@ -273,12 +305,12 @@ function dmgr_enable() {
   local e=
 
   for e in $@; do
-    if ! $(dmgr_deals $e); then
+    if ! _exist $DMGR_SUPPORT $e; then
       echo "${e} is not supported. To support this feature, use 'dmgr support <feature_name>'"
       continue
     fi
 
-    if $(dmgr_has $e); then
+    if _exist $DMGR_INUSE $e; then
       echo "${e} has already been enabled."
       continue
     fi
@@ -301,12 +333,12 @@ function dmgr_disable() {
   local e=
 
   for e in $@; do
-    if ! $(dmgr_deals $e); then
+    if ! _exist $DMGR_SUPPORT $e; then
       echo "${e} is not supported. To support this feature, use 'dmgr support <feature_name>'"
       continue
     fi
 
-    if ! $(dmgr_has $e); then
+    if ! _exist $DMGR_INUSE $e; then
       echo "${e} has already been disabled."
       continue
     fi
@@ -356,9 +388,24 @@ function dmgr_update() {
   git pull origin master
 
   _fbold "\n:: Updating dotfiles..."
-  inuse=($(_parse $DMGR_INUSE))
 
-  for e in $inuse; do
+  if [ $# = 1 ]; then
+    inuse=($(_parse $DMGR_INUSE))
+  else
+    inuse=$@
+  fi
+
+  for e in $@; do
+    if ! _exist $DMGR_SUPPORT $e; then
+      echo "${e} is not supported. To support this feature, use 'dmgr support <feature_name>'"
+      continue
+    fi
+
+    if ! _exist $DMGR_INUSE $e; then
+      echo "${e} has already been disabled."
+      continue
+    fi
+
     [ -f $DMGR_HOOKDIR/$e ] && ! _hook update $DMGR_HOOKDIR/$e ALL &&
       _reperr "Not successful. Aborted."
   done
@@ -409,6 +456,52 @@ function dmgr_edit() {
   exit 1
 }
 
+function dmgr_install() {
+  local official= ctr= item= e= d=
+
+  _fbold "\n:: Installing plugins..."
+  official=($(_parse $DMGR_OFFICIAL))
+
+  for e in $@; do
+    for item in $official; do
+      ctr=($(echo $item | tr -s '=' ' '))
+
+      if [[ ${ctr[1]} == $e ]]; then
+        d=$DMGR_PLUGINDIR/${ctr[1]}
+        git clone ${ctr[2]} $d
+        [ -e $d/dmgr-setup.sh ] && $(. $d/dmgr-setup.sh && install)
+
+        _save $DMGR_PLUGIN $plugins $e
+        echo "$e has been installed."
+      fi
+    done
+  done
+
+  exit 0
+}
+
+function dmgr_uninstall() {
+  local plugins= e=
+
+  _fbold "\n:: Uninstalling plugins..."
+
+  for e in $@; do
+    if ! _exist $DMGR_PLUGIN $e; then
+      echo "${e} is not installed."
+      exit 1
+    fi
+
+    d=$DMGR_PLUGINDIR/$e
+    [ -e $d/dmgr-setup.sh ] && $(. $d/dmgr-setup.sh && uninstall)
+    rm -rf $d
+
+    _save $DMGR_PLUGIN ${$(_parse $DMGR_PLUGIN)[@]/#%($e)}
+    echo "$e has been removed."
+  done
+
+  exit 0
+}
+
 [[ "${0}" =~ "dmgr.debug$" ]] && export DMGR_DEBUGMODE=true
 
 _d "dmgr v${DMGR_VERSION} on DEBUG MODE"
@@ -422,18 +515,25 @@ _d '$DMGR_PLUGINIDR: '$DMGR_PLUGINDIR
 _d '$DMGR_HOOKDIR: '$DMGR_HOOKDIR
 _d '$DMGR_INUSE: '$DMGR_INUSE
 _d '$DMGR_SUPPORT: '$DMGR_SUPPORT
-_d 'Inuse features: '$(cat $DMGR_INUSE)
-_d 'Support features: '$(cat $DMGR_SUPPORT)
+_d '$DMGR_PLUGIN: '$DMGR_PLUGIN
+_d '$DMGR_OFFICIAL: '$DMGR_OFFICIAL
+_d 'Inuse features: ' $(cat $DMGR_INUSE)
+_d 'Support features: ' $(cat $DMGR_SUPPORT)
+_d 'Installed plugins: ' $(cat $DMGR_PLUGIN)
+_d 'Official plugins: ' $(cat $DMGR_OFFICIAL)
 
 case $1 in
-  "has")        dmgr_has $2 ;;
-  "deals")      dmgr_deals $2 ;;
-  "support")    dmgr_support $2 ;;
-  "unsupport")  dmgr_unsupport $2 ;;
-  "edit")       dmgr_edit $2 ;;
-  "enable")     dmgr_enable ${@:2} ;;
-  "disable")    dmgr_disable ${@:2} ;;
-  "update")     dmgr_update ;;
+  "has")        _enforce_arg_chk $# '=' 1 && dmgr_has $2 ;;
+  "deals")      _enforce_arg_chk $# '=' 1 && dmgr_deals $2 ;;
+  "installed")  _enforce_arg_chk $# '=' 1 && dmgr_installed $2 ;;
+  "support")    _enforce_arg_chk $# '=' 1 && dmgr_support $2 ;;
+  "unsupport")  _enforce_arg_chk $# '=' 1 && dmgr_unsupport $2 ;;
+  "edit")       _enforce_arg_chk $# '=' 1 && dmgr_edit $2 ;;
+  "enable")     _enforce_arg_chk $# '>=' 2 && dmgr_enable ${@:2} ;;
+  "disable")    _enforce_arg_chk $# '>=' 2 && dmgr_disable ${@:2} ;;
+  "install")    _enforce_arg_chk $# '>=' 2 && dmgr_install ${@:2};;
+  "uninstall")  _enforce_arg_chk $# '>=' 2 && dmgr_uninstall ${@:2} ;;
+  "update")     dmgr_update ${@:2} ;;
   "list")       dmgr_list ;;
   "help")       dmgr_help ;;
 esac

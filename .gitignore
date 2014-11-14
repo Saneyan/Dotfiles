@@ -17,6 +17,7 @@ common/vim/*
 !common/vim/vimrc*
 core/conf/paths/_repo
 core/conf/inuse.list
+core/conf/plugin.list
 core/plugins/*
 !core/plugins/.gitkeep
 bin/dmgr.debug
