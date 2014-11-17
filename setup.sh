@@ -16,7 +16,7 @@ done
 export DMGR_SETUP_DIRNAME=$(cd $(dirname $0) && pwd)
 confdir=$HOME/.dmgr/conf
 
-ln -sv $DMGR_SETUP_DIRNAME/bin $HOME/bin
+mkdir $HOME/bin
 ln -sv $DMGR_SETUP_DIRNAME/core $HOME/.dmgr
 export PATH=$PATH:$HOME/bin
 

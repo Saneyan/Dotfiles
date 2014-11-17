@@ -194,7 +194,6 @@ function _use() {
       echo "${e} is not found."
       continue
     else
-      [ ! -e $HOME/bin ] && mkdir -v $HOME/bin
       ln -s $DMGR_REPODIR/bin/$e $HOME/bin/$e
     fi
   done
