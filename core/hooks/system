@@ -4,7 +4,7 @@ VERSION "0.1.0"
 REQUIREMENTS zsh,vim,git,*emacs,*tmux,*finger
 
 [enable]
-USE dmgr,dispose,empty,lnfind,todo
+USE dmgr,dispose,empty,lnfind,todo,jr
 
 RUN touch $DMGR_INUSE
 RUN touch $DMGR_PLUGIN
@@ -38,7 +38,7 @@ ECHO " * Relaunch your ZSH after updating."
 ECHO " * Don't forget to set your SSH keys and config."
 
 [disable]
-UNUSE dmgr,dispose,empty,lnfind,todo
+UNUSE dmgr,dispose,empty,lnfind,todo,jr
 
 # Finger
 UNLINK @plan
@@ -64,5 +64,5 @@ UNLINK @gitignore
 UNLINK @gitconfig
 
 [update]
-REARCH disable ECHO UNLINK
-REARCH enable ECHO LINK
+REARCH disable ECHO UNLINK UNUSE
+REARCH enable ECHO LINK USE

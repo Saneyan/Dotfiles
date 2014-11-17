@@ -1,4 +1,2 @@
-powerline=
 local-server-config=https://Saneyan@bitbucket.org/Saneyan/local-server-config.git
-devel=
-arch-packages=
+arch-packages=https://Saneyan@bitbucket.org/Saneyan/arch-packages.git

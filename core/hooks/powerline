@@ -16,5 +16,5 @@ RUN sudo rm -rfv $DMGR_PLUGINDIR/powerline
 UNLINK $DMGR_PLUGINDIR/powerline/scripts/powerline
 
 [update]
-REARCH disable ECHO UNLINK
-REARCH enable ECHO LINK
+REARCH disable ECHO UNLINK UNUSE
+REARCH enable ECHO LINK USE

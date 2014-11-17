@@ -11,5 +11,6 @@ export PATH=$PATH:$HOME/bin
 
 echo "DMGR_REPODIR=${dirname}" > $HOME/.dmgr/conf/paths/_repo
 touch $HOME/.dmgr/conf/inuse.list
+touch $HOME/.dmgr/conf/plugin.list
 
 dmgr enable system

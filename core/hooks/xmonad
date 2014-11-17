@@ -5,13 +5,15 @@ REQUIREMENTS xmonad,xmobar,ghc
 DEPENDENCIES xorg
 
 [enable]
+USE update-xmonad
 ECHO " * After enabling xmonad feature, execute 'update-xmonad'"
 
 [disable]
+UNUSE update-xmonad
 RUN rm $HOME/.xmonad/xmonad.{errors,hi,o}
 $HOME/.xmonad/Gfxt/*.{errors,hi,o}
 $HOME/.xmonad/xmonad-`uname -m`-linux
 
 [update]
-REARCH disable ECHO UNLINK RUN
-REARCH enable ECHO LINK RUN
+REARCH disable ECHO UNLINK UNUSE RUN
+REARCH enable ECHO LINK USE RUN
