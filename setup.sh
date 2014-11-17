@@ -18,7 +18,7 @@ confdir=$HOME/.dmgr/conf
 
 mkdir $HOME/bin
 ln -sv $DMGR_SETUP_DIRNAME/core $HOME/.dmgr
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$DMGR_SETUP_DIRNAME/bin
 
 echo "DMGR_REPODIR=${DMGR_SETUP_DIRNAME}" > $confdir/paths/_repo
 touch $confdir/{plugin,inuse}.list
