@@ -9,22 +9,23 @@
 # @author TADOKORO Saneyuki <saneyan@mail.gfunction.com>
 #
 
-REC=0
-MODE=''
-DMGR_VERSION="0.10.0"
-DMGR_DIST=$(uname -r)
-DMGR_CONFDIR=$HOME/.dmgr/conf
-DMGR_FEATUREDIR=$HOME/.dmgr/features
-DMGR_PLUGINDIR=$HOME/.dmgr/plugins
-DMGR_HOOKDIR=$HOME/.dmgr/hooks
-DMGR_INUSE=$DMGR_CONFDIR/inuse.list
-DMGR_SUPPORT=$DMGR_CONFDIR/support.list
-DMGR_PLUGIN=$DMGR_CONFDIR/plugin.list
-DMGR_OFFICIAL=$DMGR_CONFDIR/official.list
-DMGR_TMP_SCRIPT=(/tmp/dmgr-tmp-script /tmp/dmgr-tmp-script-nested)
+declare -x MODE=''
+declare -i REC=0
+declare -rx DMGR_VERSION="0.10.0"
+declare -rx DMGR_DIST=$(uname -r)
+declare -rx DMGR_CONFDIR=$HOME/.dmgr/conf
+declare -rx DMGR_FEATUREDIR=$HOME/.dmgr/features
+declare -rx DMGR_PLUGINDIR=$HOME/.dmgr/plugins
+declare -rx DMGR_HOOKDIR=$HOME/.dmgr/hooks
+declare -r DMGR_INUSE=$DMGR_CONFDIR/inuse.list
+declare -r DMGR_SUPPORT=$DMGR_CONFDIR/support.list
+declare -r DMGR_PLUGIN=$DMGR_CONFDIR/plugin.list
+declare -r DMGR_OFFICIAL=$DMGR_CONFDIR/official.list
+declare -A DMGR_TMP_SCRIPT
+DMGR_TMP_SCRIPT=(1 /tmp/dmgr-tmp-script 2 /tmp/dmgr-tmp-script-nested)
 
 # Load dotfile path.
-source $DMGR_CONFDIR/paths/_repo
+. $DMGR_CONFDIR/paths/_repo
 
 #
 # Parse feature list to array format of shellscript.
@@ -90,16 +91,13 @@ function _hook() {
     echo -e "==> NESTED HOOK <${1}>: ${2}"
   else
     MODE=$1
-    _d $MODE
     echo -e "\x1B[32mHOOK <${1}>: ${2}\x1B[0m"
   fi
 
-  cat $2 | while read line; do
+  cat $2 | while read line; do _d $line
     if [[ $line =~ "\[[a-z]+\]" ]]; then
       [ $line = "[$1]" ] && mode=$1 || mode="null"
-      _d $line
     elif [ $mode != "null" ]; then
-      _d $line
       if [[ $line =~ "^ECHO\s" ]]   && [[ $ac =~ "a|e" ]]; then
         echo $line | sed "s/^ECHO/echo/" >> $DMGR_TMP_SCRIPT[$REC]
       elif [[ $line =~ "^RUN\s" ]]      && [[ $ac =~ "a|r" ]]; then
@@ -122,7 +120,7 @@ function _hook() {
     fi
   done
 
-  source $DMGR_TMP_SCRIPT[$REC]
+  . $DMGR_TMP_SCRIPT[$REC]
   rm -f $DMGR_TMP_SCRIPT[$REC]
 
   REC=$(($REC - 1))
@@ -160,7 +158,7 @@ function _link() {
 # @param $1 Original file path.
 #
 function _unlink() {
-  declare -a lns tns
+  declare -a lns
   local e=
 
   if [ $# -ge 2 ]; then
@@ -356,7 +354,7 @@ function dmgr_unsupport() {
 # @param $1 Feature name.
 #
 function dmgr_enable() {
-  local e=
+  local e= c=false
 
   for e in $@; do
     if ! _exist $DMGR_SUPPORT $e; then
@@ -375,8 +373,11 @@ function dmgr_enable() {
 
     _save $DMGR_INUSE $(_parse $DMGR_INUSE) $e
     echo "${e} has been enabled."
+    [ $c = false ] && c=true
   done
-  exit 0
+
+  [ $c = false ] && exit 0
+  exit 200
 }
 
 #
@@ -384,7 +385,7 @@ function dmgr_enable() {
 # @param $1 Feature name.
 #
 function dmgr_disable() {
-  local e=
+  local e= c=false
 
   for e in $@; do
     if ! _exist $DMGR_SUPPORT $e; then
@@ -403,8 +404,11 @@ function dmgr_disable() {
 
     _save $DMGR_INUSE ${$(_parse $DMGR_INUSE)[@]/#%($e)}
     echo "${e} has been disabled."
+    [ $c = false ] && c=true
   done
-  exit 0
+
+  [ $c = false ] && exit 0
+  exit 200
 }
 
 #
@@ -433,7 +437,7 @@ function dmgr_list() {
 #
 function dmgr_update() {
   declare -a inuse
-  local e=
+  local e= c=false
 
   cd $DMGR_REPODIR
   _d "Current directory is $(pwd)"
@@ -462,11 +466,13 @@ function dmgr_update() {
 
     [ -f $DMGR_HOOKDIR/$e ] && ! _hook update $DMGR_HOOKDIR/$e ALL &&
       _reperr "Not successful. Aborted."
+    [ $c = false ] && c=true
   done
 
   echo -e "\nUpdated."
 
-  exit 0
+  [ $c = false ] && exit 0
+  exit 200
 }
 
 #
@@ -514,7 +520,7 @@ function dmgr_edit() {
 # Install plugins
 # @param $1... The plugin name.
 function dmgr_install() {
-  local official= ctr= item= e= this=
+  local official= ctr= item= e= this= c=false
 
   _fbold "\n:: Installing plugins..."
   official=($(_parse $DMGR_OFFICIAL))
@@ -536,11 +542,13 @@ function dmgr_install() {
 
         _save $DMGR_PLUGIN $plugins $e
         echo "$e has been installed."
+        [ $c = false ] && c=true
       fi
     done
   done
 
-  exit 0
+  [ $c = false ] && exit 0
+  exit 200
 }
 
 #
@@ -548,7 +556,7 @@ function dmgr_install() {
 # @param $1... The plugin name.
 #
 function dmgr_uninstall() {
-  local plugins= e= this=
+  local plugins= e= this= c=false
 
   _fbold "\n:: Uninstalling plugins..."
 
@@ -564,9 +572,11 @@ function dmgr_uninstall() {
 
     _save $DMGR_PLUGIN ${$(_parse $DMGR_PLUGIN)[@]/#%($e)}
     echo "$e has been removed."
+    [ $c = false ] && c=true
   done
 
-  exit 0
+  [ $c = false ] && exit 0
+  exit 200
 }
 
 #

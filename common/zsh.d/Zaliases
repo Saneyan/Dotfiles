@@ -45,16 +45,9 @@ alias -g G="| grep"
 
 # Dmgr
 if dmgr has "xmonad"; then
-  alias dmu="dmgr update && update-xmonad"
+  alias dmu="dmgr update; update-xmonad; reload-dmgr"
 else
-  alias dmu="dmgr update"
+  alias dmu="dmgrctl update"
 fi
 
 alias dml="dmgr list"
-
-# Functions
-function reload-dmgr() {
-  echo "Re-caching configs..."
-  source $ZDOTDIR/.zshenv
-  source $ZDOTDIR/.zshrc
-}
