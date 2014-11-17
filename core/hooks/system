@@ -34,7 +34,11 @@ LINK @tmux.conf
 LINK @gitignore
 LINK @gitconfig
 
-ECHO " * Relaunch your ZSH after updating."
+if [[ $MODE == 'update' ]]; then
+  ECHO " * Execute 'reload-dmgr' to apply your ZSH config after updating."
+else
+  ECHO " * Execute '. ${DMGR_SETUP_DIRNAME}/profile' to apply your ZSH config after updating."
+fi
 ECHO " * Don't forget to set your SSH keys and config."
 
 [disable]
