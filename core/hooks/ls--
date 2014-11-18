@@ -1,0 +1,17 @@
+[info]
+AUTHOR "TADOKORO Saneyuki <saneyan@mail.gfunction.com>"
+VERSION "0.1.0"
+REQUIREMENTS git,sudo
+
+[enable]
+RUN sudo cpan Term::ExtendedColor
+RUN git clone https://github.com/trapd00r/ls--.git $DMGR_PLUGINDIR/ls--
+RUN cd $DMGR_PLUGINDIR/ls--; perl Makefile.PL
+RUN make && su -c 'make install'
+
+[disable]
+RUN rm -rfv $DMGR_PLUGINDIR/ls--
+
+[update]
+REARCH disable RUN
+REARCH enable RUN

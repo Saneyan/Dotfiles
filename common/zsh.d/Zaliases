@@ -23,8 +23,8 @@ alias -g k="kill"
 alias -g k9="kill -9"
 
 # ls
-alias -g l="ls -l --color=auto"
-alias -g la="ls -lA --color=auto"
+alias -g l="ls -lh --color=auto"
+alias -g la="ls -lhA --color=auto"
 
 # cp
 alias -g cp="cp -fv"

@@ -34,6 +34,8 @@ LINK @tmux.conf
 LINK @gitignore
 LINK @gitconfig
 
+RUN mkdir $HOME/{Development,Downloads}
+
 if [[ $MODE == 'update' ]]; then
   ECHO " * Execute 'reload-dmgr' to apply your ZSH config after updating."
 else
