@@ -1,2 +1,3 @@
 local-server-config=https://Saneyan@bitbucket.org/Saneyan/local-server-config.git
 arch-packages=https://Saneyan@bitbucket.org/Saneyan/arch-packages.git
+urxvt-perls=https://github.com/muennich/urxvt-perls.git

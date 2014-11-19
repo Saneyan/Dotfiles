@@ -1,23 +1,6 @@
 !!
 !! Colors
 !!
-#define solarizedBase03   #fdf6e3
-#define solarizedBase02   #eee8d5
-#define solarizedBase01   #93a1a1
-#define solarizedBase00   #839496
-#define solarizedBase0    #657b83
-#define solarizedBase1    #586e75
-#define solarizedBase2    #073642
-#define solarizedBase3    #002b36
-#define solarizedYellow   #b58900
-#define solarizedOrange   #cb4b16
-#define solarizedRed      #dc322f
-#define solarizedMagenta  #d33682
-#define solarizedViolet   #6c71c4
-#define solarizedBlue     #268bd2
-#define solarizedCyan     #2aa198
-#define solarizedGreen    #859900
-
 ! Black: dark(0), light(8)
 URxvt*color0: #eee8d5
 URxvt*color8: #fdf6e3
@@ -69,9 +52,11 @@ URxvt.font: xft:Inconsolata for Powerline:pixelsize=14:antialias=true,
 !!
 !! Additional keys
 !!
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-URxvt.iso14755: False
-URxvt.perl-ext-common: default,clipboard
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
 
 !!
 !! Scroll bar
@@ -82,7 +67,7 @@ URxvt*scrollBar: false
 !! Transparency
 !!
 !! For native transparency
-URxvt*transparent        true
+!URxvt*transparent: true
 URxvt*shading: 20
 
 !! For true transparency
@@ -97,3 +82,7 @@ URxvt*selectToClipboard: true
 URxvt*loginShell:        true
 URxvt*backarrowKey:      false
 URxvt*inheritPixmap:     True
+URxvt.iso14755: False
+URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select
+URxvt.clipboard.copycmd: xclip -i selection clipboard
+URxvt.clipboard.pastecmd: xclip -o selection clipboard

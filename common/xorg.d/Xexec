@@ -18,7 +18,7 @@ nm-applet &
 # Set desktop background
 [ -e ~/Pictures/bg.png ] && feh --bg-scale ~/Pictures/bg.png
 
-function xorg_begin_session()
+xorg_begin_session()
 {
   if dmgr has "xfce4"; then
     exec dbus-launch startxfce4
