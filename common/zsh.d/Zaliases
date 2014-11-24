@@ -11,6 +11,7 @@ alias w="startx"
 alias s="sudo"
 alias pg="ps aux | grep"
 alias pn="ping -c 3 8.8.8.8"
+alias emacs="vim"
 
 # Git
 alias -g g="git"
