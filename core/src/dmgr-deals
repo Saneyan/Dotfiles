@@ -1,0 +1,7 @@
+#!?
+
+use env
+use util
+
+_exist $DMGR_SUPPORT $1
+exit $?

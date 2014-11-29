@@ -13,8 +13,8 @@ declare -x MODE=''
 declare -i REC=0
 declare -rx DMGR_VERSION="0.10.0"
 declare -rx DMGR_DIST=$(uname -r)
+declare -rx DMGR_PATHDIR=$HOME/.dmgr/paths
 declare -rx DMGR_CONFDIR=$HOME/.dmgr/conf
-declare -rx DMGR_FEATUREDIR=$HOME/.dmgr/features
 declare -rx DMGR_PLUGINDIR=$HOME/.dmgr/plugins
 declare -rx DMGR_HOOKDIR=$HOME/.dmgr/hooks
 declare -r DMGR_INUSE=$DMGR_CONFDIR/inuse.list
@@ -25,7 +25,7 @@ declare -A DMGR_TMP_SCRIPT
 DMGR_TMP_SCRIPT=(1 /tmp/dmgr-tmp-script 2 /tmp/dmgr-tmp-script-nested)
 
 # Load dotfile path.
-. $DMGR_CONFDIR/paths/_repo
+. $DMGR_PATHDIR/_repo
 
 #
 # Parse feature list to array format of shellscript.
@@ -483,7 +483,7 @@ function dmgr_edit() {
   local desc="As staff (0) or root (1)\tType\tPath"
 
   for e in $(_parse $DMGR_INUSE); do
-    [ -e $DMGR_CONFDIR/paths/$e ] && source $DMGR_CONFDIR/paths/$e
+    [ -e $DMGR_PATHDIR/$e ] && source $DMGR_PATHDIR/$e
   done
 
   for item in $DMGR_CONFPATH

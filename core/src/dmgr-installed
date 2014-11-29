@@ -1,0 +1,4 @@
+#!?
+
+_exist $DMGR_PLUGIN $1
+exit $?
