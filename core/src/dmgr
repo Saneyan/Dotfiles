@@ -9,8 +9,9 @@
 # @author TADOKORO Saneyuki <saneyan@mail.gfunction.com>
 #
 
-. ~/.dmgr/src/env.zsh
-. ~/.dmgr/src/util.zsh
+. ~/.dmgr/src/subsets/env.zsh
+. ~/.dmgr/src/subsets/base.zsh
+. ~/.dmgr/src/subsets/debug.zsh
 
 [[ "${0}" =~ "dmgr.debug$" ]] && export DMGR_DEBUGMODE=true
 
@@ -20,7 +21,6 @@ _d '$1 (dmgr command): '$1
 _d '$2.. (options): '${@:2}
 _d '$DMGR_DIST: '$DMGR_DIST
 _d '$DMGR_CONFDIR: '$DMGR_CONFDIR
-_d '$DMGR_FEATUREDIR: '$DMGR_FEATUREDIR
 _d '$DMGR_PLUGINIDR: '$DMGR_PLUGINDIR
 _d '$DMGR_HOOKDIR: '$DMGR_HOOKDIR
 _d '$DMGR_INUSE: '$DMGR_INUSE
@@ -38,7 +38,7 @@ case $1 in
   "installed")  _enforce_arg_chk $# '=' 1 && $DMGR_SRCDIR/dmgr-installed $2 ;;
   "support")    _enforce_arg_chk $# '=' 1 && $DMGR_SRCDIR/dmgr-support $2 ;;
   "unsupport")  _enforce_arg_chk $# '=' 1 && $DMGR_SRCDIR/dmgr-unsupport $2 ;;
-  "env")        _enforce_arg_chk $# '>=' 1 && $DMGR_SRCDIR/dmgr-env $2 ;;
+  "env")        _enforce_arg_chk $# '=' 1 && $DMGR_SRCDIR/dmgr-env $2 ;;
   "enable")     _enforce_arg_chk $# '>=' 1 && $DMGR_SRCDIR/dmgr-enable ${@:2} ;;
   "disable")    _enforce_arg_chk $# '>=' 1 && $DMGR_SRCDIR/dmgr-disable ${@:2} ;;
   "install")    _enforce_arg_chk $# '>=' 1 && $DMGR_SRCDIR/dmgr-install ${@:2};;
@@ -49,5 +49,7 @@ case $1 in
   "help")       $DMGR_SRCDIR/dmgr-help ;;
 esac
 
-echo "Type 'dmgr help' for more help."
-exit 1
+if [ $? = 130 ]; then
+  echo "Type 'dmgr help' for more help."
+  exit 1
+fi

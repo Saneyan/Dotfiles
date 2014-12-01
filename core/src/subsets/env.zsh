@@ -7,11 +7,11 @@ declare -rx DMGR_HOOKDIR=$HOME/.dmgr/hooks
 declare -rx DMGR_PATHDIR=$HOME/.dmgr/paths
 declare -rx DMGR_SRCDIR=$HOME/.dmgr/src
 declare -rx DMGR_REPODIR=$(cat $DMGR_PATHDIR/_repo)
-declare -r DMGR_INUSE=$DMGR_CONFDIR/inuse.list
-declare -r DMGR_SUPPORT=$DMGR_CONFDIR/support.list
-declare -r DMGR_PLUGIN=$DMGR_CONFDIR/plugin.list
-declare -r DMGR_OFFICIAL=$DMGR_CONFDIR/official.list
-declare -A DMGR_TMP_SCRIPT
+declare -rx DMGR_INUSE=$DMGR_CONFDIR/inuse.list
+declare -rx DMGR_SUPPORT=$DMGR_CONFDIR/support.list
+declare -rx DMGR_PLUGIN=$DMGR_CONFDIR/plugin.list
+declare -rx DMGR_OFFICIAL=$DMGR_CONFDIR/official.list
+declare -Ax DMGR_TMP_SCRIPT
 DMGR_TMP_SCRIPT=(1 /tmp/dmgr-tmp-script 2 /tmp/dmgr-tmp-script-nested)
 readonly DMGR_TMP_SCRIPT
 export PATH=$PATH:$DMGR_SRCDIR/traps

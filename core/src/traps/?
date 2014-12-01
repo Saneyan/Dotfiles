@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
 
 use() { source $DMGR_SRCDIR/subsets/$1.zsh; }
-zsh -c "$1"
+shift
+source $1

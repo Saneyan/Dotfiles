@@ -1,5 +1,8 @@
 #!?
 
+use base
+use hook
+
 local e= c=false
 
 for e in $@; do
