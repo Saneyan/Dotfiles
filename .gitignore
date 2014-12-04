@@ -15,7 +15,7 @@ common/vim/*
 !common/vim/gvimrc
 !common/vim/nvimrc
 !common/vim/vimrc*
-core/conf/paths/_repo
+core/paths/_repo
 core/conf/inuse.list
 core/conf/plugin.list
 core/plugins/*

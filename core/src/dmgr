@@ -29,8 +29,6 @@ typeset -Ug path; path=($DMGR_SRCDIR/traps $path)
 
 if [[ $0 =~ "dmgr(ctl)?\.debug$" ]]; then
   declare -rx DMGR_DEBUGMODE=true
-else
-  declare -rx DMGR_DEBUGMODE=false
 fi
 
 if [[ $0 =~ "dmgr(\.debug)?$" ]]; then
@@ -83,7 +81,7 @@ elif [[ $DMGR_EXEC == 'dmgrctl' ]]; then
     "install")    _enforce_arg_chk $# '>=' 1 && $DMGR_SRCDIR/dmgrctl-install ${@:2};;
     "uninstall")  _enforce_arg_chk $# '>=' 1 && $DMGR_SRCDIR/dmgrctl-uninstall ${@:2} ;;
     "update")     $DMGR_SRCDIR/dmgrctl-update ${@:2} ;;
-    "help")       $DMGR_SRCDIR/dmgrctl-help ;;
+    "help")       $DMGR_SRCDIR/dmgrctl-help; exit $? ;;
     *)            _abort ;;
   esac
 
