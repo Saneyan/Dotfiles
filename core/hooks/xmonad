@@ -7,7 +7,7 @@ DEPENDENCIES xorg
 [enable]
 USE update-xmonad
 LINK @xmonad
-ECHO " * After enabling xmonad feature, execute 'update-xmonad'"
+RUN update-xmonad
 
 [disable]
 UNUSE update-xmonad

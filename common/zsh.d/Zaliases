@@ -45,10 +45,5 @@ alias -g H="| head"
 alias -g G="| grep"
 
 # Dmgr
-if dmgr has "xmonad"; then
-  alias dmu="dmgr update; update-xmonad; reload-dmgr"
-else
-  alias dmu="dmgrctl update"
-fi
-
+alias dmu="dmgrctl update"
 alias dml="dmgr list"
