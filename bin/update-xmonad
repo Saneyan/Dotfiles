@@ -33,9 +33,6 @@ while read opt; do
   echo "Type (y or n): "
 done
 
-if [ "${opt}" = "y" ]; then
-  opts=($opts "-DUNIX_US_LAYOUT=true")
-else
-fi
+[ "${opt}" = "y" ] && opts=($opts "-DUNIX_US_LAYOUT=true")
 
 ghc $(echo $opts "-o $XM/$BIN")
