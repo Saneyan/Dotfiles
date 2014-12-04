@@ -1,5 +1,6 @@
 #!?
 
 echo "Re-caching configs..."
-exec $SHELL
+. ~/.zsh.d/.zshenv
+. ~/.zsh.d/.zshrc
 exit $?
