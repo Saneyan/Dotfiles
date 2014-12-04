@@ -1,5 +1,7 @@
 #!?
 
+use base
+
 local plugins= e= this= c=false
 
 _fbold "\n:: Uninstalling plugins..."

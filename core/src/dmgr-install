@@ -1,5 +1,7 @@
 #!?
 
+use base
+
 local official= ctr= item= e= this= c=false
 
 _fbold "\n:: Installing plugins..."

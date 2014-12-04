@@ -3,7 +3,10 @@
 # @param $1 Executive mode.
 # @param $2... Commands which this function can call.
 #
-declare -i REC=0
+declare -ix REC=0
+declare -Ax DMGR_TMP_SCRIPT
+DMGR_TMP_SCRIPT=(1 /tmp/dmgr-tmp-script 2 /tmp/dmgr-tmp-script-nested)
+readonly DMGR_TMP_SCRIPT
 
 _hook() {
   local line= reg= args= ac= e=

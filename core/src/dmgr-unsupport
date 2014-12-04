@@ -1,5 +1,7 @@
 #!?
 
+use base
+
 if ! _exist $DMGR_SUPPORT $1; then
   echo "${1} has not already been supported."
   exit 1

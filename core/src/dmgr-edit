@@ -1,5 +1,7 @@
 #!?
 
+use base
+
 local e= item= config= CONF= SUDO=0
 local desc="As staff (0) or root (1)\tType\tPath"
 

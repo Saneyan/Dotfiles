@@ -1,5 +1,7 @@
 #!?
 
+use base
+
 declare -a inuse support enabled
 local e=
 

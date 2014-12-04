@@ -2,6 +2,8 @@
 
 use base
 use hook
+use debug
+use func
 
 local e= c=false
 
