@@ -19,7 +19,6 @@ export DMGR_ZPROFILE_SIGNATURE="__dzps__"
 
 # dmgr base paths
 export DMGR_BASE_PATH=$HOME/.dmgr
-source $DMGR_BASE_PATH/paths/_repo
 
 #
 # Path

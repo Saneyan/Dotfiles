@@ -9,6 +9,8 @@
 # @author TADOKORO Saneyuki <saneyan@mail.gfunction.com>
 #
 
+cd $HOME
+
 . ~/.dmgr/src/subsets/base.zsh
 . ~/.dmgr/src/subsets/debug.zsh
 
