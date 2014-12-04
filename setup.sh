@@ -14,15 +14,19 @@ done
 # Common setup
 #
 export DMGR_SETUP_DIRNAME=$(cd $(dirname $0) && pwd)
+export PATH=$PATH:$HOME/bin
 
 mkdir $HOME/bin
 ln -sv $DMGR_SETUP_DIRNAME/core $HOME/.dmgr
-export PATH=$PATH:$HOME/.dmgr/src
+
+for dst in dmgr dmgr.debug dmgrctl dmgrctl.debug; do
+  ln -sv $HOME/.dmgr/src/dmgr $HOME/bin/$dst
+done
 
 echo $DMGR_SETUP_DIRNAME > $HOME/.dmgr/paths/_repo
 touch $HOME/.dmgr/conf/{plugin,inuse}.list
 echo "Created $(echo ${HOME}/.dmgr/conf/{plugin,inuse}.list)"
 
-dmgr enable system
+dmgrctl enable system
 
 unset DMGR_SETUP_DIRNAME

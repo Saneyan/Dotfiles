@@ -1,0 +1,5 @@
+#!?
+
+echo "Re-caching configs..."
+exec $SHELL
+exit $?

@@ -4,7 +4,7 @@ VERSION "0.1.0"
 REQUIREMENTS zsh,vim,git,*emacs,*tmux,*finger
 
 [enable]
-USE dmgr,dispose,empty,lnfind,todo,jr
+USE dispose,empty,lnfind,todo,jr
 
 RUN touch $DMGR_INUSE
 RUN touch $DMGR_PLUGIN
@@ -36,15 +36,13 @@ LINK @gitconfig
 
 RUN mkdir $HOME/{Development,Downloads}
 
-if [[ $MODE == 'update' ]]; then
-  ECHO " * Execute 'reload-dmgr' to apply your ZSH config after updating."
-else
+if [[ $MODE != 'update' ]]; then
   ECHO " * Execute '. ${DMGR_SETUP_DIRNAME}/profile' to apply your ZSH config after updating."
 fi
 ECHO " * Don't forget to set your SSH keys and config."
 
 [disable]
-UNUSE dmgr,dispose,empty,lnfind,todo,jr
+UNUSE dispose,empty,lnfind,todo,jr
 
 # Finger
 UNLINK @plan

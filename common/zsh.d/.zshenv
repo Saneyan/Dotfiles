@@ -17,23 +17,7 @@ export ZDOTDIR="$HOME/.zsh.d"
 #
 # dmgr command
 #
-if [ -e $HOME/bin/dmgr ]; then
-  dmgrctl() {
-    $HOME/bin/dmgr $@
-    local r=$?
-    if [ $r = 200 ]; then
-      reload-dmgr
-      return $?
-    fi
-    return $r
-  }
-
-  reload-dmgr() {
-    echo "Re-caching configs..."
-    exec $SHELL
-    return $?
-  }
-else
+if [ ! -e $HOME/bin/dmgr ]; then
   echo "Before using this environment, you must install ** dmgr **."
   dmgr() {}
 fi
