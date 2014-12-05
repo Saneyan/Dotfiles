@@ -3,7 +3,7 @@
 #
 # Check system
 #
-if ! [[ $SHELL ~= 'zsh$' ]]; then
+if ! [[ $SHELL =~ 'zsh$' ]]; then
   echo "You must execute setup script on ZSH."
   exit 1
 fi
