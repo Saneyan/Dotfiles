@@ -4,6 +4,7 @@ import XMonad
 import XMonad.Config.Xfce
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.SetWMName
 import XMonad.Actions.SpawnOn (spawnOn, manageSpawn)
 import XMonad.Util.Run
 import Gfxt.Workspace
@@ -42,3 +43,4 @@ myStartupHook = do
   spawnOn (myWorkspaces!!1) myWebBrowser
   spawnOn (myWorkspaces!!2) myMailer
   spawnOn (myWorkspaces!!8) mySkype
+  setWMName "LG3D"
