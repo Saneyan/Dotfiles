@@ -87,14 +87,59 @@ autoload -U colors; colors
 PROMPT="%{${fg[cyan]}%}[%n@%m] %{${reset_color}%}"
 RPROMPT="[%d]"
 
+#
+# Aliases
+#
+# General commands
+alias b="exit"
+alias w="startx"
+alias s="sudo -u root"
+alias pg="ps aux | grep"
+alias pn="ping -c 3 8.8.8.8"
+alias emacs="vim"
+
+# Git
+alias -g g="git"
+
+# Vim
+alias -g e="which nvim &>/dev/null && nvim || vim"
+
+# kill
+alias -g k="kill"
+alias -g k9="kill -9"
+
+# ls
+alias -g l="ls -lh --color=auto"
+alias -g la="ls -lhA --color=auto"
+
+# cp
+alias -g cp="cp -fv"
+alias -g cpr="cp -rfv"
+
+# mv
+alias -g mv="mv -v"
+
+# System
+alias reb="sudo reboot"
+alias shu="sudo shutdown -Ph now"
+
+# Viewers with a pipe (upper case letter)
+alias -g L="| less"
+alias -g T="| tail"
+alias -g H="| head"
+alias -g G="| grep"
+
+# Dmgr
+alias dmu="dmgrctl update"
+alias dml="dmgr list"
 
 #
 # Import other settings
 #
-paths=($ZDOTDIR/Zaliases)
+paths=()
 
-for i in $(find $ZDOTDIR/ | grep -E "Zaliases\." 2>/dev/null | sed "s/.*Zaliases\.//g"); do
-  dmgr has $i && paths=($paths $ZDOTDIR/Zaliases.$i)
+for i in $(ls $ZDOTDIR/*.zsh); do
+  dmgr has $(basename $i | sed 's/\.zsh$//g') && paths=($paths $i)
 done
 
 # Powerline

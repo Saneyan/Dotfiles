@@ -14,7 +14,7 @@ common/.gitignore
 common/vim/*
 !common/vim/gvimrc
 !common/vim/nvimrc
-!common/vim/vimrc*
+!common/vim/*.vim
 core/paths/_repo
 core/conf/inuse.list
 core/conf/plugin.list
