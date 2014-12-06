@@ -1,6 +1,0 @@
-#!?
-
-echo "Re-caching configs..."
-. ~/.zsh.d/.zshenv
-. ~/.zsh.d/.zshrc
-exit $?

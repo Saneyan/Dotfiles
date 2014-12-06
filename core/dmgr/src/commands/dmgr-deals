@@ -1,6 +1,0 @@
-#!?
-
-use base
-
-_exist $DMGR_SUPPORT $1
-exit $?
