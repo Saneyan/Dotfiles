@@ -7,4 +7,4 @@ export -f clean() {}
 export -f migrate() {}
 
 # Start setup!
-$dirname/dmgr/src/dmgr setup $1
+$dirname/dmgr/src/commands/dmgr setup $1
