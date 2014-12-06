@@ -1,14 +1,10 @@
 (define MKPORT #f)
 
-(define (mkopen name modue)
-  (set! MKPORT (open-file name mode))
-  #f)
-
-(define (mkwrite s)
-  (display s MKPORT)
-  (newline MKPORT)
-  #f)
-
-(define (mkclose)
-  (close-port MKPORT)
-  #f)
+(define (xmfpath name)
+	(if (string=? name "xmonad.hs")
+		(display
+			(string-append
+				(gmk-expand 'XMDIR) "/" name) MKPORT)
+		(display
+			(string-append
+				(gmk-expand 'XMDIR) "/Gfxt/" name) MKPORT)))
