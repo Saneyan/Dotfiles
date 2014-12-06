@@ -1,3 +1,6 @@
 local-server-config=https://Saneyan@bitbucket.org/Saneyan/local-server-config.git
 arch-packages=https://Saneyan@bitbucket.org/Saneyan/arch-packages.git
 urxvt-perls=https://github.com/muennich/urxvt-perls.git
+powerline-fonts=https://github.com/Lokaltog/powerline-fonts $DMGR_PLUGINDIR/powerline-fonts.git
+powerline=https://github.com/Lokaltog/powerline $DMGR_PLUGINDIR/powerline.git
+ls--=https://github.com/trapd00r/ls--.git

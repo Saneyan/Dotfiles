@@ -11,9 +11,6 @@
 
 cd $HOME
 
-. ~/.dmgr/src/subsets/base.zsh
-. ~/.dmgr/src/subsets/debug.zsh
-
 declare -x MODE=''
 declare -rx DMGR_VERSION="0.10.0"
 declare -rx DMGR_DIST=$(uname -r)
@@ -21,13 +18,16 @@ declare -rx DMGR_CONFDIR=$HOME/.dmgr/conf
 declare -rx DMGR_PLUGINDIR=$HOME/.dmgr/plugins
 declare -rx DMGR_HOOKDIR=$HOME/.dmgr/hooks
 declare -rx DMGR_PATHDIR=$HOME/.dmgr/paths
-declare -rx DMGR_SRCDIR=$HOME/.dmgr/src
+declare -rx DMGR_SRCDIR=$HOME/.dmgr/dmgr/src
 declare -rx DMGR_REPODIR=$(cat $DMGR_PATHDIR/_repo)
 declare -rx DMGR_INUSE=$DMGR_CONFDIR/inuse.list
 declare -rx DMGR_SUPPORT=$DMGR_CONFDIR/support.list
 declare -rx DMGR_PLUGIN=$DMGR_CONFDIR/plugin.list
 declare -rx DMGR_OFFICIAL=$DMGR_CONFDIR/official.list
-typeset -Ug path; path=($DMGR_SRCDIR/traps $path)
+typeset -Ug path; path=($DMGR_SRCDIR/traps $DMGR_SRCDIR/commands $path)
+
+. $DMGR_SRCDIR/subsets/base.zsh
+. $DMGR_SRCDIR/subsets/debug.zsh
 
 if [[ $0 =~ "dmgr(ctl)?\.debug$" ]]; then
   declare -rx DMGR_DEBUGMODE=true
@@ -64,26 +64,27 @@ _d 'Official plugins: ' $(cat $DMGR_OFFICIAL)
 
 if [[ $DMGR_EXEC == 'dmgr' ]]; then
   case $1 in
-    "has")        _enforce_arg_chk $# '=' 1 && $DMGR_SRCDIR/dmgr-has $2 ;;
-    "deals")      _enforce_arg_chk $# '=' 1 && $DMGR_SRCDIR/dmgr-deals $2 ;;
-    "installed")  _enforce_arg_chk $# '=' 1 && $DMGR_SRCDIR/dmgr-installed $2 ;;
-    "env")        _enforce_arg_chk $# '>=' 1 && $DMGR_SRCDIR/dmgr-env $2 ;;
-    "edit")       $DMGR_SRCDIR/dmgr-edit $2 ;;
-    "list")       $DMGR_SRCDIR/dmgr-list ;;
-    "reload")     $DMGR_SRCDIR/dmgr-reload ;;
-    "help")       $DMGR_SRCDIR/dmgr-help ;;
+    "has")        _enforce_arg_chk $# '=' 1 && dmgr-has $2 ;;
+    "deals")      _enforce_arg_chk $# '=' 1 && dmgr-deals $2 ;;
+    "installed")  _enforce_arg_chk $# '=' 1 && dmgr-installed $2 ;;
+    "env")        dmgr-env $2 ;;
+    "setup")      dmgr-setup $2 ;;
+    "edit")       dmgr-edit $2 ;;
+    "list")       dmgr-list ;;
+    "reload")     dmgr-reload ;;
+    "help")       dmgr-help ;;
     *)            _abort ;;
   esac
 elif [[ $DMGR_EXEC == 'dmgrctl' ]]; then
   case $1 in
-    "support")    _enforce_arg_chk $# '=' 1 && $DMGR_SRCDIR/dmgrctl-support $2 ;;
-    "unsupport")  _enforce_arg_chk $# '=' 1 && $DMGR_SRCDIR/dmgrctl-unsupport $2 ;;
-    "enable")     _enforce_arg_chk $# '>=' 1 && $DMGR_SRCDIR/dmgrctl-enable ${@:2} ;;
-    "disable")    _enforce_arg_chk $# '>=' 1 && $DMGR_SRCDIR/dmgrctl-disable ${@:2} ;;
-    "install")    _enforce_arg_chk $# '>=' 1 && $DMGR_SRCDIR/dmgrctl-install ${@:2};;
-    "uninstall")  _enforce_arg_chk $# '>=' 1 && $DMGR_SRCDIR/dmgrctl-uninstall ${@:2} ;;
-    "update")     $DMGR_SRCDIR/dmgrctl-update ${@:2} ;;
-    "help")       $DMGR_SRCDIR/dmgrctl-help; exit $? ;;
+    "support")    _enforce_arg_chk $# '=' 1 && dmgrctl-support $2 ;;
+    "unsupport")  _enforce_arg_chk $# '=' 1 && dmgrctl-unsupport $2 ;;
+    "enable")     _enforce_arg_chk $# '>=' 1 && dmgrctl-enable ${@:2} ;;
+    "disable")    _enforce_arg_chk $# '>=' 1 && dmgrctl-disable ${@:2} ;;
+    "install")    _enforce_arg_chk $# '>=' 1 && dmgrctl-install ${@:2};;
+    "uninstall")  _enforce_arg_chk $# '>=' 1 && dmgrctl-uninstall ${@:2} ;;
+    "update")     dmgrctl-update ${@:2} ;;
+    "help")       dmgrctl-help; exit $? ;;
     *)            _abort ;;
   esac
 

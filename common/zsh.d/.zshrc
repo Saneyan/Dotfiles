@@ -2,9 +2,9 @@
 #
 # .zshrc
 #
-# @rev    G-0.2.2
-# @update 2014-08-18
-# @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
+# @rev    G-0.5.0
+# @update 2014-12-9
+# @author TADOKORO Saneyuki <saneyan@mail.gfunction.com>
 
 #
 # General settings
@@ -134,7 +134,7 @@ alias dmu="dmgrctl update"
 alias dml="dmgr list"
 
 #
-# Import other settings
+# Import another settings
 #
 paths=()
 
@@ -143,7 +143,7 @@ for i in $(ls $ZDOTDIR/*.zsh); do
 done
 
 # Powerline
-if dmgr has "powerline"; then
+if dmgr has powerline-zsh; then
   paths=($HOME/.dmgr/plugins/powerline/powerline/bindings/zsh/powerline.zsh $paths)
 fi
 

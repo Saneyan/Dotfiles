@@ -10,14 +10,14 @@
 # Common environments
 #
 # ZSH directory
-export ZDOTDIR="$HOME/.zsh.d"
+export ZDOTDIR=$HOME/.zsh.d
 
-[ "$DMGR_ZPROFILE_SIGNATURE" != "__dzps__" ] && source $ZDOTDIR/.zprofile
+[ "$DMGR_ZPROFILE_SIGNATURE" != '__dzps__' ] && source $ZDOTDIR/.zprofile
 
 #
 # dmgr command
 #
 if [ ! -e $HOME/bin/dmgr ]; then
-  echo "Before using this environment, you must install ** dmgr **."
+  echo 'Before using this environment, you must install ** dmgr **.'
   dmgr() {}
 fi

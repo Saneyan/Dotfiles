@@ -1,0 +1,6 @@
+[submodule "vim/bundle/neobundle.vim"]
+  path = vim/bundle/neobundle.vim
+  url = https://github.com/Shougo/neobundle.vim
+[submodule "core/dmgr"]
+  path = core/dmgr
+  url = https://github.com/gfunction/dmgr.git

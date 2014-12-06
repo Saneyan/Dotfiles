@@ -5,13 +5,13 @@ REQUIREMENTS git,sudo
 
 [enable]
 RUN sudo cpan Term::ExtendedColor
-RUN git clone https://github.com/trapd00r/ls--.git $DMGR_PLUGINDIR/ls--
+INSTALL ls--
 RUN cd $DMGR_PLUGINDIR/ls--; perl Makefile.PL
 RUN make && su -c 'make install'
 RUN cp ls++.conf $HOME/.ls++.conf
 
 [disable]
-RUN rm -rfv $DMGR_PLUGINDIR/ls--
+UNINSTALL ls--
 
 [update]
 REARCH disable RUN

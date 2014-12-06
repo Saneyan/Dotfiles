@@ -11,7 +11,8 @@ call InitPlugins({
   \ ]
   \})
 
-if system('$HOME/bin/dmgr has "powerline" && echo -n "powerline"') == "powerline"
+if !has('neovim') && system('dmgr has powerline-vim && echo -n "powerline"') == "powerline"
+  || has('neovim') && system('dmgr has powerline-neovim && echo -n "powerline"') == "powerline"
   call InitPlugins({
   \ 'load': [
   \   'alpaca-tc/alpaca_powertabline',

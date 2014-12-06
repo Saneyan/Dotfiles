@@ -4,7 +4,7 @@ VERSION "0.1.0"
 DEPENDENCIES urxvt
 
 [enable]
-RUN dmgr install urxvt-perls
+INSTALL urxvt-perls
 for i in clipboard keyboard-select url-select; do
   RUN sudo cp -v $DMGR_PLUGINDIR/urxvt-perls/$i /usr/lib/urxvt/perl/
 done
@@ -13,7 +13,7 @@ done
 for i in clipboard keyboard-select url-select; do
   RUN sudo rm -v /usr/lib/urxvt/perl/$i
 done
-RUN dmgr uninstall urxvt-perls
+UNINSTALL urxvt-perls
 
 [update]
 REARCH disable ECHO UNLINK UNUSE
