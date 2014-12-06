@@ -1,0 +1,7 @@
+*
+!.gitignore
+!xmonad.hs
+!Gfxt/
+Gfxt/*
+!Gfxt/*.hs
+Gfxt/Email.hs

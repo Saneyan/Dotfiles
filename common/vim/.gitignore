@@ -1,0 +1,6 @@
+*
+!.gitignore
+!gvimrc
+!nvimrc
+!*.vim
+!bundle/neobundle.vim/
