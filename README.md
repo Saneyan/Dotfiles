@@ -10,33 +10,51 @@
 
 ### Install
 
-Initialize dmgr setting and enable 'system' feature in setup.sh.
+1. Clone from GitHub repository and change current directory.
 
 ```
-git clone https://github.com/Saneyan/Dotfiles.git
-Dotfiles/setup.sh
+git clone https://github.com/Saneyan/dotfiles.git
+cd dotfiles
 ```
 
-Enable dotfile features depending on your environment.
+2. Start setup to execute `make` command.
+
+```
+make
+```
+
+3. Enable dotfile features depending on your environment.
 
 ```
 dmgr enable <feature_name>
 ```
 
+### Clean
+
+Execute `make clean` to clean dotfiles.
+
+### Migrate
+
+Execute `make migrate` to migrate dotfiles.
+
+### Compiling XMonad config files.
+
+Execute `make xmonad` to compile XMonad config files.
+
 ## About dmgr
 
-dmgr (stands for Dotfile manager) makes extensible \*nix environment.
-This system provides 22 optional features, and enables or disables them depending upon the situation.
-For example, to enable some optional features for desktop environment, you can build this environment easily.
-
-dmgr also supports file registry that the user can access without knowing file path.
+dmgr (stands for Dotfile ManaGeR) makes extensible \*nix environment.
+See https://github.com/gfunction/dmgr for more information.
 
 ### Optional features
+
+This dotfiles provide 28 optional features.
 
  * m1
  * docker
  * wuala
  * pacman
+ * yaourt
  * portage
  * desktop
  * dub
@@ -44,7 +62,10 @@ dmgr also supports file registry that the user can access without knowing file p
  * xorg
  * xmonad
  * xfce4
- * powerline
+ * powerline-base
+ * powerline-vim
+ * powerline-zsh
+ * powerline-tmux
  * tp-x230
  * apt
  * aptitude
@@ -53,22 +74,9 @@ dmgr also supports file registry that the user can access without knowing file p
  * sysv
  * yum
  * system
+ * urxvt
+ * ls--
  * test
 
-### Hooks
-
-dmgr supports enable and disable hooks. These hook functions are called when executing enable or disable command.
-
-### Usage
-
-```
-dmgr <command> (<feature_name>)
-```
-
-Type `dmgr help` for more help.
-
-## Use debug mode
-
-```
-ln -s $HOME/bin/dmgr $HOME/bin/dmgr.debug
-```
+## More help
+Type `make help` for more help.
