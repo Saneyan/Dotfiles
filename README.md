@@ -7,27 +7,22 @@
 ### Requirements
 
  * ZSH
+ * GNU make `>= 4.0`
 
 ### Install
 
-1. Clone from GitHub repository and change current directory.
+	1. Clone from GitHub repository and change current directory:
 
-```
-git clone https://github.com/Saneyan/dotfiles.git
-cd dotfiles
-```
+	git clone https://github.com/Saneyan/dotfiles.git
+	cd dotfiles
 
-2. Start setup to execute `make` command.
+	2. Start setup to execute `make` command:
 
-```
-make
-```
+	make
 
-3. Enable dotfile features depending on your environment.
+	3. Enable dotfile features depending on your environment:
 
-```
-dmgr enable <feature_name>
-```
+	dmgr enable <feature_name>
 
 ### Clean
 
