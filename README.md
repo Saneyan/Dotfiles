@@ -27,7 +27,7 @@
  3. Enable dotfile features depending on your environment:
 
   ```
-  dmgr enable <feature_name>
+  dmgrctl enable <feature_name>
   ```
 
 ### Clean
@@ -38,7 +38,7 @@ Execute `make clean` to clean dotfiles.
 
 Execute `make migrate` to migrate dotfiles.
 
-### Compiling XMonad config files.
+### Compiling XMonad config files
 
 Execute `make xmonad` to compile XMonad config files.
 
