@@ -8,11 +8,11 @@ call InitPlugins({
   \   'scrooloose/nerdtree',
   \   'osyo-manga/vim-over',
   \   'nathanaelkane/vim-indent-guides',
+  \   'hhvm/vim-hack'
   \ ]
   \})
 
-if !has('neovim') && system('dmgr has powerline-vim && echo -n "powerline"') == "powerline"
-  || has('neovim') && system('dmgr has powerline-neovim && echo -n "powerline"') == "powerline"
+if !has('neovim') && system('dmgr has powerline-vim && echo -n "powerline"') == "powerline" || has('neovim') && system('dmgr has powerline-neovim && echo -n "powerline"') == "powerline"
   call InitPlugins({
   \ 'load': [
   \   'alpaca-tc/alpaca_powertabline',

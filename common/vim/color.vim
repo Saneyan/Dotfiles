@@ -1,8 +1,10 @@
 colorscheme desert
 syntax on
 
-hi CursorLine cterm=NONE ctermbg=003 ctermfg=000 guibg=024 guifg=white
-hi CursorColumn cterm=NONE ctermbg=022 ctermfg=000 guibg=024 guifg=white
+"hi CursorLine cterm=NONE ctermbg=003 ctermfg=000 guibg=024 guifg=white
+"hi CursorColumn cterm=NONE ctermbg=022 ctermfg=000 guibg=024 guifg=white
+hi CursorColumn cterm=NONE ctermbg=003 ctermfg=000 guibg=024 guifg=white
+hi CursorLine cterm=underline ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
 "" Colorize special keys
 highlight SpecialKey term=underline ctermfg=024 guifg=darkgray

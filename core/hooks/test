@@ -15,7 +15,3 @@ ECHO "disable"
 RUN uptime
 UNLINK @dmgr.test
 UNLINK @dmgr.test.option
-
-[update]
-REARCH disable ECHO UNLINK UNUSE
-REARCH enable ECHO LINK USE

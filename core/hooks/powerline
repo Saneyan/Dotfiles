@@ -5,20 +5,15 @@ REQUIREMENTS git,pip,sudo
 
 [enable]
 INSTALL powerline-fonts
-RUN sudo cp "$DMGR_PLUGINDIR/powerline-fonts/Inconsolata/Inconsolata for Powerline.otf" /usr/share/fonts/OTF/
+SCOPY "$DMGR_PLUGINDIR/powerline-fonts/Inconsolata/Inconsolata for Powerline.otf" /usr/share/fonts/OTF/
 INSTALL powerline
 LINK $DMGR_PLUGINDIR/powerline/scripts/powerline $HOME/.local/bin/powerline
-RUN sudo pip install -e $DMGR_PLUGINDIR/powerline
+SRUN pip install -e $DMGR_PLUGINDIR/powerline
 RUN mkdir -pv $HOME/.local/bin
 ECHO " * See also: https://powerline.readthedocs.org/en/latest/installation.html"
 
 [disable]
-RUN sudo pip uninstall $DMGR_PLUGINDIR/powerline
-UNINSTALL $DMGR_PLUGINDIR/powerline
-UNINSTALL $DMGR_PLUGINDIR/powerline-fonts
-RUN sudo rm -rfv "/usr/share/fonts/OTF/Inconsolata for Powerline.otf"
-UNLINK $DMGR_PLUGINDIR/powerline/scripts/powerline
-
-[update]
-REARCH disable ECHO UNLINK UNUSE
-REARCH enable ECHO LINK USE
+SRUN sudo pip uninstall $DMGR_PLUGINDIR/powerline
+UNINSTALL powerline
+UNINSTALL powerline-fonts
+CLEAN

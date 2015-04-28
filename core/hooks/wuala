@@ -4,13 +4,11 @@ VERSION "0.1.0"
 REQUIREMENTS wget
 
 [enable]
-RUN wget -O /tmp/dmgr-download-wuala https://cdn.wuala.com/repo/other/wuala.tar.gz
-RUN tar zxvf /tmp/dmgr-download-wuala -C $DMGR_PLUGINDIR --transform s/dmgr-download-wuala/wuala/
-RUN rm -f /tmp/dmgr-download-wuala
+INSTALL wuala
+#RUN wget -O /tmp/dmgr-download-wuala https://cdn.wuala.com/repo/other/wuala.tar.gz
+#RUN tar zxvf /tmp/dmgr-download-wuala -C $DMGR_PLUGINDIR --transform s/dmgr-download-wuala/wuala/
+#RUN rm -f /tmp/dmgr-download-wuala
 
 [disable]
-RUN rm -fv $DMGR_PLUGINDIR/wuala
-
-[update]
-REARCH disable RUN
-REARCH enable RUN
+UNINSTALL wuala
+#RUN rm -fv $DMGR_PLUGINDIR/wuala

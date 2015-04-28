@@ -136,7 +136,7 @@ alias dml="dmgr list"
 #
 # Import another settings
 #
-paths=()
+paths=(/home/saneyan/.gem/ruby/2.2.0/bin)
 
 for i in $(ls $ZDOTDIR/*.zsh); do
   dmgr has $(basename $i | sed 's/\.zsh$//g') && paths=($paths $i)

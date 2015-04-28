@@ -4,3 +4,4 @@ urxvt-perls=https://github.com/muennich/urxvt-perls.git
 powerline-fonts=https://github.com/Lokaltog/powerline-fonts $DMGR_PLUGINDIR/powerline-fonts.git
 powerline=https://github.com/Lokaltog/powerline $DMGR_PLUGINDIR/powerline.git
 ls--=https://github.com/trapd00r/ls--.git
+wuala=https://cdn.wuala.com/repo/other/wuala.tar.gz

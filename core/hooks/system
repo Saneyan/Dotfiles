@@ -6,9 +6,6 @@ REQUIREMENTS zsh,vim,git,*emacs,*tmux,*finger
 [enable]
 USE dispose,empty,lnfind,todo,jr
 
-RUN touch $DMGR_INUSE
-RUN touch $DMGR_PLUGIN
-
 # Finger
 LINK @plan
 LINK @project
@@ -18,14 +15,15 @@ LINK @emacs.d
 
 # Vim
 LINK @vim
-LINK ~/.vim/vimrc ~/.vimrc
-LINK ~/.vim/nvimrc ~/.nvimrc
-RUN mkdir -pv $HOME/.vim/bundle
-INSTALL neobundle $HOME/.vim/bundle/neobundle.vim
+LINK @vim/vimrc
+
+# Neovim
+LINK @nvim
+LINK @nvim/nvimrc
 
 # ZSH
 LINK @zsh.d
-LINK ~/.zsh.d/.zshenv ~/.zshenv
+LINK @zsh.d/.zshenv
 
 # Tmux
 LINK @tmux.conf
@@ -36,37 +34,8 @@ LINK @gitconfig
 
 RUN mkdir $HOME/{Development,Downloads}
 
-if [[ $MODE != 'update' ]]; then
-  ECHO " * Execute '. ${DMGR_SETUP_DIRNAME}/profile' to apply your ZSH config after updating."
-fi
 ECHO " * Don't forget to set your SSH keys and config."
 
 [disable]
 UNUSE dispose,empty,lnfind,todo,jr
-
-# Finger
-UNLINK @plan
-UNLINK @project
-
-# Emacs
-UNLINK @emacs.d
-
-# Vim
-UNLINK @vim
-UNLINK ~/.vim/vimrc
-UNLINK ~/.vim/nvimrc
-
-# ZSH
-UNLINK @zsh.d
-UNLINK ~/.zsh.d/.zshenv
-
-# Tmux
-UNLINK @tmux.conf
-
-# Git
-UNLINK @gitignore
-UNLINK @gitconfig
-
-[update]
-REARCH disable ECHO UNLINK UNUSE
-REARCH enable ECHO LINK USE
+CLEAN

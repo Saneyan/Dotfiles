@@ -5,16 +5,11 @@ DEPENDENCIES urxvt
 
 [enable]
 INSTALL urxvt-perls
+
 for i in clipboard keyboard-select url-select; do
-  RUN sudo cp -v $DMGR_PLUGINDIR/urxvt-perls/$i /usr/lib/urxvt/perl/
+SCOPY $DMGR_PLUGINDIR/urxvt-perls/$i /usr/lib/urxvt/perl/
 done
 
 [disable]
-for i in clipboard keyboard-select url-select; do
-  RUN sudo rm -v /usr/lib/urxvt/perl/$i
-done
+CLEAN
 UNINSTALL urxvt-perls
-
-[update]
-REARCH disable ECHO UNLINK UNUSE
-REARCH enable ECHO LINK USE

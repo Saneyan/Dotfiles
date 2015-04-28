@@ -1,18 +1,16 @@
 [info]
 AUTHOR "TADOKORO Saneyuki <saneyan@mail.gfunction.com>"
 VERSION "0.1.0"
-REQUIREMENTS git,sudo
+REQUIREMENTS git,cpan,make
 
 [enable]
-RUN sudo cpan Term::ExtendedColor
+SRUN cpan Term::ExtendedColor
 INSTALL ls--
-RUN cd $DMGR_PLUGINDIR/ls--; perl Makefile.PL
+RUN cd $DMGR_PLUGINDIR/ls--
+RUN perl Makefile.PL
 RUN make && su -c 'make install'
-RUN cp ls++.conf $HOME/.ls++.conf
+COPY ls++.conf $HOME/.ls++.conf
 
 [disable]
 UNINSTALL ls--
-
-[update]
-REARCH disable RUN
-REARCH enable RUN
+CLEAN

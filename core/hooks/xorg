@@ -6,17 +6,11 @@ REQUIREMENTS startx,vim
 [enable]
 # Link local xorg setting files.
 LINK @xorg.d
-LINK ~/.xorg.d/xsession ~/.xsession
-LINK ~/.xorg.d/xsession ~/.xinitrc
+LINK @xorg.d/xsession
+LINK @xorg.d/xsession ~/.xinitrc
 
 # Link gvimrc
-LINK @vim/gvimrc ~/.gvimrc
+LINK @vim/gvimrc
 
 [disable]
-UNLINK @xorg.d
-UNLINK ~/.xorg.d/xsession
-UNLINK @vim/gvimrc
-
-[update]
-REARCH disable ECHO UNLINK UNUSE
-REARCH enable ECHO LINK USE
+CLEAN :all

@@ -23,7 +23,7 @@ endef
 $(guile (load "guile.scm"))
 
 .PHONY: all
-all:: submodules install
+all: submodules install
 
 .PHONY: install
 install:
@@ -49,10 +49,15 @@ clean:
 
 .PHONY: migrate
 migrate:
-	dmgrctl disable :all:stash
+	dmgrctl disable :all :stash
 	$(unlink)
 	$(link)
 	dmgrctl enable :pop
+
+.PHONY: submodules
+submodules::
+	git submodule init
+	git submodule update
 
 #
 # XMonad
@@ -106,11 +111,6 @@ xmonad.email-mod:
 $(XMBIN): $(guile (xmfpath xmfiles))
 	$(HC) --make $^ -o $@ $(XMOPTS)
 
-.PHONY: $(submodules)
-submodules::
-	git submodule init
-	git submodule update
-
 #
 # Help
 #
@@ -119,15 +119,15 @@ define HELP
 
 Usage:
 
-make <target> (<options>)
+ make <target> (<options>)
 
 Targets:
 
-all	: Initialize and update git submodules, and build your environment.
-install	: Build your environment.
-clear	: Clear your environment.
-migrate	: Migrate your environment.
-xmonad	: Compile Haskell source files for XMonad.
+ all : Initialize and update git submodules, and build your environment.
+ install : Build your environment.
+ clear : Clear your environment.
+ migrate : Migrate your environment.
+ xmonad	: Compile Haskell source files for XMonad.
 	UNIX_US_LAYOUT=false	: Support UNIX US keyboard layout.
 endef
 

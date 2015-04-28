@@ -7,8 +7,4 @@ DEPENDENCIES xorg
 LINK @vimperatorrc
 
 [disable]
-UNLINK @vimperatorrc
-
-[update]
-REARCH disable ECHO UNLINK UNUSE
-REARCH enable ECHO LINK USE
+CLEAN
