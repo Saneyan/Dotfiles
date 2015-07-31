@@ -16,13 +16,12 @@ function! InitPlugins(conf)
   let l:fetch = get(a:conf, 'fetch', [])
   let l:load = get(a:conf, 'load', [])
 
+  call neobundle#begin(expand('~/.vim/bundle/'))
   "" Fetch plugins
   if l:fetch != []
-    call neobundle#begin(expand('~/.vim/bundle/'))
     for l:val in l:fetch
       execute 'NeoBundleFetch "' .l:val .'"'
     endfor
-    call neobundle#end()
   endif
 
   "" Load plugins
@@ -34,4 +33,5 @@ function! InitPlugins(conf)
     endif
     unlet l:val
   endfor
+  call neobundle#end()
 endfunction

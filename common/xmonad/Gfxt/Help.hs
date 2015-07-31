@@ -35,7 +35,7 @@ help = unlines
   , "| 2     | > browser | *Firefox Nightly, Chromium         |"
   , "| 3     | > mailer  | *Thunderbird                       |"
   , "| 4     | > psmgr   | KeePassX                           |"
-  , "| 5     | > cashier | GnuCash                            |"
+  , "| 5     | > idea    | IntelliJ Idea                      |"
   , "| 6     | > paint   | GIMP, Inkscape                     |"
   , "| 7     | > player  | VLC                                |"
   , "| 8     | > strage  | Wuala                              |"

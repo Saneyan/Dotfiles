@@ -4,6 +4,7 @@ import XMonad
 import XMonad.Config.Xfce
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.SetWMName
 import XMonad.Actions.SpawnOn (spawnOn, manageSpawn)
 import XMonad.Util.Run
 import Gfxt.Workspace
@@ -20,7 +21,7 @@ myManageHook = composeAll
   , className =? "Chromium"       --> doShift (myWorkspaces!!1)
   , className =? "Thunderbird"    --> doShift (myWorkspaces!!2)
   , className =? "Keepassx"       --> doShift (myWorkspaces!!3)
-  , className =? "Gnucash"        --> doShift (myWorkspaces!!4)
+  , className =? "IntelliJ"       --> doShift (myWorkspaces!!4)
   , className =? "Inkscape"       --> doShift (myWorkspaces!!5)
   , className =? "Gimp"           --> doShift (myWorkspaces!!5)
   , className =? "Vlc"            --> doShift (myWorkspaces!!6)
@@ -38,6 +39,7 @@ myLogHook h = logHook xfceConfig <+> dynamicLogWithPP xmobarPP
 -- Startup hook --
 myStartupHook :: X ()
 myStartupHook = do
+  setWMName "LG3D"
   spawnOn (myWorkspaces!!0) myTerm
   spawnOn (myWorkspaces!!1) myWebBrowser
   spawnOn (myWorkspaces!!2) myMailer
