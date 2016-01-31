@@ -2,7 +2,7 @@ Config {
   font = "xft:IPAPGothic:bold:size=8:antialias=true"
 , bgColor = "black"
 , fgColor = "grey"
-, position = BottomW L 100
+, position = TopW L 100
 , commands = [
     Run Network "enp0s25" ["-t", "<icon=.xmonad/icons/net.xbm/> <rx>KB | <tx>KB", "-L", "0", "-H", "32", "--normal", "green", "--high", "red"] 10
   , Run Network "wlp3s0" ["-t", "<icon=.xmonad/icons/net.xbm/> <rx>KB | <tx>KB", "-L", "0", "-H", "32", "--normal", "green", "--high", "red"] 10

@@ -8,7 +8,9 @@ call InitPlugins({
   \   'scrooloose/nerdtree',
   \   'osyo-manga/vim-over',
   \   'nathanaelkane/vim-indent-guides',
-  \   'elixir-lang/vim-elixir'
+  \   'elixir-lang/vim-elixir',
+  \   'leafgarland/typescript-vim',
+  \   'digitaltoad/vim-jade'
   \ ]
   \})
 

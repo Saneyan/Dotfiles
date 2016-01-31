@@ -4,7 +4,7 @@ excludesfile = ~/.gitignore
 
 [user]
 name = "TADOKORO Saneyuki"
-email = "saneyan@mail.gfunction.com"
+email = "saneyan@gfunction.com"
 
 [color]
 ui = auto
@@ -20,4 +20,4 @@ pl = pull
 me = merge
 ch = checkout
 [receive]
-	denyCurrentBranch = ignore
+  denyCurrentBranch = ignore

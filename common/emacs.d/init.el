@@ -2,8 +2,23 @@
 ;; init.el created by Saneyuki Tadokoro
 ;;
 ;; General settings
-(add-to-list 'load-path "~/.emacs.d/")
-(add-to-list 'load-path "~/.emacs.d/haskell-mode-2.8.0")
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+    (url-retrieve-synchronously
+      "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-usr/recipes")
+(el-get 'sync)
+
+(el-get-bundle sr-speedbar)
+(el-get-bundle tabbar)
+(el-get-bundle php-mode)
+(el-get-bundle haskell-mode)
+(el-get-bundle ProofGeneral)
 ; Encoding
 (prefer-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -82,11 +97,16 @@
              '("\\.php[34]?\\'\\|\\.phtml\\'" . php-mode))
 ;; Haskell mode
 (require 'haskell-mode)
-(require 'haskell-cabal)
 (add-to-list 'auto-mode-alist
              '("\\.hs$" . haskell-mode))
 (add-to-list 'auto-mode-alist
              '("\\.lhs$" . literate-haskell-mode))
 (add-to-list 'auto-mode-alist
              '("\\.cabl\\''" . haskell-cabal-mode))
-
+                                        ; ProofGeneral
+(defadvice coq-mode-config (after deactivate-holes-mode () activate)
+  "Deactivate holes-mode when coq mode is activated."
+  (progn (holes-mode 0)))
+(add-hook 'proof-mode-hook
+          '(lambda ()
+             (define-key proof-mode-map (kdb "C-c C-j") 'proof-goto-point)))
