@@ -13,17 +13,13 @@
   dmgr, dispose, empty, lnfind, todo
 
 - install
-  link :if finger
-    @plan, @project
+  link :if finger :do @plan, @project
 
-  link :if emacs
-    @emacs
+  link :if emacs :do @emacs
 
-  link :if nvim
-    "~/.vim/nvimrc" :to "~/.nvimrc"
+  link :if nvim :do "~/.vim/nvimrc" :to "~/.nvimrc"
 
-  link :if tmux
-    @tmux.conf
+  link :if tmux :do @tmux.conf
 
   link
     @vim, @zsh.d, @gitconfig, @gitignore,
