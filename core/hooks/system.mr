@@ -1,0 +1,39 @@
+# this is the hook file written in Muro (.mr)
+
+-- dmgr.config :name system
+
+- profile
+  author: "TADOKORO Saneyuki <saneyan@mail.gfunction.com>"
+  version: 0.1.0
+
+- requirements
+  zsh, vim, git, *emacs, *tmux, *finger
+
+- use
+  dmgr, dispose, empty, lnfind, todo
+
+- install
+  link :if finger
+    @plan, @project
+
+  link :if emacs
+    @emacs
+
+  link :if nvim
+    "~/.vim/nvimrc" :to "~/.nvimrc"
+
+  link :if tmux
+    @tmux.conf
+
+  link
+    @vim, @zsh.d, @gitconfig, @gitignore,
+    "~/.vim/vimrc" :to "~/.vimrc",
+    "~/.zsh.d/.zshenv" :to "~/.zshenv"
+
+  run
+    `mkdir -pv $HOME/.vim/bundle`,
+    `git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim`
+
+- info :after install
+  "* Startup or restart ZSH now.",
+  "* Don't forget to set your SSH keys and config."
