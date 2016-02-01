@@ -1,35 +1,79 @@
-# this is the hook file written in Muro (.mr)
+-- dmgr
+
+cmd link -> <relstring> || <relstring[]>
+
+cmd run -> <cmd>
+
+cmd _exists <string>file -> <boolean>!!`whereis $file`
+
+type relstring = <string> :to <string>
+
+alias @plan      = "" :to ""
+alias @project   = "" :to ""
+alias @tmux.conf = "" :to ""
+alias @vim       = "" :to ""
+alias @zsh.d     = "" :to ""
+alias @gitconfig = "" :to ""
+alias @gitignore = "" :to ""
+
+let <boolean>zsh     = _exists ""
+let <boolean>vim     = _exists ""
+let <boolean>git     = _exists ""
+let <boolean>dmgr    = _exists ""
+let <boolean>dispose = _exists ""
+let <boolean>empty   = _exists ""
+let <boolean>lnfind  = _exists ""
+let <boolean>todo    = _exists ""
+let <boolean>*emacs  = _exists ""
+let <boolean>*tmux   = _exists ""
+let <boolean>*finger = _exists ""
+
+-- dmgr.config :name <string>
+
+- profile
+  { author: <string>, version: <string> }
+
+- requirements
+  <string[]>?
+
+- use
+  <string[]>?
+
+- install
+  <cmd...>
+
+- info :(before || after) install
+  <string>? || <string[]>?
 
 -- dmgr.config :name system
 
 - profile
-  author: "TADOKORO Saneyuki <saneyan@mail.gfunction.com>"
-  version: 0.1.0
+  { author: "TADOKORO Saneyuki <saneyan@gfunction.com>"
+    version: 0.1.0 }
 
-- requirements
-  zsh, vim, git, *emacs, *tmux, *finger
+- requirements; [ zsh, vim, git, *emacs, *tmux, *finger ]
 
-- use
-  dmgr, dispose, empty, lnfind, todo
+- use; [ dmgr, dispose, empty, lnfind, todo ]
 
 - install
-  link :if finger => @plan, @project
+  link :if finger -> [ @plan, @project ]
+  link :if emacs  -> @emacs.d
+  link :if nvim   -> "~/.vim/nvimrc" :to "~/.nvimrc"
+  link :if tmux   -> @tmux.conf
 
-  link :if emacs => @emacs
+  link ->
+    [ @vim, @zsh.d, @gitconfig, @gitignore,
+      "~/.vim/vimrc" :to "~/.vimrc",
+      "~/.zsh.d/.zshenv" :to "~/.zshenv" ]
 
-  link :if nvim => "~/.vim/nvimrc" :to "~/.nvimrc"
-
-  link :if tmux => @tmux.conf
-
-  link =>
-    @vim, @zsh.d, @gitconfig, @gitignore,
-    "~/.vim/vimrc" :to "~/.vimrc",
-    "~/.zsh.d/.zshenv" :to "~/.zshenv"
-
-  run =>
-    `mkdir -pv $HOME/.vim/bundle`,
-    `git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim`
+  run ->
+    ```
+    mkdir -pv $HOME/.vim/bundle
+    git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
+    ```
 
 - info :after install
-  "* Startup or restart ZSH now.",
-  "* Don't forget to set your SSH keys and config."
+  """
+  * Startup or restart ZSH now.
+  * Don't forget to set your SSH keys and config.
+  """
