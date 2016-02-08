@@ -32,7 +32,7 @@ myMSMask  = myModMask .|. shiftMask
 
 -- Additional keys --
 myAdditionalKeys =
-  [ ((myModMask, xK_g)         , goToSelected defaultGSConfig)
+  [ ((myModMask, xK_g)         , goToSelected def)
   , ((myModMask, xK_b)         , spawn myWebBrowser)
   , ((myModMask, xK_s)         , spawn myOnlineStrage)
   , ((myModMask, xK_a)         , spawn myEditor)

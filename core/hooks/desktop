@@ -4,9 +4,13 @@ VERSION "0.1.0"
 DEPENDENCIES xorg
 
 [enable]
+USE line,ms-word,ms-excel,ms-powerpoint,ms-onenote
+
 LINK @vimperatorrc
 
 [disable]
+UNUSE line,ms-word,ms-excel,ms-powerpoint,ms-onenote
+
 UNLINK @vimperatorrc
 
 [update]
