@@ -1,16 +1,6 @@
 #!/bin/sh
 
 #
-# Check system
-#
-for cmd in git zsh; do
-  if ! which $cmd &>/dev/null; then
-    echo "Before seting up dmgr, you must install ${cmd}."
-    exit 1
-  fi
-done
-
-#
 # Common setup
 #
 export DMGR_SETUP_DIRNAME=$(cd $(dirname $0) && pwd)

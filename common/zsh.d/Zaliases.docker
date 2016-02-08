@@ -1,0 +1,14 @@
+# Docker
+alias ds="docker start"
+alias dp="docker stop"
+alias drr="docker run -it --rm"
+alias drd="docker run -it -d"
+alias dl="docker ps"
+
+function de() {
+  docker exec -it $1 sh
+}
+
+function db() {
+  docker build -t $1 .
+}
