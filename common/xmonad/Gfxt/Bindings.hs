@@ -36,6 +36,7 @@ myAdditionalKeys =
   , ((myModMask, xK_b)         , spawn myWebBrowser)
   , ((myModMask, xK_s)         , spawn myOnlineStrage)
   , ((myModMask, xK_a)         , spawn myEditor)
+  , ((myModMask, xK_p)         , spawn myMenu)
   , ((myModMask, xK_backslash) , spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
   , ((myModMask, xK_F1)        , pasteString $ email "private")
   , ((myModMask, xK_F2)        , pasteString $ email "service")

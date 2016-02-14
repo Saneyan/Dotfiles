@@ -13,7 +13,7 @@ xautolock -time 10 -locker slimlock &
 unclutter -idle 1s &
 
 # Launch nm-applet
-nm-applet &
+[ dmgr has "xfce4" ] && nm-applet &
 
 # Set desktop background
 [ -e ~/Pictures/bg.png ] && feh --bg-scale ~/Pictures/bg.png

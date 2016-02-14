@@ -1,6 +1,6 @@
 -- dmgr
 
-cmd link -> <relstring> || <relstring[]>
+cmd link -> <relstring> | <relstring[]>
 
 cmd run -> <cmd>
 
@@ -43,7 +43,7 @@ let <boolean>*finger = _exists ""
   <cmd...>
 
 - info :(before || after) install
-  <string>? || <string[]>?
+  <string>? | <string[]>?
 
 -- dmgr.config :name system
 
