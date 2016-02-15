@@ -40,12 +40,14 @@ URxvt*foreground:             #eaeaea
 URxvt*cursorColor:            #586e75
 URxvt*pointerColorBackground: #93a1a1
 URxvt*pointerColorForeground: #586e75
+URxvt*internalBorder: 10
 
 !!
 !! Fonts
 !!
-URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=13:antialias=true,
-            xft:IPAPGothic:pxelsize=13:antialias=true
+URxvt.font: xft:Migu 1M:pixelsize=14:antialias=true,Siji:pixelsize=14:antialias=true
+!!URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=13:antialias=true,
+!!            xft:IPAPGothic:pxelsize=13:antialias=true
 !!URxvt.font: xft:Inconsolata:pixelsize=14:antialias=true,
 !!            xft:Ubuntu-R:pixelsize=14:antialias=true
 
@@ -68,7 +70,7 @@ URxvt*scrollBar: false
 !!
 !! For native transparency
 !URxvt*transparent: true
-URxvt*shading: 20
+URxvt*shading: 10
 
 !! For true transparency
 URxvt.depth: 32

@@ -1,8 +1,11 @@
 Config {
-  font = "xft:IPAPGothic:bold:size=8:antialias=true"
+  --font = "xft:IPAPGothic:size=8:antialias=true"
+  font = "xft:M+ 1p:size=9:bold:antialias=true"
 , bgColor = "black"
-, fgColor = "grey"
-, position = TopW L 100
+, fgColor = "gray"
+, alpha = 160
+, lowerOnStart = False
+, position = TopSize L 100 25
 , commands = [
     Run Battery        [ "--template" , "<acstatus>"
                              , "--Low"      , "10"        -- units: %
@@ -17,20 +20,17 @@ Config {
                                        -- AC "on" status
                                        , "-O" , "<fc=#dAA520>Charging</fc>"
                                        -- charged status
-                                       , "-i" , "<fc=#006000>Charged</fc>"
+                                       , "-i" , "<fc=#34A853>Charged</fc>"
                              ] 50
-  , Run Network "enp0s25" ["-t", "<icon=.xmonad/icons/net.xbm/> <rx>KB | <tx>KB", "-L", "0", "-H", "32", "--normal", "green", "--high", "red"] 10
-  , Run Network "wlp3s0" ["-t", "<icon=.xmonad/icons/net.xbm/> <rx>KB | <tx>KB", "-L", "0", "-H", "32", "--normal", "green", "--high", "red"] 10
-  , Run Cpu ["-t", "<icon=.xmonad/icons/cpu.xbm/> <total>%", "-L", "3", "-H", "30", "--normal", "green", "--high", "red"] 10
+  , Run Network "enp0s25" ["-t", "<icon=.xmonad/icons/net.xbm/> <rx>KB | <tx>KB", "-L", "0", "-H", "32", "--normal", "#34A853", "--high", "#EA4335"] 10
+  , Run Network "wlp3s0" ["-t", "<icon=.xmonad/icons/net.xbm/> <rx>KB | <tx>KB", "-L", "0", "-H", "32", "--normal", "#34A853", "--high", "#EA4335"] 10
+  , Run Cpu ["-t", "<icon=.xmonad/icons/cpu.xbm/> <total>%", "-L", "3", "-H", "30", "--normal", "#34A853", "--high", "#EA4335"] 10
   , Run Memory ["-t", "<icon=.xmonad/icons/mem.xbm/> <usedratio>%"] 10
   , Run Swap ["-t", "<icon=.xmonad/icons/swap.xbm/> <usedratio>%"] 10
   , Run Date "%Y/%m/%d %a %k:%M" "date" 10
   , Run DiskIO [("sda2", "<icon=.xmonad/icons/disk.xbm/> <total>")] [] 10
   , Run StdinReader
-  , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
-                             , ("us"         , "<fc=#8B0000>US</fc>")
-                             ]
   ]
 , sepChar = "%"
 , alignSep = "}{"
-, template = "%StdinReader% }{ %kbd%  %battery% %cpu% %memory%    %swap%   %diskio%   %enp0s25%   %wlp3s0% : <fc=#a0bc61>%date%</fc> " }
+, template = "   g() %StdinReader% }{ %cpu%  %memory%  %swap%  %diskio%  %enp0s25%  %wlp3s0%  %battery% : %date%  " }

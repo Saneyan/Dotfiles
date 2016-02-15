@@ -1,22 +1,30 @@
 module Gfxt.Hooks where
 
 import XMonad
-import XMonad.Config.Xfce
+import XMonad.Config
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.DragPane
+import XMonad.Layout.Spacing
+import XMonad.Layout.ResizableTile
 import XMonad.Actions.SpawnOn (spawnOn, manageSpawn)
 import XMonad.Util.Run
 import Gfxt.Workspace
 import Gfxt.Aliases
 
 -- Layout hook --
-myLayoutHook = avoidStruts $ layoutHook xfceConfig
+myLayoutHook = avoidStruts $ myLayout
+
+myLayout = (spacing 16 $ ResizableTall 1 (3/100) (3/5) [])
+  ||| (spacing 2 $ (dragPane Horizontal (1/10) (1/2)))
+  ||| (dragPane Vertical    (1/10) (1/2))
 
 -- Manage hook --
 myManageHook = composeAll
   [ className =? "XTerm"          --> doShift (myWorkspaces!!0)
-  , className =? "URxvt"          --> doShift (myWorkspaces!!0)
+  , className =? "URxvt"          --> doCenterFloat
   , className =? "Firefox"        --> doShift (myWorkspaces!!1)
   , className =? "Chromium"       --> doShift (myWorkspaces!!1)
   , className =? "Google Chrome"  --> doShift (myWorkspaces!!1)
@@ -36,12 +44,27 @@ myManageHook = composeAll
   , className =? "Skype"          --> doShift (myWorkspaces!!12)
   , manageSpawn
   , manageDocks
-  , manageHook xfceConfig ]
+  , manageHook def ]
+
+colorBlue      = "#857da9"
+colorGreen     = "#34A853"
+colorGray      = "#676767"
+colorWhite     = "#d3d7cf"
+colorGrayAlt   = "#313131"
+colorNormalbg  = "#1a1e1b"
 
   -- Log hook --
-myLogHook h = logHook xfceConfig <+> dynamicLogWithPP xmobarPP
-  { ppOutput = hPutStrLn h
-  , ppTitle = xmobarColor "#a0bc61" "" . shorten 60 }
+myLogHook h = logHook def <+> dynamicLogWithPP xmobarPP
+  { ppOutput          = hPutStrLn h
+  , ppCurrent         = xmobarColor colorGreen colorNormalbg
+  , ppUrgent          = xmobarColor colorWhite colorNormalbg
+  , ppVisible         = xmobarColor colorWhite colorNormalbg
+  , ppHidden          = xmobarColor colorWhite colorNormalbg
+  , ppHiddenNoWindows = xmobarColor colorGray colorNormalbg
+  , ppOrder           = \(ws:l:t:_) -> [ws,t]
+  , ppWsSep           = ""
+  , ppSep             = " : "
+  , ppTitle           = xmobarColor colorGreen "" . shorten 30 }
 
 -- Startup hook --
 myStartupHook :: X ()
@@ -51,6 +74,5 @@ myStartupHook = do
   spawnOn (myWorkspaces!!1) myWebBrowser
   spawnOn (myWorkspaces!!2) myMailer
   spawnOn (myWorkspaces!!9) mySlack
-  spawnOn (myWorkspaces!!10) myGitter
   spawnOn (myWorkspaces!!11) myLine
-  spawnOn (myWorkspaces!!12) mySkype
+  --spawnOn (myWorkspaces!!12) mySkype

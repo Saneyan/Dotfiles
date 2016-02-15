@@ -41,8 +41,6 @@ myAdditionalKeys =
   , ((myModMask, xK_F1)        , pasteString $ email "private")
   , ((myModMask, xK_F2)        , pasteString $ email "service")
   , ((myModMask, xK_F3)        , pasteString $ email "public")
-  , ((myMSMask, xK_n)          , nextWS)
-  , ((myMSMask, xK_p)          , prevWS)
   , ((myMSMask, xK_l)          , spawn myLock)
   , ((myMSMask, xK_Return)     , spawn myTerm) ]
   @+ (myModMask, masterWSGroup)

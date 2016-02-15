@@ -8,7 +8,8 @@ urxvtd --quiet --opendisplay --fork
 xsetroot -cursor_name left_ptr
 
 # Apply X settings
-#xcompmgr -c &
+#cairo-compmgr &
+xcompmgr -c -r10 -F -f -D2 -C -o0.8 &
 xautolock -time 10 -locker slimlock &
 unclutter -idle 1s &
 
@@ -17,6 +18,7 @@ unclutter -idle 1s &
 
 # Set desktop background
 [ -e ~/Pictures/bg.png ] && feh --bg-scale ~/Pictures/bg.png
+[ -e ~/Pictures/bg.jpg ] && feh --bg-scale ~/Pictures/bg.jpg
 
 xorg_begin_session()
 {
