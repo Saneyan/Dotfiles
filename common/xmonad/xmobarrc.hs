@@ -12,7 +12,7 @@ Config {
                              , "--High"     , "80"        -- units: %
                              , "--low"      , "darkred"
                              , "--normal"   , "darkorange"
-                             , "--high"     , "darkgreen"
+                             , "--high"     , "#34A853"
 
                              , "--" -- battery specific options
                                        -- discharging status
