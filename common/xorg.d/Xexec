@@ -17,8 +17,7 @@ unclutter -idle 1s &
 [ dmgr has "xfce4" ] && nm-applet &
 
 # Set desktop background
-[ -e ~/Pictures/bg.png ] && feh --bg-scale ~/Pictures/bg.png
-[ -e ~/Pictures/bg.jpg ] && feh --bg-scale ~/Pictures/bg.jpg
+~/bin/update-bg
 
 xorg_begin_session()
 {
