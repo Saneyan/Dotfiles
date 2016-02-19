@@ -1,5 +1,5 @@
 # Start ibus daemon which supports xterm
-ibus-daemon --daemonize --xim
+ibus-daemon --daemonize --xim --replace
 
 # Start urxvt server
 urxvtd --quiet --opendisplay --fork
@@ -24,6 +24,6 @@ xorg_begin_session()
   if dmgr has "xfce4"; then
     exec dbus-launch startxfce4
   elif dmgr has "xmonad"; then
-    exec xmonad
+    exec dbus-launch xmonad
   fi
 }
