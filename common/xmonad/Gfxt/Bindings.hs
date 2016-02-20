@@ -34,7 +34,6 @@ myMSMask  = myModMask .|. shiftMask
 myAdditionalKeys =
   [ ((myModMask, xK_g)         , goToSelected def)
   , ((myModMask, xK_b)         , spawn myWebBrowser)
-  , ((myModMask, xK_s)         , spawn myOnlineStrage)
   , ((myModMask, xK_a)         , spawn myEditor)
   , ((myModMask, xK_p)         , spawn myMenu)
   , ((myModMask, xK_backslash) , spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
