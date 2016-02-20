@@ -4,7 +4,7 @@
 #
 # @rev    G-0.2.2
 # @update 2014-08-18
-# @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
+# @author Saneyuki Tadokoro <saneyan@saneyan.gfunction.com>
 
 #
 # General settings

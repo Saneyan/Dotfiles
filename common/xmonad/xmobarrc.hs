@@ -1,5 +1,4 @@
 Config {
-  --font = "xft:IPAPGothic:size=8:antialias=true"
   font = "xft:M+ 1p:size=9:bold:antialias=true"
 , bgColor = "black"
 , fgColor = "gray"

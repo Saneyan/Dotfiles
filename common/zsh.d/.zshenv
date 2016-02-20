@@ -4,7 +4,7 @@
 #
 # @rev    G-0.1.1
 # @update 2014-08-19
-# @author TADOKORO Saneyuki <saneyan@mail.gfunction.com>
+# @author TADOKORO Saneyuki <saneyan@gfunction.com>
 
 #
 # Common environments

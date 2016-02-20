@@ -3,7 +3,7 @@
  -
  - @rev     G-0.1.2
  - @update  2014-3-3
- - @author  Saneyuki Tadokoro <saneyan@mail.gfunction.com>
+ - @author  Saneyuki Tadokoro <saneyan@gfunction.com>
  -}
 
 module Main where
