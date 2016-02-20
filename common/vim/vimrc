@@ -3,7 +3,7 @@
 "
 " @rev    G-0.6.0
 " @update 2014-7-9
-" @author Saneyuki Tadokoro <saneyan@mail.gfunction.com>
+" @author Saneyuki Tadokoro <saneyan@gfunction.com>
 "
 " Key bindings (Leader key is commma):
 " [Normal mode]
@@ -25,31 +25,31 @@
 "
 
 " Local functions
-source $HOME/.vim/vimrc.functions
+source $HOME/.vim/functions.vim
 
 " General settings
-source $HOME/.vim/vimrc.general
+source $HOME/.vim/general.vim
 
 " Key mapping
-source $HOME/.vim/vimrc.mapping
+source $HOME/.vim/mapping.vim
 
 " Tab type
-source $HOME/.vim/vimrc.tab-type
+source $HOME/.vim/tab-type.vim
 
 " Cursor settings
-source $HOME/.vim/vimrc.color
+source $HOME/.vim/color.vim
 
 " NERDTree settings
-source $HOME/.vim/vimrc.nerdtree
+source $HOME/.vim/nerdtree.vim
 
 " vim-indent-guides
-source $HOME/.vim/vimrc.vim-indent-guides
+source $HOME/.vim/vim-indent-guides.vim
 
 " NeoComplcache settings
-source $HOME/.vim/vimrc.neocomplcache
+source $HOME/.vim/neocomplcache.vim
 
 " NeoBundle settings
-source $HOME/.vim/vimrc.neobundle
+source $HOME/.vim/neobundle.vim
 
 "" Let vim identify depending on a file type
 filetype plugin indent on

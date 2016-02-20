@@ -7,8 +7,8 @@ common/xmonad/Gfxt/*
 common/.gitignore
 common/vim/*
 !common/vim/gvimrc
-!common/vim/nvimrc
-!common/vim/vimrc*
+!common/vim/vimrc
+!common/vim/*.vim
 common/emacs.d/*
 !common/emacs.d/init.el
 core/conf/paths/_repo
