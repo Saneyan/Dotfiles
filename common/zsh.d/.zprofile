@@ -30,5 +30,10 @@ path=(
   ~/bin(N-/)
   ~/.local/bin(N-/)
   ~/wuala(N-/)
-  $(ruby -e "print Gem.user_dir")/bin(N-/)
   $path)
+
+if command -v given-command > /dev/null 2>&1; then
+  path=(
+    $(ruby -e "print Gem.user_dir")/bin(N-/)
+    $path)
+fi

@@ -40,7 +40,7 @@ myManageHook = composeAll
   , title     =? "Onenote Online" --> doShift (myWorkspaces!!8)
   , className =? "Slack"          --> doShift (myWorkspaces!!9)
   , title     =? "Gitter"         --> doShift (myWorkspaces!!10)
-  , appName   =? "line"           --> doShift (myWorkspaces!!11)
+  , title     =? "LINE"           --> doShift (myWorkspaces!!11)
   , className =? "Skype"          --> doShift (myWorkspaces!!12)
   , manageSpawn
   , manageDocks
