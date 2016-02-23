@@ -19,6 +19,7 @@ LINK @emacs.d
 # Vim
 LINK @vim
 LINK ~/.vim/vimrc ~/.vimrc
+RUN mkdir -pv $HOME/.config
 LINK ~/.vim ~/.config/nvim
 LINK ~/.vimrc ~/.config/nvim/init.vim
 RUN mkdir -pv $HOME/.vim/bundle
