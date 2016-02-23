@@ -2,6 +2,8 @@
 
 **dmgr-based extensible dotfiles.**
 
+![envimg](/envimg.png)
+
 ## Installation
 
 ### Requirements
