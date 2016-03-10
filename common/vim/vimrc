@@ -24,6 +24,8 @@
 " [Insert mode]
 "
 
+" for neovim and legacy vim
+
 " Local functions
 source $HOME/.vim/functions.vim
 
@@ -45,11 +47,21 @@ source $HOME/.vim/nerdtree.vim
 " vim-indent-guides
 source $HOME/.vim/vim-indent-guides.vim
 
+" Dein settings
+source $HOME/.vim/dein.vim
+
+"for neovim
+if has('nvim')
+
+" Deocomplete settings
+source $HOME/.vim/deocomplete.vim
+
+" for legacy vim
+else
+
 " NeoComplcache settings
 source $HOME/.vim/neocomplcache.vim
-
-" NeoBundle settings
-source $HOME/.vim/neobundle.vim
+endif
 
 "" Let vim identify depending on a file type
 filetype plugin indent on

@@ -8,8 +8,6 @@ urxvtd --quiet --opendisplay --fork
 xsetroot -cursor_name left_ptr
 
 # Apply X settings
-#cairo-compmgr &
-xcompmgr -c -r10 -F -f -D2 -C -o0.8 &
 xautolock -time 10 -locker slimlock &
 unclutter -idle 1s &
 

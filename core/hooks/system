@@ -23,7 +23,7 @@ RUN mkdir -pv $HOME/.config
 LINK ~/.vim ~/.config/nvim
 LINK ~/.vimrc ~/.config/nvim/init.vim
 RUN mkdir -pv $HOME/.vim/bundle
-RUN git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
+RUN curl -L https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh $HOME/.vim/bundle/dein.vim
 
 # ZSH
 LINK @zsh.d

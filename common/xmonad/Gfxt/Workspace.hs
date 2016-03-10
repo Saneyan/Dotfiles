@@ -10,7 +10,7 @@ masterWSGroup :: [WorkspaceId]
 masterWSGroup = appendIcon ["term", "browser", "mailer", "psmgr", "idea", "paint", "player", "strage", "office"]
 
 slaveWSGroup :: [WorkspaceId]
-slaveWSGroup = appendIcon ["slack", "gitter", "line", "skype"]
+slaveWSGroup = appendIcon ["slack"]
 
 myWorkspaces :: [WorkspaceId]
 myWorkspaces = masterWSGroup ++ slaveWSGroup

@@ -5,15 +5,11 @@ module Gfxt.Aliases where
  -}
 
 -- Default application --
-myTerm            = "urxvt -e tmux"
-myEditor          = "urxvt -e vim"
+myTerm            = "urxvt -e vim"
 myWebBrowser      = "firefox"
 myMailer          = "thunderbird"
 -- Use wuala client software in user directory
 myPasswordManager = "keepassx"
-mySkype           = "skype"
-myLine            = "line"
-myGitter          = "gitter"
 mySlack           = "slack"
 myLock            = "slimlock"
 myIdea            = "idea"

@@ -9,6 +9,22 @@ function! AddRuntimePath(path)
 endfunction
 
 ""
+" Load dein plugins
+" @param array conf
+"
+function! AddPlugins(conf)
+  call dein#begin(expand('~/.cache/dein'))
+  for l:val in a:conf
+    if type(l:val) == type([])
+      call dein#add(l:val[0], l:val[1])
+    else
+      call dein#add(l:val)
+    endif
+  endfor
+  call dein#end()
+endfunction
+
+""
 " Load and fetch plugins for NeoBundle
 " @param array conf
 "

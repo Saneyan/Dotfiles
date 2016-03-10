@@ -39,9 +39,6 @@ myManageHook = composeAll
   , title     =? "PowerPoint Online" --> doShift (myWorkspaces!!8)
   , title     =? "Onenote Online" --> doShift (myWorkspaces!!8)
   , className =? "Slack"          --> doShift (myWorkspaces!!9)
-  , title     =? "Gitter"         --> doShift (myWorkspaces!!10)
-  , title     =? "LINE"           --> doShift (myWorkspaces!!11)
-  , className =? "Skype"          --> doShift (myWorkspaces!!12)
   , manageSpawn
   , manageDocks
   , manageHook def ]
@@ -74,5 +71,3 @@ myStartupHook = do
   spawnOn (myWorkspaces!!1) myWebBrowser
   spawnOn (myWorkspaces!!2) myMailer
   spawnOn (myWorkspaces!!9) mySlack
-  spawnOn (myWorkspaces!!11) myLine
-  --spawnOn (myWorkspaces!!12) mySkype
