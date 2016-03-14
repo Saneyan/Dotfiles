@@ -41,33 +41,30 @@ source $HOME/.vim/tab-type.vim
 " Cursor settings
 source $HOME/.vim/color.vim
 
+" Dein settings
+source $HOME/.vim/dein.vim
+
+"" Let vim identify depending on a file type
+filetype plugin indent on
+
 " NERDTree settings
 source $HOME/.vim/nerdtree.vim
 
 " vim-indent-guides
 source $HOME/.vim/vim-indent-guides.vim
 
-" Dein settings
-source $HOME/.vim/dein.vim
-
 "for neovim
 if has('nvim')
 
-" Deocomplete settings
-source $HOME/.vim/deocomplete.vim
+  " Deoplete settings
+  source $HOME/.vim/deoplete.vim
 
 " for legacy vim
 else
 
-" NeoComplcache settings
-source $HOME/.vim/neocomplcache.vim
+  " NeoComplcache settings
+  source $HOME/.vim/neocomplcache.vim
 endif
-
-"" Let vim identify depending on a file type
-filetype plugin indent on
-
-"" Installation check
-NeoBundleCheck
 
 " Load local settings
 if filereadable('local_setting.vim')

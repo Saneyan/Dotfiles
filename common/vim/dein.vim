@@ -2,10 +2,10 @@ if &compatible
   set nocompatible
 endif
 
-call AddRuntimePath('~/.vim/bundle/dein.vim/')
+call AddRuntimePath('~/.vim/bundle/dein.vim')
 
 call AddPlugins([
-  \ 'Shougo/dein.vim'
+  \ 'Shougo/dein.vim',
   \ 'scrooloose/nerdtree',
   \ 'osyo-manga/vim-over',
   \ 'nathanaelkane/vim-indent-guides',
@@ -16,8 +16,8 @@ call AddPlugins([
 
 if has('nvim')
   call AddPlugins([
-    \ 'Shougo/deoplete'
-    \])
+   \ 'Shougo/deoplete.nvim'
+   \])
 else
   call AddPlugins([
     \ 'Shougo/neocomplcache'
@@ -29,4 +29,9 @@ if system('$HOME/bin/dmgr has "powerline" && echo -n "powerline"') == "powerline
   \ 'alpaca-tc/alpaca_powertabline',
   \ ['Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}]
   \])
+endif
+
+"" Installation check
+if dein#check_install()
+  call dein#install()
 endif
