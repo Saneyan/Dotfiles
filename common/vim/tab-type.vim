@@ -1,3 +1,9 @@
+"" Tab stops
+let g:current_tab_stops = 2
+let g:current_tab_type = 'soft'
+execute 'set shiftwidth=' .g:current_tab_stops
+execute 'set tabstop=' .g:current_tab_stops
+
 ""
 " Convert to no expand tab and retab specific tabstops.
 " @param number tabstops

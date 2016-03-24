@@ -5,7 +5,7 @@ module Gfxt.Aliases where
  -}
 
 -- Default application --
-myTerm            = "urxvt -e vim"
+myTerm            = "urxvt -e vim -c 'call TerminalMode()'"
 myWebBrowser      = "firefox"
 myMailer          = "thunderbird"
 -- Use wuala client software in user directory

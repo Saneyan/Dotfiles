@@ -1,8 +1,20 @@
-if &compatible
-  set nocompatible
-endif
+""
+" Load dein plugins
+" @param array conf
+"
+function! AddPlugins(conf)
+  call dein#begin(expand('~/.cache/dein'))
+  for l:val in a:conf
+    if type(l:val) == type([])
+      call dein#add(l:val[0], l:val[1])
+    else
+      call dein#add(l:val)
+    endif
+  endfor
+  call dein#end()
+endfunction
 
-call AddRuntimePath('~/.vim/bundle/dein.vim')
+call AddRuntimePath('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
 call AddPlugins([
   \ 'Shougo/dein.vim',
@@ -15,9 +27,9 @@ call AddPlugins([
   \])
 
 if has('nvim')
-  call AddPlugins([
-   \ 'Shougo/deoplete.nvim'
-   \])
+  "call AddPlugins([
+  " \ 'Shougo/deoplete.nvim'
+  " \])
 else
   call AddPlugins([
     \ 'Shougo/neocomplcache'
@@ -35,3 +47,6 @@ endif
 if dein#check_install()
   call dein#install()
 endif
+
+"" Let vim identify depending on a file type
+filetype plugin indent on

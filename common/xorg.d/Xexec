@@ -9,7 +9,7 @@ xsetroot -cursor_name left_ptr
 
 # Apply X settings
 xautolock -time 10 -locker slimlock &
-unclutter -idle 1s &
+mirrorld
 
 # Launch nm-applet
 [ dmgr has "xfce4" ] && nm-applet &

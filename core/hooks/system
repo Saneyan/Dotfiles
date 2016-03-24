@@ -4,7 +4,7 @@ VERSION "0.1.0"
 REQUIREMENTS zsh,vim,git,*emacs,*tmux,*finger
 
 [enable]
-USE dmgr,dispose,empty,lnfind,todo,jr
+USE dmgr,dispose,empty,lnfind,todo,jr,ide,term
 
 RUN touch $DMGR_INUSE
 RUN touch $DMGR_PLUGIN
@@ -46,7 +46,7 @@ fi
 ECHO " * Don't forget to set your SSH keys and config."
 
 [disable]
-UNUSE dmgr,dispose,empty,lnfind,todo,jr
+UNUSE dmgr,dispose,empty,lnfind,todo,jr,ide,term
 
 # Finger
 UNLINK @plan

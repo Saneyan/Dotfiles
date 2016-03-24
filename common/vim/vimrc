@@ -44,14 +44,17 @@ source $HOME/.vim/color.vim
 " Dein settings
 source $HOME/.vim/dein.vim
 
-"" Let vim identify depending on a file type
-filetype plugin indent on
-
 " NERDTree settings
 source $HOME/.vim/nerdtree.vim
 
 " vim-indent-guides
 source $HOME/.vim/vim-indent-guides.vim
+
+" Terminal mode settings
+source $HOME/.vim/terminal.vim
+
+" IDE mode settings
+source $HOME/.vim/ide.vim
 
 "for neovim
 if has('nvim')
