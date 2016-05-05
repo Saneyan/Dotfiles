@@ -1,3 +1,6 @@
+"" These key mappings are for default settings.
+"" They're redefinable in another config files.
+
 "" Save command
 nnoremap <silent> <Leader>o :w<CR>
 

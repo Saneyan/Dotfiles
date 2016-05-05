@@ -1,5 +1,10 @@
 function! TerminalMode()
+  "" NERDTree should be closed
   NERDTreeClose
-  nnoremap <silent> <Leader>to :tabnew term://$SHELL <bar> startinsert<CR>
+
+  "" Redefine key mappings
+  nnoremap <silent> <Leader>to :tabnew <BAR> :startinsert<CR>
+
+  "" Startup first terminal
   terminal
 endfunction
